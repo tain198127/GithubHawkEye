@@ -50,13 +50,13 @@ def printRepository(repository):
 
 
 # 获取前3万赞的java项目的数量分布
-def getJavaRepoStartRangeFreq(language):
+def getRepoStartRangeFreq(language):
 
     g = Github("tain198127@163.com", "bd198127")
-    repositories = g.search_repositories("stars:>=30000 language:{}".format(language), "stars", "desc")
+    repositories = g.search_repositories("stars:>=800000 language:{}".format(language), "stars", "desc")
     for repo in repositories:
         logger.info("stargazers_count is {}".format(repo.stargazers_count))
-    for i in reversed(range(2, 31)):
+    for i in reversed(range(50, 55)):
         filterStr = "stars:{}..{} language:{}".format((i - 1) * 1000 + 1, i * 1000, language)
         time.sleep(1)
         repositories = g.search_repositories(filterStr, "stars", "desc")
@@ -66,4 +66,9 @@ def getJavaRepoStartRangeFreq(language):
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
 
-getJavaRepoStartRangeFreq("python")
+# getJavaRepoStartRangeFreq("python")
+getRepoStartRangeFreq("JavaScript")
+
+# g = Github("tain198127@163.com", "bd198127")
+# lessrepo = g.search_repositories("stars:1..1000 language:php", "stars", "desc")
+# logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
