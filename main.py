@@ -1,5 +1,32 @@
 # coding: utf-8
+import logging
+import os.path
+import time
+
 from github import Github
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)  # Log等级总开关
+rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
+log_path = os.path.dirname(os.path.realpath(__file__)) + '/log/'
+log_name = log_path + rq + '.log'
+logfile = log_name
+fh = logging.FileHandler(logfile, mode='w')
+fh.setLevel(logging.INFO)  # 输出到file的log等级的开关
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)  # 输出到console的log等级的开关
+# 第三步，定义handler的输出格式
+# formatter = logging.Formatter("%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s")
+formatter = logging.Formatter("%(message)s")
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+
+# 第四步，将logger添加到handler里面
+logger.addHandler(ch)
+logger.addHandler(fh)
+# 日志
+logger.debug('this is a logger debug message')
 
 
 # 思路如下：
@@ -22,14 +49,29 @@ def printRepository(repository):
     print("=========================================================")
 
 
-def getStart100000Repo():
+# 获取前3万赞的项目的数量分布
+def getStart100000RepoRange():
     g = Github("tain198127@163.com", "bd198127")
-    repositories = g.search_repositories("stars:>10000 language:java", "stars", "desc")
-    print("count is :", repositories.totalCount)
-    for repository in repositories:
-        printRepository(repository)
+    repositories = g.search_repositories("stars:>30000 language:java", "stars", "desc")
+    for repo in repositories:
+        logger.info("stargazers_count is {}".format(repo.stargazers_count))
+    logger.info("100000,30000,{}", repositories.totalCount)
+    for i in reversed(range(2, 31)):
+        filterStr = "stars:{}..{} language:java".format((i - 1) * 1000 + 1, i * 1000)
+        time.sleep(1)
+        repositories = g.search_repositories(filterStr, "stars", "desc")
+        logger.info("{},{},{}".format((i - 1) * 1000 + 1, i * 1000, repositories.totalCount))
+    time.sleep(1)
+    lessrepo = g.search_repositories("stars:1..1000 language:java", "stars", "desc")
+    logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
+    #
+    # for repository in repositories:
+    #     printRepository(repository)
     # for contributor in repository.get_contributors():
     #     print(contributor)
 
 
-getStart100000Repo()
+getStart100000RepoRange()
+# g = Github("tain198127@163.com", "bd198127")
+# repositories = g.search_repositories("stars:30000..31000 language:java", "stars", "desc")
+# logger.info("{},{},{}".format(1, 1000, repositories.totalCount))
