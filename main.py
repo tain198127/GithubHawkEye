@@ -49,29 +49,21 @@ def printRepository(repository):
     print("=========================================================")
 
 
-# 获取前3万赞的项目的数量分布
-def getStart100000RepoRange():
+# 获取前3万赞的java项目的数量分布
+def getJavaRepoStartRangeFreq(language):
+
     g = Github("tain198127@163.com", "bd198127")
-    repositories = g.search_repositories("stars:>30000 language:java", "stars", "desc")
+    repositories = g.search_repositories("stars:>=30000 language:{}".format(language), "stars", "desc")
     for repo in repositories:
         logger.info("stargazers_count is {}".format(repo.stargazers_count))
-    logger.info("100000,30000,{}", repositories.totalCount)
     for i in reversed(range(2, 31)):
-        filterStr = "stars:{}..{} language:java".format((i - 1) * 1000 + 1, i * 1000)
+        filterStr = "stars:{}..{} language:{}".format((i - 1) * 1000 + 1, i * 1000, language)
         time.sleep(1)
         repositories = g.search_repositories(filterStr, "stars", "desc")
         logger.info("{},{},{}".format((i - 1) * 1000 + 1, i * 1000, repositories.totalCount))
     time.sleep(1)
-    lessrepo = g.search_repositories("stars:1..1000 language:java", "stars", "desc")
+    lessrepo = g.search_repositories("stars:1..1000 language:{}".format(language), "stars", "desc")
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
-    #
-    # for repository in repositories:
-    #     printRepository(repository)
-    # for contributor in repository.get_contributors():
-    #     print(contributor)
 
 
-getStart100000RepoRange()
-# g = Github("tain198127@163.com", "bd198127")
-# repositories = g.search_repositories("stars:30000..31000 language:java", "stars", "desc")
-# logger.info("{},{},{}".format(1, 1000, repositories.totalCount))
+getJavaRepoStartRangeFreq("python")
