@@ -53,7 +53,7 @@ def printRepository(repository):
 
 # 获取前3万赞的java项目的数量分布
 def getRepoStartRangeFreq(language):
-    g = Github("48181c9b3ca2abfd3c4d48602486a3a8f4aadf57")
+    g = Github("36827d66490ddbbd09ba07b25fb32144132709e2")
     repositories = g.search_repositories("stars:>=800000 language:{}".format(language), "stars", "desc")
     for repo in repositories:
         logger.info("stargazers_count is {}".format(repo.stargazers_count))
@@ -69,7 +69,7 @@ def getRepoStartRangeFreq(language):
 
 # 获取1000以内的赞的分布
 def getRepoStartLess1000RangeFreq(language):
-    g = Github("48181c9b3ca2abfd3c4d48602486a3a8f4aadf57")
+    g = Github("36827d66490ddbbd09ba07b25fb32144132709e2")
     for i in reversed(range(1, 101)):
         filterStr = "stars:{}..{} language:{}".format((i - 1) * 10 + 1, i * 10, language)
         time.sleep(2)
