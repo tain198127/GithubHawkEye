@@ -5,6 +5,8 @@ import time
 
 from github import Github
 
+# db=MySQLDatabase()
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)  # Log等级总开关
 rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
@@ -51,8 +53,7 @@ def printRepository(repository):
 
 # 获取前3万赞的java项目的数量分布
 def getRepoStartRangeFreq(language):
-
-    g = Github("tain198127@163.com", "bd198127")
+    g = Github("48181c9b3ca2abfd3c4d48602486a3a8f4aadf57")
     repositories = g.search_repositories("stars:>=800000 language:{}".format(language), "stars", "desc")
     for repo in repositories:
         logger.info("stargazers_count is {}".format(repo.stargazers_count))
@@ -66,9 +67,20 @@ def getRepoStartRangeFreq(language):
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
 
-# getJavaRepoStartRangeFreq("python")
-getRepoStartRangeFreq("JavaScript")
+# 获取1000以内的赞的分布
+def getRepoStartLess1000RangeFreq(language):
+    g = Github("48181c9b3ca2abfd3c4d48602486a3a8f4aadf57")
+    for i in reversed(range(1, 101)):
+        filterStr = "stars:{}..{} language:{}".format((i - 1) * 10 + 1, i * 10, language)
+        time.sleep(1)
+        repositories = g.search_repositories(filterStr, "stars", "desc")
+        logger.info("{},{},{}".format((i - 1) * 10 + 1, i * 10, repositories.totalCount))
+    time.sleep(1)
+    lessrepo = g.search_repositories("stars:1..10 language:{}".format(language), "stars", "desc")
+    logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
-# g = Github("tain198127@163.com", "bd198127")
-# lessrepo = g.search_repositories("stars:1..1000 language:php", "stars", "desc")
-# logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
+
+# getRepoStartRangeFreq("java")
+
+
+getRepoStartLess1000RangeFreq("Python")
