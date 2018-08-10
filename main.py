@@ -59,10 +59,10 @@ def getRepoStartRangeFreq(language):
         logger.info("stargazers_count is {}".format(repo.stargazers_count))
     for i in reversed(range(50, 55)):
         filterStr = "stars:{}..{} language:{}".format((i - 1) * 1000 + 1, i * 1000, language)
-        time.sleep(1)
+        time.sleep(2)
         repositories = g.search_repositories(filterStr, "stars", "desc")
         logger.info("{},{},{}".format((i - 1) * 1000 + 1, i * 1000, repositories.totalCount))
-    time.sleep(1)
+    time.sleep(2)
     lessrepo = g.search_repositories("stars:1..1000 language:{}".format(language), "stars", "desc")
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
@@ -72,10 +72,10 @@ def getRepoStartLess1000RangeFreq(language):
     g = Github("48181c9b3ca2abfd3c4d48602486a3a8f4aadf57")
     for i in reversed(range(1, 101)):
         filterStr = "stars:{}..{} language:{}".format((i - 1) * 10 + 1, i * 10, language)
-        time.sleep(1)
+        time.sleep(2)
         repositories = g.search_repositories(filterStr, "stars", "desc")
         logger.info("{},{},{}".format((i - 1) * 10 + 1, i * 10, repositories.totalCount))
-    time.sleep(1)
+    time.sleep(2)
     lessrepo = g.search_repositories("stars:1..10 language:{}".format(language), "stars", "desc")
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
@@ -83,4 +83,4 @@ def getRepoStartLess1000RangeFreq(language):
 # getRepoStartRangeFreq("java")
 
 
-getRepoStartLess1000RangeFreq("Python")
+getRepoStartLess1000RangeFreq("JavaScript")
