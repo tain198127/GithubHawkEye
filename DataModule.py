@@ -1,7 +1,8 @@
 # coding: utf-8
 from peewee import *
+from playhouse.pool import PooledMySQLDatabase
 
-mysql_db = MySQLDatabase('github_hawk_eye', user='root', password='123456',
+mysql_db = PooledMySQLDatabase('github_hawk_eye', user='root', password='123456',
                          host='127.0.0.1', port=3306, charset='utf8')
 
 
@@ -47,3 +48,22 @@ class repositories(BaseModel):
     network_count = IntegerField()
     open_issues_count = IntegerField()
     size = IntegerField()
+
+    def add_repo(self, repository):
+        self.owner = repository.owner
+        self.organization = repository.organization
+        self.name = repository.name
+        self.stargazers_count = repository.stargazers_count
+        self.subscribers_count = repository.subscribers_count
+        self.watchers_count = repository.watchers_count
+        self.language = repository.language
+        self.id = repository.id
+        self.full_name = repository.full_name
+        self.forks_count = repository.forks_count
+        self.created_at = repository.created_at
+        self.description = repository.description
+        printRepository(self)
+        try:
+            self.insert()
+        except Exception:
+            print(Exception)

@@ -16,11 +16,10 @@ def listAllTop100Repo(baseNumStars, language):
     else:
         top100 = repos[:100]
         for repo in top100:
-            print(repo)
-            repodb = repositories(repo)
-            repodb.owner = repo.owner.name
-            repodb.owner_email = repo.owner.email
-            repodb.save()
+            # printRepository(repo)
+            repodb = repositories()
+            repodb.add_repo(repo)
+            # print(repo)
 
 
 listAllTop100Repo(7000, 'java')
