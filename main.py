@@ -30,10 +30,12 @@ logger.addHandler(fh)
 # 日志
 logger.debug('this is a logger debug message')
 
-
 # 思路如下：
 # 1.根据stars和folk的数量进行筛选
 # 2.
+
+auth = "36827d66490ddbbd09ba07b25fb32144132709e2"
+
 
 def printRepository(repository):
     print("project owner:", repository.owner)
@@ -53,11 +55,11 @@ def printRepository(repository):
 
 # 获取前3万赞的java项目的数量分布
 def getRepoStartRangeFreq(language):
-    g = Github("36827d66490ddbbd09ba07b25fb32144132709e2")
+    g = Github(auth)
     repositories = g.search_repositories("stars:>=800000 language:{}".format(language), "stars", "desc")
     for repo in repositories:
         logger.info("stargazers_count is {}".format(repo.stargazers_count))
-    for i in reversed(range(50, 55)):
+    for i in reversed(range(1, 101)):
         filterStr = "stars:{}..{} language:{}".format((i - 1) * 1000 + 1, i * 1000, language)
         time.sleep(2)
         repositories = g.search_repositories(filterStr, "stars", "desc")
@@ -65,6 +67,32 @@ def getRepoStartRangeFreq(language):
     time.sleep(2)
     lessrepo = g.search_repositories("stars:1..1000 language:{}".format(language), "stars", "desc")
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
+
+
+# 根据一定的条件获取项目分布
+# language:java|php|python|JavaScript
+# condition:stars|forks|size
+# step: per step,must >1
+# max: step*max = max range,must > 1
+def getRepoRangeFreq(language, condition, steps, max):
+    g = Github(auth)
+    repositories = g.search_repositories("{}:>={} language:{}".format(condition, (max + 1) * steps, language),
+                                         condition, "desc")
+    for repo in repositories:
+        logger.info("{}_count is {}".format(condition, repo.stargazers_count))
+    for i in reversed(range(1, max + 1)):
+        filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps + 1, i * steps, language)
+        time.sleep(2)
+        repositories = g.search_repositories(filterStr, condition, "desc")
+        logger.info("{},{},{}".format((i - 1) * steps + 1, i * steps, repositories.totalCount))
+    time.sleep(2)
+    lessrepo = g.search_repositories("{}:1..{} language:{}".format(condition, steps, language), condition, "desc")
+    logger.info("{},{},{}".format(1, steps, lessrepo.totalCount))
+
+
+# 根据fork获取项目分布
+def getRepoForkRangeFreq(language):
+    getRepoRangeFreq(language, "forks", 50, 200)
 
 
 # 获取1000以内的赞的分布
@@ -83,4 +111,6 @@ def getRepoStartLess1000RangeFreq(language):
 # getRepoStartRangeFreq("java")
 
 
-getRepoStartLess1000RangeFreq("JavaScript")
+# getRepoStartLess1000RangeFreq("JavaScript")
+
+getRepoForkRangeFreq("Java")
