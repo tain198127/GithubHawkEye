@@ -1,7 +1,11 @@
 # coding: utf-8
 import logging
 import os.path
+import sys
 import time
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 from github import Github
 
@@ -88,10 +92,51 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
         time.sleep(2)
         repositories = g.search_repositories(filterStr, condition, "desc")
         for r in repositories:
-            commits = r.get_commits()
-            for c in commits:
-                c.commit.raw_data
-                logger.info("{}", c.commit.committer.name)
+            # team = r.get_teams()
+            # sc= r.get_stats_contributors()
+            # sca = r.get_stats_commit_activity()
+            # scf = r.get_stats_code_frequency()
+            # sp = r.get_stats_participation()
+            # spc = r.get_stats_punch_card()
+            r.watchers_count
+            r.subscribers_count
+            r.stargazers_count
+            r.organization
+            r.network_count
+            r.language
+            r.id
+            r.full_name
+            r.forks
+
+            logger.info(
+                "repositorie——>full name:{},watchers_count:{}, stargazers_count:{}, forks_count:{},subscribers_count:{},id:{},organization:{},language:{}".format(
+                    r.full_name, r.watchers_count, r.stargazers_count, r.network_count, r.subscribers_count, r.id,
+                    r.organization, r.language
+                )
+            )
+            contributors = r.get_contributors()
+            owner = r.owner
+            logger.info(
+                "owner——| owner:{},login:{},company:{},followers:{},following:{}".format(owner.name, owner.login,
+                                                                                         owner.company,
+                                                                                         owner.followers,
+                                                                                         owner.following))
+            for c in contributors:
+                try:
+                    logger.info(
+                        "contributors——|| login:{},name:{},location:{}, company:{},followers:{},following:{}".format(
+                            c.login,
+                            c.name,
+                            c.location,
+                            c.company,
+                            c.followers,
+                            c.following).decode(
+                            'utf-8').strip())
+                    for org in c.get_orgs():
+                        logger.info("org——>||| name: {},company:{},type:{}".format(org.name, org.company, org.type))
+                except Exception as e:
+                    logger.error("error:{}".format(e))
+            logger.info("||||------------------------||||")
         logger.info("{},{},{}".format((i - 1) * steps + 1, i * steps, repositories.totalCount))
     time.sleep(2)
     # lessrepo = g.search_repositories("{}:1..{} language:{}".format(condition, steps, language), condition, "desc")
@@ -100,7 +145,7 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
 
 # 根据fork获取项目分布
 def getRepoForkRangeFreq(language):
-    getRepoRangeFreq(language, "forks", 2, 60, 61, False)
+    getRepoRangeFreq(language, "forks", 10, 100, 110, False)
 
 
 # 获取1000以内的赞的分布
