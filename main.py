@@ -33,8 +33,8 @@ logger.debug('this is a logger debug message')
 # 思路如下：
 # 1.根据stars和folk的数量进行筛选
 # 2.
-
-auth = "a4ac9d69aacdd5a9796abe6d54361f321f9c3bbe"
+# 需要每次从文本中读出来
+auth = ""
 
 
 def printRepository(repository):
@@ -78,24 +78,29 @@ def getRepoStartRangeFreq(language):
 # displayAbove:is display the info more than max
 def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
     g = Github(auth)
-    repositories = g.search_repositories("{}:>={} language:{}".format(condition, (max + 1) * steps, language),
-                                         condition, "desc")
     if (displayAbove):
+        repositories = g.search_repositories("{}:>={} language:{}".format(condition, (max + 1) * steps, language),
+                                             condition, "desc")
         for repo in repositories:
             logger.info("{}_count is {}".format(condition, repo.stargazers_count))
     for i in reversed(range(min, max + 1)):
         filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps + 1, i * steps, language)
         time.sleep(2)
         repositories = g.search_repositories(filterStr, condition, "desc")
+        for r in repositories:
+            commits = r.get_commits()
+            for c in commits:
+                c.commit.raw_data
+                logger.info("{}", c.commit.committer.name)
         logger.info("{},{},{}".format((i - 1) * steps + 1, i * steps, repositories.totalCount))
     time.sleep(2)
-    lessrepo = g.search_repositories("{}:1..{} language:{}".format(condition, steps, language), condition, "desc")
-    logger.info("{},{},{}".format(1, steps, lessrepo.totalCount))
+    # lessrepo = g.search_repositories("{}:1..{} language:{}".format(condition, steps, language), condition, "desc")
+    # logger.info("{},{},{}".format(1, steps, lessrepo.totalCount))
 
 
 # 根据fork获取项目分布
 def getRepoForkRangeFreq(language):
-    getRepoRangeFreq(language, "forks", 50, 60, 80, False)
+    getRepoRangeFreq(language, "forks", 2, 60, 61, False)
 
 
 # 获取1000以内的赞的分布
