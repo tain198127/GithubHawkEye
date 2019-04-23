@@ -34,7 +34,7 @@ logger.debug('this is a logger debug message')
 # 1.根据stars和folk的数量进行筛选
 # 2.
 
-auth = "36827d66490ddbbd09ba07b25fb32144132709e2"
+auth = "a4ac9d69aacdd5a9796abe6d54361f321f9c3bbe"
 
 
 def printRepository(repository):
@@ -73,14 +73,17 @@ def getRepoStartRangeFreq(language):
 # language:java|php|python|JavaScript
 # condition:stars|forks|size
 # step: per step,must >1
+# min: the min range,must >1
 # max: step*max = max range,must > 1
-def getRepoRangeFreq(language, condition, steps, max):
+# displayAbove:is display the info more than max
+def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
     g = Github(auth)
     repositories = g.search_repositories("{}:>={} language:{}".format(condition, (max + 1) * steps, language),
                                          condition, "desc")
-    for repo in repositories:
-        logger.info("{}_count is {}".format(condition, repo.stargazers_count))
-    for i in reversed(range(1, max + 1)):
+    if (displayAbove):
+        for repo in repositories:
+            logger.info("{}_count is {}".format(condition, repo.stargazers_count))
+    for i in reversed(range(min, max + 1)):
         filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps + 1, i * steps, language)
         time.sleep(2)
         repositories = g.search_repositories(filterStr, condition, "desc")
@@ -92,7 +95,7 @@ def getRepoRangeFreq(language, condition, steps, max):
 
 # 根据fork获取项目分布
 def getRepoForkRangeFreq(language):
-    getRepoRangeFreq(language, "forks", 50, 200)
+    getRepoRangeFreq(language, "forks", 50, 60, 80, False)
 
 
 # 获取1000以内的赞的分布
