@@ -43,7 +43,7 @@ OrgModel.create_table()
 # 1.根据stars和folk的数量进行筛选
 # 2.
 # 需要每次从文本中读出来
-auth = ""
+auth = file('oauth.key').readline().strip()
 
 
 def printRepository(repository):
