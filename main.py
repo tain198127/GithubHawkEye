@@ -4,6 +4,8 @@ import os.path
 import sys
 import time
 
+from DataModule import *
+
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -33,12 +35,15 @@ logger.addHandler(ch)
 logger.addHandler(fh)
 # 日志
 logger.debug('this is a logger debug message')
-
+RepositoriesModel.create_table()
+OwnerModel.create_table()
+ContributorModel.create_table()
+OrgModel.create_table()
 # 思路如下：
 # 1.根据stars和folk的数量进行筛选
 # 2.
 # 需要每次从文本中读出来
-auth = ""
+auth = "bbc1e8359d90e36d0b4f2d2078d15091e0b8b158"
 
 
 def printRepository(repository):
@@ -73,6 +78,28 @@ def getRepoStartRangeFreq(language):
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
 
+def processRepo(repo):
+    mysql_db.connection()
+    # 插入repo
+    try:
+        rm = RepositoriesModel().add_repo(repo)
+
+        owner = OwnerModel().add_owner(repo.owner)
+
+        contributors = repo.get_contributors()
+        for c in contributors:
+            try:
+                contributor = ContributorModel().add_contributor(c)
+                for org in c.get_orgs():
+                    o = OrgModel().add_org(org)
+
+            except Exception as e:
+                logger.error("error:{}".format(e))
+    finally:
+        mysql_db.commit()
+        mysql_db.close()
+
+
 # 根据一定的条件获取项目分布
 # language:java|php|python|JavaScript
 # condition:stars|forks|size
@@ -92,22 +119,7 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
         time.sleep(2)
         repositories = g.search_repositories(filterStr, condition, "desc")
         for r in repositories:
-            # team = r.get_teams()
-            # sc= r.get_stats_contributors()
-            # sca = r.get_stats_commit_activity()
-            # scf = r.get_stats_code_frequency()
-            # sp = r.get_stats_participation()
-            # spc = r.get_stats_punch_card()
-            r.watchers_count
-            r.subscribers_count
-            r.stargazers_count
-            r.organization
-            r.network_count
-            r.language
-            r.id
-            r.full_name
-            r.forks
-
+            processRepo(r)
             logger.info(
                 "repositorie——>full name:{},watchers_count:{}, stargazers_count:{}, forks_count:{},subscribers_count:{},id:{},organization:{},language:{}".format(
                     r.full_name, r.watchers_count, r.stargazers_count, r.network_count, r.subscribers_count, r.id,
@@ -145,7 +157,7 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
 
 # 根据fork获取项目分布
 def getRepoForkRangeFreq(language):
-    getRepoRangeFreq(language, "forks", 10, 100, 110, False)
+    getRepoRangeFreq(language, "forks", 10, 108, 109, False)
 
 
 # 获取1000以内的赞的分布

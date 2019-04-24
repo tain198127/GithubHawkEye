@@ -3,12 +3,10 @@ from peewee import *
 from playhouse.pool import PooledMySQLDatabase
 
 mysql_db = PooledMySQLDatabase('github_hawk_eye', user='root', password='123456',
-                         host='127.0.0.1', port=3306, charset='utf8')
+                               host='127.0.0.1', port=3306, charset='utf8')
 
 
 def printRepository(repository):
-    print("project owner:", repository.owner)
-    print("organization:", repository.organization)
     print("name:", repository.name)
     print("start count:", repository.stargazers_count)
     print("subscribers count:", repository.subscribers_count)
@@ -19,6 +17,7 @@ def printRepository(repository):
     print("forks count:", repository.forks_count)
     print("created at:", repository.created_at)
     print("description", repository.description)
+    print("open_issues_count", repository.open_issues_count)
     print("=========================================================")
 
 
@@ -27,43 +26,180 @@ class BaseModel(Model):
         database = mysql_db
 
 
-class repositories(BaseModel):
+# Repo 信息
+class RepositoriesModel(BaseModel):
     id = IntegerField(primary_key=True)
-    owner = FixedCharField(64)
-    owner_email = FixedCharField(64)
-    organization = FixedCharField(128)
     name = FixedCharField(128)
-    stargazers_count = IntegerField()
-    subscribers_count = IntegerField()
-    watchers_count = IntegerField()
-    language = FixedCharField(64)
-    full_name = FixedCharField(64)
-    forks_count = IntegerField()
-    created_at = DateTimeField()
-    description = FixedCharField(512)
-    downloads_url = FixedCharField(512)
-    git_url = FixedCharField(512)
-    homepage = FixedCharField(512)
-    html_url = FixedCharField(512)
+    stargazers_count = IntegerField(null=True)
+    subscribers_count = IntegerField(null=True)
+    watchers_count = IntegerField(null=True)
+    language = FixedCharField(64, null=True)
+    full_name = FixedCharField(64, null=True)
+    forks_count = IntegerField(null=True)
+    created_at = DateField(null=True)
+    description = FixedCharField(2018, null=True)
+    # downloads_url = FixedCharField(512)
+    # git_url = FixedCharField(512)
+    # homepage = FixedCharField(512)
+    # html_url = FixedCharField(512)
     network_count = IntegerField()
     open_issues_count = IntegerField()
-    size = IntegerField()
 
     def add_repo(self, repository):
-        self.owner = repository.owner
-        self.organization = repository.organization
-        self.name = repository.name
-        self.stargazers_count = repository.stargazers_count
-        self.subscribers_count = repository.subscribers_count
-        self.watchers_count = repository.watchers_count
-        self.language = repository.language
-        self.id = repository.id
-        self.full_name = repository.full_name
-        self.forks_count = repository.forks_count
-        self.created_at = repository.created_at
-        self.description = repository.description
-        printRepository(self)
-        try:
-            self.insert()
-        except Exception:
-            print(Exception)
+        if not self.select(RepositoriesModel.id).where(RepositoriesModel.id == repository.id).exists():
+            self.id = repository.id
+            self.name = repository.name
+            self.stargazers_count = repository.stargazers_count
+            self.subscribers_count = repository.subscribers_count
+            self.watchers_count = repository.watchers_count
+            self.language = repository.language
+            self.full_name = repository.full_name
+            self.forks_count = repository.forks_count
+            self.created_at = repository.created_at
+            self.description = repository.description
+            self.network_count = repository.network_count
+            self.open_issues_count = repository.open_issues_count
+            printRepository(self)
+            self.save(force_insert=True)
+            return self
+        else:
+            return repository
+
+
+# owner 信息
+class OwnerModel(BaseModel):
+    id = IntegerField(primary_key=True)
+    login = FixedCharField(128)
+    name = FixedCharField(128, null=True)
+    collaborators = IntegerField(null=True)
+    company = FixedCharField(128, null=True)
+    created_at = DateField(null=True)
+    email = FixedCharField(128, null=True)
+    followers = IntegerField(null=True)
+    following = IntegerField(null=True)
+    hireable = BooleanField(null=True)
+    location = FixedCharField(128, null=True)
+    site_admin = BooleanField(null=True)
+    type = FixedCharField(128, null=True)
+    private_gists = IntegerField(null=True)
+    public_gists = IntegerField(null=True)
+    public_repos = IntegerField(null=True)
+    total_private_repos = IntegerField(null=True)
+
+    def add_owner(self, owner):
+        if not self.select(OwnerModel.id).where(OwnerModel.id == owner.id).exists():
+            self.id = owner.id
+            self.login = owner.login
+            self.name = owner.name
+            self.collaborators = owner.collaborators
+            self.company = owner.company
+            self.created_at = owner.created_at
+            self.email = owner.email
+            self.followers = owner.followers
+            self.following = owner.following
+            self.hireable = owner.hireable
+            self.location = owner.location
+            self.site_admin = owner.site_admin
+            self.type = owner.type
+            self.private_gists = owner.private_gists
+            self.public_gists = owner.public_gists
+            self.public_repos = owner.public_repos
+            self.total_private_repos = owner.total_private_repos
+            self.save(force_insert=True)
+            return self
+        else:
+            return owner
+
+
+# 贡献者
+class ContributorModel(BaseModel):
+    id = IntegerField(primary_key=True)
+    login = FixedCharField(128)
+    name = FixedCharField(128, null=True)
+    collaborators = IntegerField(null=True)
+    company = FixedCharField(128, null=True)
+    created_at = DateField(null=True)
+    email = FixedCharField(128, null=True)
+    followers = IntegerField(null=True)
+    following = IntegerField(null=True)
+    hireable = BooleanField(null=True)
+    location = FixedCharField(128, null=True)
+    site_admin = BooleanField(null=True)
+    type = FixedCharField(128, null=True)
+    private_gists = IntegerField(null=True)
+    public_gists = IntegerField(null=True)
+    public_repos = IntegerField(null=True)
+    total_private_repos = IntegerField(null=True)
+
+    def add_contributor(self, contributor):
+        if not self.select(ContributorModel.id).where(ContributorModel.id == contributor.id).exists():
+            self.id = contributor.id
+            self.login = contributor.login
+            self.name = contributor.name
+            self.collaborators = contributor.collaborators
+            self.company = contributor.company
+            self.created_at = contributor.created_at
+            self.email = contributor.email
+            self.followers = contributor.followers
+            self.following = contributor.following
+            self.hireable = contributor.hireable
+            self.location = contributor.location
+            self.site_admin = contributor.site_admin
+            self.type = contributor.type
+            self.private_gists = contributor.private_gists
+            self.public_gists = contributor.public_gists
+            self.public_repos = contributor.public_repos
+            self.total_private_repos = contributor.total_private_repos
+            self.save(force_insert=True)
+            return self
+        else:
+            return contributor
+
+
+# 组织模型
+class OrgModel(BaseModel):
+    id = IntegerField(primary_key=True)
+    login = FixedCharField(128)
+    name = FixedCharField(128, null=True)
+    company = FixedCharField(128, null=True)
+    email = FixedCharField(128, null=True)
+    billing_email = FixedCharField(128, null=True)
+    type = FixedCharField(128, null=True)
+    location = FixedCharField(128, null=True)
+    blog = FixedCharField(128, null=True)
+    collaborators = IntegerField(null=True)
+    disk_usage = IntegerField(null=True)
+    followers = IntegerField(null=True)
+    following = IntegerField(null=True)
+    private_gists = IntegerField(null=True)
+    public_gists = IntegerField(null=True)
+    public_repos = IntegerField(null=True)
+    total_private_repos = IntegerField(null=True)
+    created_at = DateField(null=True)
+    updated_at = DateField(null=True)
+
+    def add_org(self, org):
+        if not self.select(OrgModel.id).where(OrgModel.id == org.id).exists():
+            self.id = org.id
+            self.login = org.login
+            self.name = org.name
+            self.company = org.company
+            self.email = org.email
+            self.billing_email = org.billing_email
+            self.type = org.type
+            self.location = org.location
+            self.blog = org.blog
+            self.collaborators = org.collaborators
+            self.disk_usage = org.disk_usage
+            self.followers = org.followers
+            self.following = org.following
+            self.private_gists = org.private_gists
+            self.public_gists = org.public_gists
+            self.public_repos = org.public_repos
+            self.total_private_repos = org.total_private_repos
+            self.created_at = org.created_at
+            self.updated_at = org.updated_at
+            self.save(force_insert=True)
+            return self
+        else:
+            return org
