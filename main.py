@@ -43,7 +43,7 @@ OrgModel.create_table()
 # 1.根据stars和folk的数量进行筛选
 # 2.
 # 需要每次从文本中读出来
-auth = "bbc1e8359d90e36d0b4f2d2078d15091e0b8b158"
+auth = ""
 
 
 def printRepository(repository):
@@ -86,7 +86,7 @@ def processRepo(repo):
 
         owner = OwnerModel().add_owner(repo.owner)
 
-        contributors = repo.get_contributors()
+        contributors = repo.get_contributors()[:10]
         for c in contributors:
             try:
                 contributor = ContributorModel().add_contributor(c)
@@ -120,35 +120,6 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
         repositories = g.search_repositories(filterStr, condition, "desc")
         for r in repositories:
             processRepo(r)
-            logger.info(
-                "repositorie——>full name:{},watchers_count:{}, stargazers_count:{}, forks_count:{},subscribers_count:{},id:{},organization:{},language:{}".format(
-                    r.full_name, r.watchers_count, r.stargazers_count, r.network_count, r.subscribers_count, r.id,
-                    r.organization, r.language
-                )
-            )
-            contributors = r.get_contributors()
-            owner = r.owner
-            logger.info(
-                "owner——| owner:{},login:{},company:{},followers:{},following:{}".format(owner.name, owner.login,
-                                                                                         owner.company,
-                                                                                         owner.followers,
-                                                                                         owner.following))
-            for c in contributors:
-                try:
-                    logger.info(
-                        "contributors——|| login:{},name:{},location:{}, company:{},followers:{},following:{}".format(
-                            c.login,
-                            c.name,
-                            c.location,
-                            c.company,
-                            c.followers,
-                            c.following).decode(
-                            'utf-8').strip())
-                    for org in c.get_orgs():
-                        logger.info("org——>||| name: {},company:{},type:{}".format(org.name, org.company, org.type))
-                except Exception as e:
-                    logger.error("error:{}".format(e))
-            logger.info("||||------------------------||||")
         logger.info("{},{},{}".format((i - 1) * steps + 1, i * steps, repositories.totalCount))
     time.sleep(2)
     # lessrepo = g.search_repositories("{}:1..{} language:{}".format(condition, steps, language), condition, "desc")
