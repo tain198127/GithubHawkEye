@@ -94,6 +94,14 @@ def processRepo(repo):
         # 增加repo和owner的关系
         Repo_Owner_Rel().add_repoownerrel(Repo_Owner_Rel(RepoID=repo.id, OwnerID=repo.owner.id))
 
+        ownerorgs = repo.owner.get_orgs()
+        for oo in ownerorgs:
+            try:
+                o = OrgModel().add_org(oo)
+                Owner_Org_Rel().add_owner_org_rel(Owner_Org_Rel(OrgID=oo.id, OwnerID=repo.owner.id))
+            except Exception as e:
+                logger.error(e)
+
         contributors = repo.get_contributors()[:10]
         for c in contributors:
             try:
