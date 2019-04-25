@@ -82,6 +82,31 @@ def getRepoStartRangeFreq(language):
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
 
+# 计时器,同时阻塞调用，保证在1小时以内调用次数低于5000次
+def count_keep_rate(fn):
+    def run(*args):
+        logger.info("调用了")
+        return fn(*args)
+
+    return run
+
+
+@count_keep_rate
+def processOwnerOrgs(owner):
+    return owner.get_orgs()
+
+
+@count_keep_rate
+def processContributors(repo):
+    return repo.get_contributors()
+
+
+@count_keep_rate
+def processContributorOrgs(contributor):
+    return contributor.get_orgs()
+
+
+@count_keep_rate
 def processRepo(repo):
     mysql_db.connection()
     # with mysql_db.atomic():
@@ -94,7 +119,7 @@ def processRepo(repo):
         # 增加repo和owner的关系
         Repo_Owner_Rel().add_repoownerrel(Repo_Owner_Rel(RepoID=repo.id, OwnerID=repo.owner.id))
 
-        ownerorgs = repo.owner.get_orgs()
+        ownerorgs = processOwnerOrgs(repo.owner)
         for oo in ownerorgs:
             try:
                 o = OrgModel().add_org(oo)
@@ -102,7 +127,7 @@ def processRepo(repo):
             except Exception as e:
                 logger.error(e)
 
-        contributors = repo.get_contributors()[:10]
+        contributors = processContributors(repo)[:10]
         for c in contributors:
             try:
                 # 增加贡献者
@@ -110,7 +135,7 @@ def processRepo(repo):
                 # 插入贡献者和repo之间的关系
                 Repo_Contributor_Rel().add_repo_contributor_rel(
                     Repo_Contributor_Rel(RepoID=repo.id, ContributorID=c.id))
-                for org in c.get_orgs():
+                for org in processContributorOrgs(c):
                     try:
                         o = OrgModel().add_org(org)
                         # 增加贡献者和org之间的关系
@@ -158,7 +183,7 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
 
 # 根据fork获取项目分布
 def getRepoForkRangeFreq(language):
-    getRepoRangeFreq(language, "forks", 10, 108, 109, False)
+    getRepoRangeFreq(language, "stars", 10, 10, 20, False)
 
 
 # 获取1000以内的赞的分布
