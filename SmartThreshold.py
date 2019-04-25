@@ -15,7 +15,7 @@ EndCallTime = None
 InvokeTimes = 0
 Threshold = [(1000, 0.1), (2000, 0.2), (3000, 0.4), (4000, 0.8), (5000, 1.8)]
 AllInvokeCount = 0
-q = Queue.LifoQueue(maxsize=400)
+q = Queue.LifoQueue(maxsize=100)
 logger = logging.getLogger()
 
 
@@ -42,7 +42,8 @@ class SmartThreshold:
             AllInvokeCount = AllInvokeCount + 1
 
             span = (EndCallTime - BeginCallTime).seconds
-            if span > 10:
+            # 每60秒插入一次
+            if span > 60:
                 if q.full():
                     q.queue.pop()
                 q.put((BeginCallTime, EndCallTime, AllInvokeCount))
@@ -69,11 +70,12 @@ class SmartThreshold:
     def show_freq():
         if not q.empty():
             for f in q.queue[:10]:
-                print("开始时间:{},结束时间:{},调用次数:{}".format(f[0], f[1], f[2]))
+                print("开始时间:{},结束时间:{},间隔时间:{}秒,调用次数:{}".format(f[0], f[1], (f[1] - f[0]).seconds, f[2]))
 
 
 schedule.every(1).seconds.do(SmartThreshold.threadInovker, SmartThreshold.dcreaseThreshold)
-schedule.every(10).seconds.do(SmartThreshold.threadInovker, SmartThreshold.show_freq)
+# 每60秒打印一次
+schedule.every(60).seconds.do(SmartThreshold.threadInovker, SmartThreshold.show_freq)
 
 
 # 守护进程
