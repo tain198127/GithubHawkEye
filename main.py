@@ -87,20 +87,30 @@ def processRepo(repo):
     # with mysql_db.atomic():
     # 插入repo
     try:
-
+        # 插入repo
         rm = RepositoriesModel().add_repo(repo)
-
+        # 插入owner
         owner = OwnerModel().add_owner(repo.owner)
-
+        # 增加repo和owner的关系
         Repo_Owner_Rel().add_repoownerrel(Repo_Owner_Rel(RepoID=repo.id, OwnerID=repo.owner.id))
 
         contributors = repo.get_contributors()[:10]
         for c in contributors:
             try:
+                # 增加贡献者
                 contributor = ContributorModel().add_contributor(c)
+                # 插入贡献者和repo之间的关系
+                Repo_Contributor_Rel().add_repo_contributor_rel(
+                    Repo_Contributor_Rel(RepoID=repo.id, ContributorID=c.id))
                 for org in c.get_orgs():
                     try:
                         o = OrgModel().add_org(org)
+                        # 增加贡献者和org之间的关系
+                        # 增加项目和org之间的关系
+                        Contributor_Org_Rel().add_contributor_org_rel(
+                            Contributor_Org_Rel(OrgID=o.id, ContributorID=c.id))
+
+                        Repo_Org_Rel().add_repo_org_rel(Repo_Org_Rel(RepoID=repo.id, OrgID=o.id))
                     except Exception as oe:
                         logger.error("error:{}".format(oe))
             except Exception as ce:

@@ -3,7 +3,7 @@ from peewee import *
 from playhouse.pool import PooledMySQLDatabase
 
 mysql_db = PooledMySQLDatabase('github_hawk_eye', user='root', password='123456',
-                               host='127.0.0.1', port=3306)
+                               host='127.0.0.1', port=3306, charset='utf8mb4')
 
 
 def printRepository(repository):
@@ -215,7 +215,7 @@ class Repo_Owner_Rel(BaseModel):
 
     def add_repoownerrel(self, rel):
         self._meta.auto_increment = False
-        if not self.select(Repo_Owner_Rel.id).where(
+        if not self.select(Repo_Owner_Rel.RepoID).where(
                 (Repo_Owner_Rel.RepoID == rel.RepoID) & (
                         Repo_Owner_Rel.OwnerID == rel.OwnerID)
         ).exists():
@@ -232,6 +232,16 @@ class Repo_Org_Rel(BaseModel):
     class Meta:
         primary_key = CompositeKey('RepoID', 'OrgID')
 
+    def add_repo_org_rel(self, rel):
+        self._meta.auto_increment = False
+        if not self.select(Repo_Org_Rel.RepoID).where(
+                (Repo_Org_Rel.RepoID == rel.RepoID) & (
+                        Repo_Org_Rel.OrgID == rel.OrgID)
+        ).exists():
+            self.RepoID = rel.RepoID
+            self.OrgID = rel.OrgID
+            self.save(force_insert=True)
+
 
 # repo与贡献者的关系表
 class Repo_Contributor_Rel(BaseModel):
@@ -240,6 +250,16 @@ class Repo_Contributor_Rel(BaseModel):
 
     class Meta:
         primary_key = CompositeKey('RepoID', 'ContributorID')
+
+    def add_repo_contributor_rel(self, rel):
+        self._meta.auto_increment = False
+        if not self.select(Repo_Contributor_Rel.RepoID).where(
+                (Repo_Contributor_Rel.RepoID == rel.RepoID) & (
+                        Repo_Contributor_Rel.ContributorID == rel.ContributorID)
+        ).exists():
+            self.RepoID = rel.RepoID
+            self.ContributorID = rel.ContributorID
+            self.save(force_insert=True)
 
 
 # owner与贡献者的关系表
@@ -250,6 +270,15 @@ class Owner_Org_Rel(BaseModel):
     class Meta:
         primary_key = CompositeKey('OwnerID', 'OrgID')
 
+    def add_owner_org_rel(self, rel):
+        self._meta.auto_increment = False
+        if not self.select(Owner_Org_Rel.OwnerID).where(
+                (Owner_Org_Rel.OrgID == rel.OrgID) & (
+                        Owner_Org_Rel.OwnerID == rel.OwnerID)
+        ).exists():
+            self.OrgID = rel.OrgID
+            self.OwnerID = rel.OwnerID
+            self.save(force_insert=True)
 
 # 贡献者与组织的关系表
 class Contributor_Org_Rel(BaseModel):
@@ -258,3 +287,13 @@ class Contributor_Org_Rel(BaseModel):
 
     class Meta:
         primary_key = CompositeKey('ContributorID', 'OrgID')
+
+    def add_contributor_org_rel(self, rel):
+        self._meta.auto_increment = False
+        if not self.select(Contributor_Org_Rel.ContributorID).where(
+                (Contributor_Org_Rel.OrgID == rel.OrgID) & (
+                        Contributor_Org_Rel.ContributorID == rel.ContributorID)
+        ).exists():
+            self.OrgID = rel.OrgID
+            self.ContributorID = rel.ContributorID
+            self.save(force_insert=True)
