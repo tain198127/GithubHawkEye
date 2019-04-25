@@ -1,15 +1,14 @@
 # coding: utf-8
 import logging
 import os.path
-import sys
 import time
+
+from github import Github
 
 from DataModule import *
 
-reload(sys)
-sys.setdefaultencoding('utf8')
-
-from github import Github
+# reload(sys)
+# sys.setdefaultencoding('utf8mb4')
 
 # db=MySQLDatabase()
 
@@ -39,6 +38,11 @@ RepositoriesModel.create_table()
 OwnerModel.create_table()
 ContributorModel.create_table()
 OrgModel.create_table()
+Repo_Owner_Rel.create_table()
+Repo_Org_Rel.create_table()
+Repo_Contributor_Rel.create_table()
+Owner_Org_Rel.create_table()
+Contributor_Org_Rel.create_table()
 # 思路如下：
 # 1.根据stars和folk的数量进行筛选
 # 2.
@@ -80,21 +84,29 @@ def getRepoStartRangeFreq(language):
 
 def processRepo(repo):
     mysql_db.connection()
+    # with mysql_db.atomic():
     # 插入repo
     try:
+
         rm = RepositoriesModel().add_repo(repo)
 
         owner = OwnerModel().add_owner(repo.owner)
+
+        Repo_Owner_Rel().add_repoownerrel(Repo_Owner_Rel(RepoID=repo.id, OwnerID=repo.owner.id))
 
         contributors = repo.get_contributors()[:10]
         for c in contributors:
             try:
                 contributor = ContributorModel().add_contributor(c)
                 for org in c.get_orgs():
-                    o = OrgModel().add_org(org)
-
-            except Exception as e:
-                logger.error("error:{}".format(e))
+                    try:
+                        o = OrgModel().add_org(org)
+                    except Exception as oe:
+                        logger.error("error:{}".format(oe))
+            except Exception as ce:
+                logger.error("error:{}".format(ce))
+    except Exception as re:
+        logger.error("error :{}".format(re))
     finally:
         mysql_db.commit()
         mysql_db.close()

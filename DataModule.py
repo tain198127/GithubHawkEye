@@ -3,7 +3,7 @@ from peewee import *
 from playhouse.pool import PooledMySQLDatabase
 
 mysql_db = PooledMySQLDatabase('github_hawk_eye', user='root', password='123456',
-                               host='127.0.0.1', port=3306, charset='utf8')
+                               host='127.0.0.1', port=3306)
 
 
 def printRepository(repository):
@@ -203,3 +203,58 @@ class OrgModel(BaseModel):
             return self
         else:
             return org
+
+
+# repo与owner的关系表
+class Repo_Owner_Rel(BaseModel):
+    RepoID = IntegerField()
+    OwnerID = IntegerField()
+
+    class Meta:
+        primary_key = CompositeKey('RepoID', 'OwnerID')
+
+    def add_repoownerrel(self, rel):
+        self._meta.auto_increment = False
+        if not self.select(Repo_Owner_Rel.id).where(
+                (Repo_Owner_Rel.RepoID == rel.RepoID) & (
+                        Repo_Owner_Rel.OwnerID == rel.OwnerID)
+        ).exists():
+            self.RepoID = rel.RepoID
+            self.OwnerID = rel.OwnerID
+            self.save(force_insert=True)
+
+
+# repo与组织的关系表
+class Repo_Org_Rel(BaseModel):
+    RepoID = IntegerField()
+    OrgID = IntegerField()
+
+    class Meta:
+        primary_key = CompositeKey('RepoID', 'OrgID')
+
+
+# repo与贡献者的关系表
+class Repo_Contributor_Rel(BaseModel):
+    RepoID = IntegerField()
+    ContributorID = IntegerField()
+
+    class Meta:
+        primary_key = CompositeKey('RepoID', 'ContributorID')
+
+
+# owner与贡献者的关系表
+class Owner_Org_Rel(BaseModel):
+    OwnerID = IntegerField()
+    OrgID = IntegerField()
+
+    class Meta:
+        primary_key = CompositeKey('OwnerID', 'OrgID')
+
+
+# 贡献者与组织的关系表
+class Contributor_Org_Rel(BaseModel):
+    ContributorID = IntegerField()
+    OrgID = IntegerField()
+
+    class Meta:
+        primary_key = CompositeKey('ContributorID', 'OrgID')
