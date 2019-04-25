@@ -1,11 +1,10 @@
 # coding: utf-8
-import logging
 import os.path
-import time
 
 from github import Github
 
 from DataModule import *
+from SmartThreshold import *
 
 # reload(sys)
 # sys.setdefaultencoding('utf8mb4')
@@ -82,31 +81,22 @@ def getRepoStartRangeFreq(language):
     logger.info("{},{},{}".format(1, 1000, lessrepo.totalCount))
 
 
-# 计时器,同时阻塞调用，保证在1小时以内调用次数低于5000次
-def count_keep_rate(fn):
-    def run(*args):
-        logger.info("调用了")
-        return fn(*args)
-
-    return run
-
-
-@count_keep_rate
+@SmartThreshold.count_keep_rate
 def processOwnerOrgs(owner):
     return owner.get_orgs()
 
 
-@count_keep_rate
+@SmartThreshold.count_keep_rate
 def processContributors(repo):
     return repo.get_contributors()
 
 
-@count_keep_rate
+@SmartThreshold.count_keep_rate
 def processContributorOrgs(contributor):
     return contributor.get_orgs()
 
 
-@count_keep_rate
+@SmartThreshold.count_keep_rate
 def processRepo(repo):
     mysql_db.connection()
     # with mysql_db.atomic():
