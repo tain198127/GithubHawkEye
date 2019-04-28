@@ -1,9 +1,20 @@
 # coding: utf-8
+import ConfigParser
+
 from peewee import *
 from playhouse.pool import PooledMySQLDatabase
 
-mysql_db = PooledMySQLDatabase('github_hawk_eye', user='root', password='123456',
-                               host='127.0.0.1', port=3306, charset='utf8mb4')
+cf = ConfigParser.ConfigParser()
+cf.read("./conf/application.conf")
+db_name = cf.get('db', 'db_name')
+db_port = int(cf.get('db', 'db_port'))
+db_user = cf.get('db', 'db_user')
+db_pwd = cf.get('db', 'db_pwd')
+db_host = cf.get('db', 'db_host')
+db_charset = cf.get('db', 'db_charset')
+
+mysql_db = PooledMySQLDatabase(db_name, user=db_user, password=db_pwd,
+                               host=db_host, port=db_port, charset=db_charset)
 
 
 def printRepository(repository):

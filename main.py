@@ -33,7 +33,12 @@ logger.debug('this is a logger debug message')
 # 1.根据stars和folk的数量进行筛选
 # 2.
 # 需要每次从文本中读出来
-auth = file('oauth.key').readline().strip()
+
+
+cf = ConfigParser.ConfigParser()
+cf.read("./conf/application.conf")
+
+auth = cf.get('github', 'github_token')
 
 RepositoriesModel.create_table()
 OwnerModel.create_table()
