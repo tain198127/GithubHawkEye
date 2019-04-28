@@ -312,9 +312,13 @@ class LastQueryConfig(BaseModel):
         self.steps = cfg.steps
         self.endIdx = cfg.endIdx
         if not self.select(LastQueryConfig.id).exists():
+            self._meta.auto_increment = True
             self.save(force_insert=True)
         else:
-            self.update()
+            md = self.get_last_config()
+            nrows = (self.update(startIdx=cfg.startIdx, steps=cfg.steps, endIdx=cfg.endIdx) \
+                     .where(LastQueryConfig.id == md.id) \
+                     .execute())
 
     def get_last_config(self):
         md = self.select().where(LastQueryConfig.id > 0).order_by(LastQueryConfig.id.desc()).limit(1).offset(0)

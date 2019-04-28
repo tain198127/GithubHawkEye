@@ -159,14 +159,15 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
                                              condition, "desc")
         for repo in repositories:
             logger.info("{}_count is {}".format(condition, repo.stargazers_count))
-    for i in reversed(range(min, max + 1)):
+    for i in range(min, max + 1):
         filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps + 1, i * steps, language)
         sidx = (i - 1)
+        logger.info(filterStr)
         LastQueryConfig().add_config(LastQueryConfig(startIdx=sidx, endIdx=max, steps=steps))
         repositories = g.search_repositories(filterStr, condition, "desc")
         for r in repositories:
             processRepo(r)
-        logger.info("{},{},{}".format((i - 1) * steps + 1, i * steps, repositories.totalCount))
+        # logger.info("{},{},{}".format((i - 1) * steps + 1, i * steps, repositories.totalCount))
     # lessrepo = g.search_repositories("{}:1..{} language:{}".format(condition, steps, language), condition, "desc")
     # logger.info("{},{},{}".format(1, steps, lessrepo.totalCount))
 
@@ -181,7 +182,7 @@ def getRepoForkRangeFreq(language):
         min = cfg.startIdx
         max = cfg.endIdx
         steps = cfg.steps
-
+    logger.info("start: steps:{},")
     getRepoRangeFreq(language, "stars", steps, min, max, False)
 
 
