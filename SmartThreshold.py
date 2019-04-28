@@ -1,11 +1,11 @@
 # coding: utf-8
 # 限流器
-import Queue
 import datetime
 import logging
 import sys
 import threading
 import time
+from queue import LifoQueue
 
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -25,7 +25,8 @@ EndCallTime = None
 InvokeTimes = 0
 Threshold = [(1000, 0.1), (2000, 0.2), (3000, 0.4), (4000, 0.8), (5000, 1.8)]
 AllInvokeCount = 0
-q = Queue.LifoQueue(maxsize=100)
+
+q = LifoQueue(maxsize=100)
 
 scheduler = BackgroundScheduler()
 

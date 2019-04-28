@@ -36,7 +36,7 @@ logger.debug('this is a logger debug message')
 # 需要每次从文本中读出来
 
 
-cf = ConfigParser.ConfigParser()
+cf = configparser.ConfigParser()
 cf.read("./conf/application.conf")
 
 auth = cf.get('github', 'github_token')

@@ -1,10 +1,10 @@
 # coding: utf-8
-import ConfigParser
+import configparser
 
 from peewee import *
 from playhouse.pool import PooledMySQLDatabase
 
-cf = ConfigParser.ConfigParser()
+cf = configparser.ConfigParser()
 cf.read("./conf/application.conf")
 db_name = cf.get('db', 'db_name')
 db_port = int(cf.get('db', 'db_port'))
