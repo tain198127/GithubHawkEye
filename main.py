@@ -6,14 +6,15 @@ from github import Github
 from DataModule import *
 from SmartThreshold import *
 
-logger = logging.getLogger()
+logging.basicConfig()
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)  # Log等级总开关
 rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
 log_path = os.path.dirname(os.path.realpath(__file__)) + '/log/'
 log_name = log_path + rq + '.log'
 logfile = log_name
 fh = logging.FileHandler(logfile, mode='w')
-fh.setLevel(logging.INFO)  # 输出到file的log等级的开关
+fh.setLevel(logging.ERROR)  # 输出到file的log等级的开关
 
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)  # 输出到console的log等级的开关
@@ -165,8 +166,8 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
         for repo in repositories:
             logger.info("{}_count is {}".format(condition, repo.stargazers_count))
     for i in range(min, max + 1):
-        filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps + 1, i * steps, language)
-        sidx = (i - 1)
+        filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps - 1, i * steps, language)
+        sidx = i
         logger.info(filterStr)
         LastQueryConfig().add_config(LastQueryConfig(startIdx=sidx, endIdx=max, steps=steps))
         repositories = g.search_repositories(filterStr, condition, "desc")

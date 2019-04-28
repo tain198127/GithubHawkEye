@@ -3,12 +3,20 @@
 import Queue
 import datetime
 import logging
-import signal
 import sys
 import threading
 import time
 
-import schedule
+from apscheduler.schedulers.background import BackgroundScheduler
+
+logger = logging.getLogger(__name__)
+formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s')
+console_handler = logging.StreamHandler(sys.stdout)
+console_handler.formatter = formatter
+logger.addHandler(console_handler)
+logger.setLevel(logging.INFO)
+
+logging.getLogger('apscheduler.scheduler').setLevel(logging.WARNING)
 
 # 最开始的时间
 BeginCallTime = datetime.datetime.now()
@@ -18,7 +26,8 @@ InvokeTimes = 0
 Threshold = [(1000, 0.1), (2000, 0.2), (3000, 0.4), (4000, 0.8), (5000, 1.8)]
 AllInvokeCount = 0
 q = Queue.LifoQueue(maxsize=100)
-logger = logging.getLogger()
+
+scheduler = BackgroundScheduler()
 
 
 class SmartThreshold:
@@ -60,7 +69,7 @@ class SmartThreshold:
     def dcreaseThreshold():
         global InvokeTimes
         if InvokeTimes > 0:
-            InvokeTimes = InvokeTimes - 1
+            InvokeTimes -= InvokeTimes
         logger.info("调用次数{}".format(InvokeTimes))
 
     @staticmethod
@@ -78,22 +87,40 @@ class SmartThreshold:
 
     @staticmethod
     def finalize():
+        scheduler.shutdown()
         sys.exit(0)
 
-schedule.every(1).seconds.do(SmartThreshold.threadInovker, SmartThreshold.dcreaseThreshold)
-# 每60秒打印一次
-schedule.every(60).seconds.do(SmartThreshold.threadInovker, SmartThreshold.show_freq)
 
+# @scheduler.scheduled_job('interval', seconds=1)
+# def dcrease():
+#     SmartThreshold.dcreaseThreshold()
+#
+#
+# @scheduler.scheduled_job('interval', seconds=60)
+# def showFreq():
+#     SmartThreshold.show_freq()
+
+
+# schedule.every(1).seconds.do(SmartThreshold.threadInovker, SmartThreshold.dcreaseThreshold)
+# 每60秒打印一次
+# schedule.every(60).seconds.do(SmartThreshold.threadInovker, SmartThreshold.show_freq)
 
 # 守护进程
-def deamonInvoker():
-    signal.signal(signal.SIGTERM, SmartThreshold.finalize)
-    signal.signal(signal.SIGINT, SmartThreshold.finalize)
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-
-deamonThread = threading.Thread(target=deamonInvoker)
+# def deamonInvoker():
+#     signal.signal(signal.SIGTERM, SmartThreshold.finalize)
+#     signal.signal(signal.SIGINT, SmartThreshold.finalize)
+#     scheduler.add_job(SmartThreshold.show_freq,'interval',seconds=60)
+#     scheduler.add_job(SmartThreshold.dcreaseThreshold,'interval',seconds=1)
+#     scheduler.start()
+#     # while True:
+#     # schedule.run_pending()
+#     # time.sleep(1)
+#
+# deamonThread = threading.Thread(target=deamonInvoker)
 # deamonThread.setDaemon(True)
-deamonThread.start()
+# deamonThread.start()
+
+
+scheduler.add_job(SmartThreshold.show_freq, 'interval', seconds=60)
+scheduler.add_job(SmartThreshold.dcreaseThreshold, 'interval', seconds=1)
+scheduler.start()
