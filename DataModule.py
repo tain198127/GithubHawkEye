@@ -280,6 +280,7 @@ class Owner_Org_Rel(BaseModel):
             self.OwnerID = rel.OwnerID
             self.save(force_insert=True)
 
+
 # 贡献者与组织的关系表
 class Contributor_Org_Rel(BaseModel):
     ContributorID = IntegerField()
@@ -297,3 +298,25 @@ class Contributor_Org_Rel(BaseModel):
             self.OrgID = rel.OrgID
             self.ContributorID = rel.ContributorID
             self.save(force_insert=True)
+
+
+# 记录最后开始操作
+class LastQueryConfig(BaseModel):
+    id = IntegerField(primary_key=True)
+    startIdx = IntegerField()
+    steps = IntegerField()
+    endIdx = IntegerField()
+
+    def add_config(self, cfg):
+        self.startIdx = cfg.startIdx
+        self.steps = cfg.steps
+        self.endIdx = cfg.endIdx
+        if not self.select(LastQueryConfig.id).exists():
+            self.save(force_insert=True)
+        else:
+            self.update()
+
+    def get_last_config(self):
+        md = self.select().where(LastQueryConfig.id > 0).order_by(LastQueryConfig.id.desc()).limit(1).offset(0)
+
+        return md.get()

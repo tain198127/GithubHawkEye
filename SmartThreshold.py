@@ -3,6 +3,8 @@
 import Queue
 import datetime
 import logging
+import signal
+import sys
 import threading
 import time
 
@@ -62,16 +64,21 @@ class SmartThreshold:
         logger.info("调用次数{}".format(InvokeTimes))
 
     @staticmethod
-    def threadInovker(job_func):
-        job_thread = threading.Thread(target=job_func)
-        job_thread.start()
-
-    @staticmethod
     def show_freq():
         if not q.empty():
             for f in q.queue[:10]:
                 print("开始时间:{},结束时间:{},间隔时间:{}秒,调用次数:{}".format(f[0], f[1], (f[1] - f[0]).seconds, f[2]))
 
+    @staticmethod
+    def threadInovker(job_func):
+        print("active count:{}".format(threading.active_count()))
+        job_thread = threading.Thread(target=job_func)
+        # job_thread.setDaemon(True)
+        job_thread.start()
+
+    @staticmethod
+    def finalize():
+        sys.exit(0)
 
 schedule.every(1).seconds.do(SmartThreshold.threadInovker, SmartThreshold.dcreaseThreshold)
 # 每60秒打印一次
@@ -80,10 +87,13 @@ schedule.every(60).seconds.do(SmartThreshold.threadInovker, SmartThreshold.show_
 
 # 守护进程
 def deamonInvoker():
+    signal.signal(signal.SIGTERM, SmartThreshold.finalize)
+    signal.signal(signal.SIGINT, SmartThreshold.finalize)
     while True:
         schedule.run_pending()
         time.sleep(1)
 
 
 deamonThread = threading.Thread(target=deamonInvoker)
+# deamonThread.setDaemon(True)
 deamonThread.start()

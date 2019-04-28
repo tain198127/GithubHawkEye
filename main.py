@@ -6,11 +6,6 @@ from github import Github
 from DataModule import *
 from SmartThreshold import *
 
-# reload(sys)
-# sys.setdefaultencoding('utf8mb4')
-
-# db=MySQLDatabase()
-
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)  # Log等级总开关
 rq = time.strftime('%Y%m%d%H%M', time.localtime(time.time()))
@@ -33,6 +28,13 @@ logger.addHandler(ch)
 logger.addHandler(fh)
 # 日志
 logger.debug('this is a logger debug message')
+
+# 思路如下：
+# 1.根据stars和folk的数量进行筛选
+# 2.
+# 需要每次从文本中读出来
+auth = file('oauth.key').readline().strip()
+
 RepositoriesModel.create_table()
 OwnerModel.create_table()
 ContributorModel.create_table()
@@ -42,11 +44,9 @@ Repo_Org_Rel.create_table()
 Repo_Contributor_Rel.create_table()
 Owner_Org_Rel.create_table()
 Contributor_Org_Rel.create_table()
-# 思路如下：
-# 1.根据stars和folk的数量进行筛选
-# 2.
-# 需要每次从文本中读出来
-auth = file('oauth.key').readline().strip()
+LastQueryConfig.create_table()
+
+lastQueryConfig = None
 
 
 def printRepository(repository):
@@ -161,19 +161,28 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
             logger.info("{}_count is {}".format(condition, repo.stargazers_count))
     for i in reversed(range(min, max + 1)):
         filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps + 1, i * steps, language)
-        time.sleep(2)
+        sidx = (i - 1)
+        LastQueryConfig().add_config(LastQueryConfig(startIdx=sidx, endIdx=max, steps=steps))
         repositories = g.search_repositories(filterStr, condition, "desc")
         for r in repositories:
             processRepo(r)
         logger.info("{},{},{}".format((i - 1) * steps + 1, i * steps, repositories.totalCount))
-    time.sleep(2)
     # lessrepo = g.search_repositories("{}:1..{} language:{}".format(condition, steps, language), condition, "desc")
     # logger.info("{},{},{}".format(1, steps, lessrepo.totalCount))
 
 
 # 根据fork获取项目分布
 def getRepoForkRangeFreq(language):
-    getRepoRangeFreq(language, "stars", 10, 10, 20, False)
+    steps = 10
+    min = 10
+    max = 6000
+    cfg = LastQueryConfig().get_last_config()
+    if cfg is not None:
+        min = cfg.startIdx
+        max = cfg.endIdx
+        steps = cfg.steps
+
+    getRepoRangeFreq(language, "stars", steps, min, max, False)
 
 
 # 获取1000以内的赞的分布
@@ -193,5 +202,5 @@ def getRepoStartLess1000RangeFreq(language):
 
 
 # getRepoStartLess1000RangeFreq("JavaScript")
-
-getRepoForkRangeFreq("Java")
+if __name__ == '__main__':
+    getRepoForkRangeFreq("Java")
