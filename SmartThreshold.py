@@ -82,8 +82,10 @@ class SmartThreshold:
         sleeptime = round(freq / RATE_LIMIT)
         if github is not None:
             limit = github.get_rate_limit()
-            format = '%Y-%m-%d %H:%M:%S'
-
+            logger.info("limit.core:limit:{},remaining:{},reset:{}".format(limit.core.limit, limit.core.remaining,
+                                                                           limit.core.reset))
+            logger.info("limit.search:imit:{},remaining:{},reset:{}".format(limit.search.limit, limit.search.remaining,
+                                                                            limit.search.reset))
             if limit.core.remaining < 10:
                 nowtime = datetime.datetime.utcnow()
                 toTime = limit.core.reset
