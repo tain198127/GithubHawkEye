@@ -8,6 +8,7 @@ import time
 from queue import LifoQueue
 
 from apscheduler.schedulers.background import BackgroundScheduler
+from github import GithubException
 
 logger = logging.getLogger(__name__)
 formatter = logging.Formatter('%(asctime)s %(levelname)-8s: %(message)s')
@@ -50,8 +51,11 @@ class SmartThreshold:
             EndCallTime = datetime.datetime.now()
             InvokeTimes = InvokeTimes + 1
             AllInvokeCount = AllInvokeCount + 1
-
-            fn(*args, **kwargs)
+            try:
+                fn(*args, **kwargs)
+            except GithubException.RateLimitExceededException as e:
+                time.sleep(60)
+                logger.error(e)
             # return result
 
         return run

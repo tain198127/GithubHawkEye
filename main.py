@@ -112,34 +112,38 @@ def processRepo(repo):
         Repo_Owner_Rel().add_repoownerrel(Repo_Owner_Rel(RepoID=repo.id, OwnerID=repo.owner.id))
 
         ownerorgs = processOwnerOrgs(repo.owner)
-        for oo in ownerorgs:
-            try:
-                o = OrgModel().add_org(oo)
-                Owner_Org_Rel().add_owner_org_rel(Owner_Org_Rel(OrgID=oo.id, OwnerID=repo.owner.id))
-            except Exception as e:
-                logger.error(e)
+        if ownerorgs is not None:
+            for oo in ownerorgs:
+                try:
+                    o = OrgModel().add_org(oo)
+                    Owner_Org_Rel().add_owner_org_rel(Owner_Org_Rel(OrgID=oo.id, OwnerID=repo.owner.id))
+                except Exception as e:
+                    logger.error(e)
 
         contributors = processContributors(repo)[:10]
-        for c in contributors:
-            try:
-                # 增加贡献者
-                contributor = ContributorModel().add_contributor(c)
-                # 插入贡献者和repo之间的关系
-                Repo_Contributor_Rel().add_repo_contributor_rel(
-                    Repo_Contributor_Rel(RepoID=repo.id, ContributorID=c.id))
-                for org in processContributorOrgs(c):
-                    try:
-                        o = OrgModel().add_org(org)
-                        # 增加贡献者和org之间的关系
-                        # 增加项目和org之间的关系
-                        Contributor_Org_Rel().add_contributor_org_rel(
-                            Contributor_Org_Rel(OrgID=o.id, ContributorID=c.id))
+        if contributors is not None:
+            for c in contributors:
+                try:
+                    # 增加贡献者
+                    contributor = ContributorModel().add_contributor(c)
+                    # 插入贡献者和repo之间的关系
+                    Repo_Contributor_Rel().add_repo_contributor_rel(
+                        Repo_Contributor_Rel(RepoID=repo.id, ContributorID=c.id))
+                    con_orgs = processContributorOrgs(c)
+                    if con_orgs is not None:
+                        for org in con_orgs:
+                            try:
+                                o = OrgModel().add_org(org)
+                                # 增加贡献者和org之间的关系
+                                # 增加项目和org之间的关系
+                                Contributor_Org_Rel().add_contributor_org_rel(
+                                    Contributor_Org_Rel(OrgID=o.id, ContributorID=c.id))
 
-                        Repo_Org_Rel().add_repo_org_rel(Repo_Org_Rel(RepoID=repo.id, OrgID=o.id))
-                    except Exception as oe:
-                        logger.error("error:{}".format(oe))
-            except Exception as ce:
-                logger.error("error:{}".format(ce))
+                                Repo_Org_Rel().add_repo_org_rel(Repo_Org_Rel(RepoID=repo.id, OrgID=o.id))
+                            except Exception as oe:
+                                logger.error("error:{}".format(oe))
+                except Exception as ce:
+                    logger.error("error:{}".format(ce))
     except Exception as re:
         logger.error("error :{}".format(re))
     finally:
