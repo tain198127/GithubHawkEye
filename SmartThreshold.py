@@ -86,7 +86,7 @@ class SmartThreshold:
                                                                            limit.core.reset))
             logger.info("limit.search:imit:{},remaining:{},reset:{}".format(limit.search.limit, limit.search.remaining,
                                                                             limit.search.reset))
-            if limit.core.remaining < 10:
+            if limit.core.remaining < 1000:
                 nowtime = datetime.datetime.utcnow()
                 toTime = limit.core.reset
                 sleeptime = (toTime - nowtime).seconds
