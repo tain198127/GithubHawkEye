@@ -23,8 +23,13 @@ BeginCallTime = datetime.datetime.now()
 # 最后一次时间
 EndCallTime = None
 InvokeTimes = 0
-Threshold = [(1000, 0.1), (2000, 0.2), (3000, 0.4), (4000, 0.8), (5000, 1.8)]
+Threshold = [(0, 0), (1.2, 1), (2, 2), (3, 4), (4, 8), (5, 18)]
 AllInvokeCount = 0
+sleeptime = 0
+RATE_LIMIT = 1.4  # 按照1小时5000次计算，每秒钟1.4次计算。
+
+StatisticBeginTime = datetime.datetime.now()
+StatisticEndTime = datetime.datetime.now()
 
 q = LifoQueue(maxsize=100)
 
@@ -36,45 +41,46 @@ class SmartThreshold:
     @staticmethod
     def count_keep_rate(fn):
         def run(*args, **kwargs):
-            global Threshold, InvokeTimes, EndCallTime, AllInvokeCount, BeginCallTime
-            sleeptime = 0
-            start_ts = datetime.datetime.now()
-            for t in Threshold:
-                if InvokeTimes >= t[0]:
-                    sleeptime = t[1]
-                else:
-                    break
-            logger.info("调用次数{}- 休眠时间{}".format(InvokeTimes, sleeptime))
+            global Threshold, InvokeTimes, EndCallTime, AllInvokeCount, BeginCallTime, sleeptime
+
             if sleeptime > 0:
+                logger.info("休眠:{}".format(sleeptime))
                 time.sleep(sleeptime)
 
-            end_ts = datetime.datetime.now()
             EndCallTime = datetime.datetime.now()
             InvokeTimes = InvokeTimes + 1
             AllInvokeCount = AllInvokeCount + 1
 
-            span = (EndCallTime - BeginCallTime).seconds
-            # 每60秒插入一次
-            if span > 60:
-                if q.full():
-                    q.queue.pop()
-                q.put((BeginCallTime, EndCallTime, AllInvokeCount))
-                AllInvokeCount = 0
-                BeginCallTime = datetime.datetime.now()
             result = fn(*args, **kwargs)
             return result
 
         return run
 
+    # 统计访问速率，如果速率查过一定值，将自动调整等待时间,每10秒统计一次
     @staticmethod
     def dcreaseThreshold():
-        global InvokeTimes
-        if InvokeTimes > 0:
-            InvokeTimes -= InvokeTimes
-        logger.info("调用次数{}".format(InvokeTimes))
+        global InvokeTimes, sleeptime, BeginCallTime, EndCallTime
+        # 计算出频率
+        freq = float(InvokeTimes / (EndCallTime - BeginCallTime).seconds)
+        # 计算出休眠时间
+        sleeptime = round(freq / RATE_LIMIT)
 
+        # 重置调用次数和时间
+        InvokeTimes = 0
+        BeginCallTime = datetime.datetime.now()
+        print("当前调用速率:{}, 将每次休眠时间调整为:{} 秒".format(freq, sleeptime))
+
+    # 打印统计信息
     @staticmethod
     def show_freq():
+        global StatisticBeginTime, StatisticEndTime, AllInvokeCount
+
+        StatisticEndTime = datetime.datetime.now()
+        if q.full():
+            q.queue.pop()
+        q.put((StatisticBeginTime, StatisticEndTime, AllInvokeCount))
+        AllInvokeCount = 0
+        StatisticBeginTime = datetime.datetime.now()
         if not q.empty():
             for f in q.queue[:10]:
                 print("开始时间:{},结束时间:{},间隔时间:{}秒,调用次数:{}".format(f[0], f[1], (f[1] - f[0]).seconds, f[2]))
@@ -92,36 +98,6 @@ class SmartThreshold:
         sys.exit(0)
 
 
-# @scheduler.scheduled_job('interval', seconds=1)
-# def dcrease():
-#     SmartThreshold.dcreaseThreshold()
-#
-#
-# @scheduler.scheduled_job('interval', seconds=60)
-# def showFreq():
-#     SmartThreshold.show_freq()
-
-
-# schedule.every(1).seconds.do(SmartThreshold.threadInovker, SmartThreshold.dcreaseThreshold)
-# 每60秒打印一次
-# schedule.every(60).seconds.do(SmartThreshold.threadInovker, SmartThreshold.show_freq)
-
-# 守护进程
-# def deamonInvoker():
-#     signal.signal(signal.SIGTERM, SmartThreshold.finalize)
-#     signal.signal(signal.SIGINT, SmartThreshold.finalize)
-#     scheduler.add_job(SmartThreshold.show_freq,'interval',seconds=60)
-#     scheduler.add_job(SmartThreshold.dcreaseThreshold,'interval',seconds=1)
-#     scheduler.start()
-#     # while True:
-#     # schedule.run_pending()
-#     # time.sleep(1)
-#
-# deamonThread = threading.Thread(target=deamonInvoker)
-# deamonThread.setDaemon(True)
-# deamonThread.start()
-
-
-scheduler.add_job(SmartThreshold.show_freq, 'interval', seconds=60)
+scheduler.add_job(SmartThreshold.show_freq, 'interval', seconds=10)
 scheduler.add_job(SmartThreshold.dcreaseThreshold, 'interval', seconds=1)
 scheduler.start()
