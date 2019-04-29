@@ -91,6 +91,12 @@ def processContributorOrgs(contributor):
 
 
 @SmartThreshold.count_keep_rate(github)
+def processQuery(filterStr, condition, sort):
+    repositories = github.search_repositories(filterStr, condition, "desc")
+    for r in repositories:
+        processRepo(r)
+
+@SmartThreshold.count_keep_rate(github)
 def processRepo(repo):
     global github
     printRepository(repo)
@@ -156,19 +162,13 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
     global github
 
     if (displayAbove):
-        repositories = github.search_repositories("{}:>={} language:{}".format(condition, (max + 1) * steps, language),
-                                                  condition, "desc")
-        for repo in repositories:
-            logger.info("{}_count is {}".format(condition, repo.stargazers_count))
+        filterStr = "{}:>={} language:{}".format(condition, (max + 1) * steps, language)
     for i in range(min, max + 1):
         filterStr = "{}:{}..{} language:{}".format(condition, (i - 1) * steps - 1, i * steps, language)
-        sidx = i
         logger.info(filterStr)
-        LastQueryConfig().add_config(LastQueryConfig(startIdx=sidx, endIdx=max, steps=steps))
+        LastQueryConfig().add_config(LastQueryConfig(startIdx=i, endIdx=max, steps=steps))
         try:
-            repositories = github.search_repositories(filterStr, condition, "desc")
-            for r in repositories:
-                processRepo(r)
+            processQuery(filterStr, condition, "desc")
         except RateLimitExceededException as e:
             time.sleep(60)
             logger.error(e)
