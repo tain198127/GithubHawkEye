@@ -102,5 +102,5 @@ class SmartThreshold:
 
 
 scheduler.add_job(SmartThreshold.show_freq, 'interval', seconds=10)
-scheduler.add_job(SmartThreshold.dcreaseThreshold, 'interval', seconds=1)
+scheduler.add_job(SmartThreshold.dcreaseThreshold, 'interval', seconds=5)
 scheduler.start()
