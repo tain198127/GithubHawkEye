@@ -93,7 +93,7 @@ class SmartThreshold:
                 logger.warning(
                     "limit.core.remaining less than:{} ; will sleep :{} seconds".format(limit.core.remaining,
                                                                                         sleeptime))
-            if limit.search.remaining < 3:
+            if limit.search.remaining < 15:
                 nowtime = datetime.datetime.utcnow()
                 toTime = limit.search.reset
                 sleeptime = (toTime - nowtime).seconds
