@@ -51,8 +51,8 @@ class SmartThreshold:
             InvokeTimes = InvokeTimes + 1
             AllInvokeCount = AllInvokeCount + 1
 
-            result = fn(*args, **kwargs)
-            return result
+            fn(*args, **kwargs)
+            # return result
 
         return run
 
@@ -61,7 +61,10 @@ class SmartThreshold:
     def dcreaseThreshold():
         global InvokeTimes, sleeptime, BeginCallTime, EndCallTime
         # 计算出频率
-        freq = float(InvokeTimes / (EndCallTime - BeginCallTime).seconds)
+        if (EndCallTime - BeginCallTime).seconds > 0:
+            freq = float(InvokeTimes / (EndCallTime - BeginCallTime).seconds)
+        else:
+            freq = 0
         # 计算出休眠时间
         sleeptime = round(freq / RATE_LIMIT)
 
