@@ -1,0 +1,1 @@
+nohub python3 -u main.py > flush.log 2>&1 &
