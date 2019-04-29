@@ -41,6 +41,8 @@ cf.read("./conf/application.conf")
 
 auth = cf.get('github', 'github_token')
 
+github = Github(auth)
+
 RepositoriesModel.create_table()
 OwnerModel.create_table()
 ContributorModel.create_table()
@@ -56,7 +58,6 @@ lastQueryConfig = None
 print(auth)
 
 
-# github = Github(auth)
 
 
 def printRepository(repository):
@@ -75,31 +76,27 @@ def printRepository(repository):
     print("=========================================================")
 
 
-@SmartThreshold.count_keep_rate
+@SmartThreshold.count_keep_rate(github)
 def processOwnerOrgs(owner):
     return owner.get_orgs()
 
 
-@SmartThreshold.count_keep_rate
+@SmartThreshold.count_keep_rate(github)
 def processContributors(repo):
     return repo.get_contributors()
 
 
-@SmartThreshold.count_keep_rate
+@SmartThreshold.count_keep_rate(github)
 def processContributorOrgs(contributor):
     return contributor.get_orgs()
 
 
-@SmartThreshold.count_keep_rate
+@SmartThreshold.count_keep_rate(github)
 def processRepo(repo):
-    github = Github(auth)
+    global github
 
     rl = github.get_rate_limit()
-    print(rl.rate)
-    print("rate_limiting:")
-    print(github.rate_limiting)
-    print("rate_limiting_resettime:")
-    print(github.rate_limiting_resettime)
+    print(rl)
     mysql_db.connection()
     # with mysql_db.atomic():
     # 插入repo
@@ -159,7 +156,7 @@ def processRepo(repo):
 # max: step*max = max range,must > 1
 # displayAbove:is display the info more than max
 def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
-    github = Github(auth)
+    global github
 
     if (displayAbove):
         repositories = github.search_repositories("{}:>={} language:{}".format(condition, (max + 1) * steps, language),
@@ -171,9 +168,13 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
         sidx = i
         logger.info(filterStr)
         LastQueryConfig().add_config(LastQueryConfig(startIdx=sidx, endIdx=max, steps=steps))
-        repositories = github.search_repositories(filterStr, condition, "desc")
-        for r in repositories:
-            processRepo(r)
+        try:
+            repositories = github.search_repositories(filterStr, condition, "desc")
+            for r in repositories:
+                processRepo(r)
+        except GithubException.RateLimitExceededException as e:
+            time.sleep(60)
+            logger.error(e)
 
 
 # 根据fork获取项目分布

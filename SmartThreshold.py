@@ -28,6 +28,7 @@ Threshold = [(0, 0), (1.2, 1), (2, 2), (3, 4), (4, 8), (5, 18)]
 AllInvokeCount = 0
 sleeptime = 0
 RATE_LIMIT = 1.4  # 按照1小时5000次计算，每秒钟1.4次计算。
+github = None
 
 StatisticBeginTime = datetime.datetime.now()
 StatisticEndTime = datetime.datetime.now()
@@ -40,30 +41,33 @@ scheduler = BackgroundScheduler()
 class SmartThreshold:
     # 计时器,同时阻塞调用，保证在1小时以内调用次数低于5000次
     @staticmethod
-    def count_keep_rate(fn):
-        def run(*args, **kwargs):
-            global Threshold, InvokeTimes, EndCallTime, AllInvokeCount, BeginCallTime, sleeptime
+    def count_keep_rate(*args, **kwargs):
+        def inner_proxy(fn):
+            def run(*args, **kwargs):
+                global Threshold, InvokeTimes, EndCallTime, AllInvokeCount, BeginCallTime, sleeptime, github
 
-            if sleeptime > 0:
-                logger.info("休眠:{}".format(sleeptime))
-                time.sleep(sleeptime)
+                if sleeptime > 0:
+                    logger.info("休眠:{}".format(sleeptime))
+                    time.sleep(sleeptime)
 
-            EndCallTime = datetime.datetime.now()
-            InvokeTimes = InvokeTimes + 1
-            AllInvokeCount = AllInvokeCount + 1
-            try:
-                fn(*args, **kwargs)
-            except GithubException.RateLimitExceededException as e:
-                time.sleep(60)
-                logger.error(e)
-            # return result
+                EndCallTime = datetime.datetime.now()
+                InvokeTimes = InvokeTimes + 1
+                AllInvokeCount = AllInvokeCount + 1
+                try:
+                    fn(*args, **kwargs)
+                except GithubException.RateLimitExceededException as e:
+                    time.sleep(60)
+                    logger.error(e)
+                # return result
 
-        return run
+            return run
+
+        return inner_proxy
 
     # 统计访问速率，如果速率查过一定值，将自动调整等待时间,每10秒统计一次
     @staticmethod
     def dcreaseThreshold():
-        global InvokeTimes, sleeptime, BeginCallTime, EndCallTime
+        global InvokeTimes, sleeptime, BeginCallTime, EndCallTime, github
         # 计算出频率
         if (EndCallTime - BeginCallTime).seconds > 0:
             freq = float(InvokeTimes / (EndCallTime - BeginCallTime).seconds)
@@ -71,6 +75,22 @@ class SmartThreshold:
             freq = 0
         # 计算出休眠时间
         sleeptime = round(freq / RATE_LIMIT)
+
+        limit = github.get_rate_limit()
+        format = '%Y-%m-%d %H:%M:%S'
+        if limit.core.remaining < 10:
+            nowtime = datetime.datetime.now()
+            toTime = time.strftime(format, time.localtime(limit.core.reset))
+            sleeptime = (toTime - nowtime).seconds
+            logger.warning(
+                "limit.core.remaining less than:{} ; will sleep :{} seconds".format(limit.core.remaining, sleeptime))
+        if limit.search.remaining < 3:
+            nowtime = datetime.datetime.now()
+            toTime = time.strftime(format, time.localtime(limit.search.reset))
+            sleeptime = (toTime - nowtime).seconds
+            logger.warning(
+                "limit.search.remaining less than:{} ; will sleep :{} seconds".format(limit.search.remaining,
+                                                                                      sleeptime))
 
         # 重置调用次数和时间
         InvokeTimes = 0
@@ -105,6 +125,6 @@ class SmartThreshold:
         sys.exit(0)
 
 
-scheduler.add_job(SmartThreshold.show_freq, 'interval', seconds=10)
-scheduler.add_job(SmartThreshold.dcreaseThreshold, 'interval', seconds=5)
+scheduler.add_job(SmartThreshold.show_freq, 'interval', seconds=60)
+scheduler.add_job(SmartThreshold.dcreaseThreshold, 'interval', seconds=10)
 scheduler.start()
