@@ -22,7 +22,7 @@ logging.getLogger('apscheduler.scheduler').setLevel(logging.WARNING)
 # 最开始的时间
 BeginCallTime = datetime.datetime.now()
 # 最后一次时间
-EndCallTime = None
+EndCallTime = datetime.datetime.now()
 InvokeTimes = 0
 Threshold = [(0, 0), (1.2, 1), (2, 2), (3, 4), (4, 8), (5, 18)]
 AllInvokeCount = 0
@@ -41,7 +41,11 @@ scheduler = BackgroundScheduler()
 class SmartThreshold:
     # 计时器,同时阻塞调用，保证在1小时以内调用次数低于5000次
     @staticmethod
-    def count_keep_rate(*args, **kwargs):
+    def count_keep_rate(*out_args, **out_kwargs):
+        global github
+        if github is None:
+            github = out_args[0]
+
         def inner_proxy(fn):
             def run(*args, **kwargs):
                 global Threshold, InvokeTimes, EndCallTime, AllInvokeCount, BeginCallTime, sleeptime, github
@@ -54,7 +58,8 @@ class SmartThreshold:
                 InvokeTimes = InvokeTimes + 1
                 AllInvokeCount = AllInvokeCount + 1
                 try:
-                    fn(*args, **kwargs)
+                    result = fn(*args, **kwargs)
+                    return result
                 except GithubException.RateLimitExceededException as e:
                     time.sleep(60)
                     logger.error(e)
@@ -75,22 +80,24 @@ class SmartThreshold:
             freq = 0
         # 计算出休眠时间
         sleeptime = round(freq / RATE_LIMIT)
+        if github is not None:
+            limit = github.get_rate_limit()
+            format = '%Y-%m-%d %H:%M:%S'
 
-        limit = github.get_rate_limit()
-        format = '%Y-%m-%d %H:%M:%S'
-        if limit.core.remaining < 10:
-            nowtime = datetime.datetime.now()
-            toTime = time.strftime(format, time.localtime(limit.core.reset))
-            sleeptime = (toTime - nowtime).seconds
-            logger.warning(
-                "limit.core.remaining less than:{} ; will sleep :{} seconds".format(limit.core.remaining, sleeptime))
-        if limit.search.remaining < 3:
-            nowtime = datetime.datetime.now()
-            toTime = time.strftime(format, time.localtime(limit.search.reset))
-            sleeptime = (toTime - nowtime).seconds
-            logger.warning(
-                "limit.search.remaining less than:{} ; will sleep :{} seconds".format(limit.search.remaining,
-                                                                                      sleeptime))
+            if limit.core.remaining < 10:
+                nowtime = datetime.datetime.utcnow()
+                toTime = limit.core.reset
+                sleeptime = (toTime - nowtime).seconds
+                logger.warning(
+                    "limit.core.remaining less than:{} ; will sleep :{} seconds".format(limit.core.remaining,
+                                                                                        sleeptime))
+            if limit.search.remaining < 3:
+                nowtime = datetime.datetime.utcnow()
+                toTime = limit.search.reset
+                sleeptime = (toTime - nowtime).seconds
+                logger.warning(
+                    "limit.search.remaining less than:{} ; will sleep :{} seconds".format(limit.search.remaining,
+                                                                                          sleeptime))
 
         # 重置调用次数和时间
         InvokeTimes = 0

@@ -2,6 +2,7 @@
 import os.path
 
 from github import Github
+from github import RateLimitExceededException
 
 from DataModule import *
 from SmartThreshold import *
@@ -61,8 +62,6 @@ print(auth)
 
 
 def printRepository(repository):
-    print("project owner:", repository.owner)
-    print("organization:", repository.organization)
     print("name:", repository.name)
     print("start count:", repository.stargazers_count)
     print("subscribers count:", repository.subscribers_count)
@@ -94,9 +93,7 @@ def processContributorOrgs(contributor):
 @SmartThreshold.count_keep_rate(github)
 def processRepo(repo):
     global github
-
-    rl = github.get_rate_limit()
-    print(rl)
+    printRepository(repo)
     mysql_db.connection()
     # with mysql_db.atomic():
     # 插入repo
@@ -117,9 +114,9 @@ def processRepo(repo):
                 except Exception as e:
                     logger.error(e)
 
-        contributors = processContributors(repo)[:10]
+        contributors = processContributors(repo)
         if contributors is not None:
-            for c in contributors:
+            for c in contributors[:10]:
                 try:
                     # 增加贡献者
                     contributor = ContributorModel().add_contributor(c)
@@ -172,7 +169,7 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
             repositories = github.search_repositories(filterStr, condition, "desc")
             for r in repositories:
                 processRepo(r)
-        except GithubException.RateLimitExceededException as e:
+        except RateLimitExceededException as e:
             time.sleep(60)
             logger.error(e)
 
