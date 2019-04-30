@@ -2,7 +2,6 @@
 import os.path
 
 from github import Github
-from github import RateLimitExceededException
 
 from DataModule import *
 from SmartThreshold import *
@@ -169,7 +168,7 @@ def getRepoRangeFreq(language, condition, steps, min, max, displayAbove):
         LastQueryConfig().add_config(LastQueryConfig(startIdx=i, endIdx=max, steps=steps))
         try:
             processQuery(filterStr, condition, "desc")
-        except RateLimitExceededException as e:
+        except Exception as e:
             time.sleep(60)
             logger.error(e)
 
