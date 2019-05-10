@@ -2,6 +2,7 @@
 # 分析maven依赖网络关系的主程序
 import logging
 import os
+import random
 import re
 import time
 from html.parser import HTMLParser
@@ -57,7 +58,8 @@ htmlparser = HTMLParser()
 # 封装了http请求
 def req(requrl):
     global session
-    time.sleep(3)
+    time.sleep(random.randint(3, 5))
+
     doc = session.get(url=requrl)
     return doc
 
