@@ -119,7 +119,9 @@ if __name__ == '__main__':
     base_url = 'http://repository.jboss.org/nexus/content/groups/public'
     try:
         scan_repo(base_url)
+        logger.info('finish')
     except Exception as e:
         logger.error(e)
+        logger.error('error finish')
     finally:
         session.close()
