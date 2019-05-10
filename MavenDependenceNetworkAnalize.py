@@ -57,6 +57,7 @@ htmlparser = HTMLParser()
 # 封装了http请求
 def req(requrl):
     global session
+    time.sleep(3)
     doc = session.get(url=requrl)
     return doc
 
@@ -87,11 +88,17 @@ def scan_repo(url):
         return
     for link in linkes:
         href = link['href']
-        currrent_url = '{}{}'.format(url, href)
+        currrent_url = None
+        if 'http://' in href or 'https://' in href:
+            currrent_url = href
+        else:
+            currrent_url = '{}{}'.format(url, href)
+        if currrent_url == None:
+            continue
         if href.endswith('.pom'):
             # 记录，并且return
             writetoFile(currrent_url, req(currrent_url).content)
-            print(req(currrent_url).content)
+            # print(req(currrent_url).content)
             return
         elif href.endswith('../'):
             continue
@@ -107,7 +114,7 @@ def scan_repo(url):
 
 if __name__ == '__main__':
     initlog()
-    base_url = 'http://central.maven.org/maven2/'
+    base_url = 'http://repository.jboss.org/nexus/content/groups/public'
     try:
         scan_repo(base_url)
     except Exception as e:
