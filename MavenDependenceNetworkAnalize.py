@@ -1,19 +1,20 @@
 # coding: utf-8
 # 分析maven依赖网络关系的主程序
+import configparser
 import logging
 import os
-import random
 import re
 import time
 from html.parser import HTMLParser
 
+import fire
 import requests
 from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 
-requests.adapters.DEFAULT_RETRIES = 5
+from MavenAnalizeEngine import *
 
-base_url = ''
+requests.adapters.DEFAULT_RETRIES = 5
 
 p = re.compile('<[^>]+>')
 
@@ -26,6 +27,12 @@ session.mount('https://', b)
 
 logging.basicConfig()
 logger = logging.getLogger('MavenDependenceNetworkAnalize')
+
+cf = configparser.ConfigParser()
+cf.read("./conf/application.conf")
+base_url = cf.get('maven', 'repourl')
+base_path = cf.get('maven', 'logpath')
+pajek_path = cf.get('maven', 'pajekpath')
 
 
 # 初始化日志
@@ -58,7 +65,7 @@ htmlparser = HTMLParser()
 # 封装了http请求
 def req(requrl):
     global session
-    time.sleep(random.randint(3, 5))
+    # time.sleep(random.randint(3, 5))
 
     doc = session.get(url=requrl)
     return doc
@@ -114,9 +121,13 @@ def scan_repo(url):
                 raise e
 
 
-if __name__ == '__main__':
-    initlog()
-    base_url = 'http://repository.jboss.org/nexus/content/groups/public'
+# 下载所有pom
+def downpom(url):
+    global base_url
+    if url is not None:
+        base_url = url
+    else:
+        base_url = 'http://192.168.100.215:8081/nexus/content/repositories/central/'
     try:
         scan_repo(base_url)
         logger.info('finish')
@@ -125,3 +136,26 @@ if __name__ == '__main__':
         logger.error('error finish')
     finally:
         session.close()
+
+
+# 开始分析 path指的是pom文件的目录地址
+def analize(path):
+    global base_path
+    engine = MavenAnalizeEngine()
+    real_path = path
+    if real_path is None:
+        real_path = base_path
+    for root, dirs, files in os.walk(real_path):
+        for file in files:
+            if file.endswith('pom'):
+                try:
+                    engine.transform(file, pajek_path)
+                except Exception as ex:
+                    logger.error(ex)
+
+
+if __name__ == '__main__':
+    initlog()
+    # downpom(None)
+    fire.Fire(downpom)
+    fire.Fire(analize)
