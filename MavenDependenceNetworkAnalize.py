@@ -1,7 +1,6 @@
 # coding: utf-8
 # 分析maven依赖网络关系的主程序
 import configparser
-import logging
 import os
 import re
 import time
@@ -143,13 +142,13 @@ def analize(path):
     global base_path
     engine = MavenAnalizeEngine()
     real_path = path
-    if real_path is None:
+    if real_path is None or real_path == '':
         real_path = base_path
     for root, dirs, files in os.walk(real_path):
         for file in files:
             if file.endswith('pom'):
                 try:
-                    engine.transform(file, pajek_path)
+                    engine.transform(root + file, pajek_path)
                 except Exception as ex:
                     logger.error(ex)
 
@@ -157,5 +156,7 @@ def analize(path):
 if __name__ == '__main__':
     initlog()
     # downpom(None)
-    fire.Fire(downpom)
-    fire.Fire(analize)
+    fire.Fire({
+        'downpom': downpom,
+        'analize': analize
+    })
