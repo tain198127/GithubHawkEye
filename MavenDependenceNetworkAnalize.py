@@ -39,7 +39,7 @@ def initlog():
     global logger
     logger.setLevel(logging.INFO)  # Log等级总开关
     rq = time.strftime('%Y%m%d', time.localtime(time.time()))
-    log_path = os.path.dirname(os.path.realpath(__file__)) + '/mdnalog/'
+    log_path = os.path.dirname(os.path.realpath(__file__)) + '/mdnalog_bak/'
     log_name = log_path + __name__ + rq + '.log'
     logfile = log_name
     fh = logging.FileHandler(logfile, mode='w')
@@ -77,7 +77,7 @@ def writetoFile(url, content):
     readable_file_path = re.sub(r"[^0-9a-zA-Z]", r"_", filepath)
     try:
         readable_content = '' + content.decode('utf-8')
-        with open('./mdnalog/' + readable_file_path, 'w+') as f:
+        with open('./mdnalog_bak/' + readable_file_path, 'w+') as f:
             f.write(readable_content)
     except Exception as error:
         logger.error(error)
