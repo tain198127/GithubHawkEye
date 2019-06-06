@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.plexus</groupId>
+    <artifactId>plexus-components</artifactId>
+    <version>4.0</version>
+  </parent>
+
+  <artifactId>plexus-resources</artifactId>
+  <version>1.1.0</version>
+
+  <name>Plexus Resource Component</name>
+  <description>A component to transparently retrieve resources from the filesystem, classpath or internet.</description>
+
+  <scm>
+    <connection>scm:git:git@github.com:codehaus-plexus/plexus-resources.git</connection>
+    <developerConnection>scm:git:git@github.com:codehaus-plexus/plexus-resources.git</developerConnection>
+    <url>http://github.com/codehaus-plexus/plexus-resources</url>
+    <tag>plexus-resources-1.1.0</tag>
+  </scm>
+  <issueManagement>
+    <system>jira</system>
+    <url>https://github.com/codehaus-plexus/plexus-resources/issues</url>
+  </issueManagement>
+  <distributionManagement>
+    <site>
+      <id>github:gh-pages</id>
+      <url>${project.scm.developerConnection}</url>
+    </site>
+  </distributionManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-component-annotations</artifactId>
+      <optional>true</optional>
+    </dependency>
+    
+    <!-- TEST -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>1.9.5</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.4</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <configuration>
+          <content>${project.reporting.outputDirectory}</content><!-- mono-module doesn't require site:stage -->
+        </configuration>
+        <executions>
+          <execution>
+            <id>scm-publish</id>
+            <phase>site-deploy</phase><!-- deploy site with maven-scm-publish-plugin -->
+            <goals>
+              <goal>publish-scm</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>3.0.4</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  
+</project>

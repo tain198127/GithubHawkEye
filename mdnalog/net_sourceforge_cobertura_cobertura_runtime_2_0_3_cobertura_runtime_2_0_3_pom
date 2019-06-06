@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.sourceforge.cobertura</groupId>
+  <artifactId>cobertura-runtime</artifactId>
+  <name>Cobertura :: Limited Runtime</name>
+  <version>2.0.3</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
+  <description>
+    Cobertura Runtime artifact to prevent unneeded dependencies at runtime.
+  </description>
+  
+  <url>http://cobertura.sourceforge.net</url>
+  
+ <modules>
+    <module>cobertura</module>
+  </modules>
+  
+  <licenses>
+    <license>
+      <name>The GNU General Public License, Version 2</name>
+      <url>http://www.gnu.org/licenses/gpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>net.sourceforge.cobertura</groupId>
+      <artifactId>cobertura</artifactId>
+      <version>2.0.3</version>
+      <exclusions>
+        <exclusion>
+          <groupId>oro</groupId>
+          <artifactId>oro</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>asm</groupId>
+          <artifactId>asm</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>asm</groupId>
+          <artifactId>asm-tree</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>asm</groupId>
+          <artifactId>asm-commons</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+          <localCheckout>true</localCheckout>
+          <pushChanges>false</pushChanges>
+       </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <scm>
+    <connection>scm:git:git://github.com/cobertura/cobertura</connection>
+    <developerConnection>scm:git:git@github.com:cobertura/cobertura.git</developerConnection>
+    <url>http://github.com/cobertura/cobertura</url>
+    <tag>cobertura-runtime-2.0.3</tag>
+  </scm>
+  
+  <developers>
+    <developer>
+      <id>schristou88</id>
+      <name>Steven Christou</name>
+      <email>schristou88@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+6</timezone>
+    </developer>
+  </developers>
+  
+  <distributionManagement>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <name>Nexus Release Repository</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+</project>

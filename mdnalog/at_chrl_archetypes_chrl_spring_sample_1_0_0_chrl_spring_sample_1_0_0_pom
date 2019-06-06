@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<!--  -->
+	<parent>
+		<groupId>at.chrl</groupId>
+		<artifactId>chrl-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<!--  -->
+
+	<!-- -->
+	<groupId>at.chrl.archetypes</groupId>
+	<artifactId>chrl-spring-sample</artifactId>
+	<packaging>maven-archetype</packaging>
+	<!--  -->
+	
+	<!--  -->
+	<name>ChRL Archetype - Spring/Vaadin Archtype</name>
+	<description>Archetype for Spring Vaadin Webapps</description>
+	<!-- -->
+
+	<!-- -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<!-- -->
+
+	<!--  -->
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+			</extension>
+		</extensions>
+	</build>
+	<!--  -->
+	
+</project>

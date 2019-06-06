@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.javasimon</groupId>
+	<artifactId>javasimon-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>Java Simon</name>
+	<description>Java Simon - simple monitoring library</description>
+	<url>https://github.com/virgo47/javasimon</url>
+	<version>3.5.2</version>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
+	<modules>
+		<module>core</module>
+		<module>jdbc4</module>
+		<module>javaee</module>
+		<module>spring</module>
+		<module>console-embed</module>
+		<module>console-webapp</module>
+		<module>examples</module>
+		<module>demoapp</module>
+	</modules>
+
+	<properties>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+
+		<version.javaee-api>6.0</version.javaee-api>
+		<version.spring>3.2.0.RELEASE</version.spring>
+		<version.testng>6.5.2</version.testng>
+		<version.h2database>1.3.168</version.h2database>
+		<version.slf4j>1.7.2</version.slf4j>
+		<version.surefire-plugin>2.17</version.surefire-plugin>
+		<version.compiler-plugin>2.5.1</version.compiler-plugin>
+	</properties>
+
+	<scm>
+		<url>https://github.com/virgo47/javasimon</url>
+		<connection>scm:git:git://github.com/virgo47/javasimon.git</connection>
+		<developerConnection>scm:git:git@github.com:virgo47/javasimon.git</developerConnection>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>The BSD 3-Clause License</name>
+			<url>http://opensource.org/licenses/BSD-3-Clause</url>
+		</license>
+	</licenses>
+
+	<prerequisites>
+		<maven>3.0.0</maven>
+	</prerequisites>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-api</artifactId>
+				<version>${version.javaee-api}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${version.spring}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${version.spring}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${version.spring}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${version.spring}</version>
+				<!--<scope>provided</scope>-->
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${version.spring}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.testng</groupId>
+				<artifactId>testng</artifactId>
+				<version>${version.testng}</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>junit</groupId>
+						<artifactId>junit</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>1.9.0</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${version.h2database}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<excludePackageNames>
+						org.javasimon.examples:org.javasimon.examples.*:org.javasimon.demoapp:org.javasimon.demoapp.*
+					</excludePackageNames>
+					<!-- Begin:
+					These resources are usually in src/main/javadoc instead of docs/api -->
+					<javadocDirectory>docs/api</javadocDirectory>
+					<stylesheetfile>docs/api/stylesheet.css</stylesheetfile>
+					<overview>overview.html</overview>
+					<!-- End -->
+					<docfilessubdirs>true</docfilessubdirs>
+					<show>protected</show>
+					<linksource>true</linksource>
+					<doctitle>Java Simon API</doctitle>
+					<windowtitle>Java Simon API</windowtitle>
+					<header>&lt;table&gt;&lt;tr&gt;&lt;td style='valign: middle;'&gt;&lt;span style='font-weight: bold;
+						margin-right: 16px;'&gt;Java
+						Simon ${project.version}&lt;/span&gt;&lt;/td&gt;&lt;td&gt;&lt;div
+						class='logo'/&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</header>
+					<finalName>javasimon-all-${project.version}</finalName>
+					<attach>true</attach>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<developers>
+		<developer>
+			<id>virgo47</id>
+			<name>Richard Richter</name>
+			<email>virgo47@gmail.com</email>
+			<roles>
+				<role>project-leader</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+</project>

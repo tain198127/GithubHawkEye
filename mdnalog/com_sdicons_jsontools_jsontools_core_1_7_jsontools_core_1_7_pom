@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.sdicons.jsontools</groupId>
+    <artifactId>jsontools-core</artifactId>
+    <packaging>jar</packaging>
+    <version>1.7</version>
+    <name>Java JSON Tools - Core</name>
+    <url>http://jsontools.berlios.de</url>
+    <description>
+        Java JSON Tools core library. It is independent of third party libraries.
+        It is meant to minimize transitive dependencies.
+        Applications of the JSON tools which relate to other libraries will
+        be in separate optional pacakges.
+    </description>
+    <licenses>
+        <license>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE Version 2.1</name>
+            <url>http://www.gnu.org/licenses/lgpl.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <scm>
+        <url>http://svn.berlios.de/viewcvs/jsontools/</url>
+        <developerConnection>scm:svn:https://svn.berlios.de/svnroot/repos/jsontools/trunk/jsontools-core</developerConnection>
+        <connection>scm:svn:http://svn.berlios.de/jsontools/trunk/jsontools-core</connection>
+    </scm>
+    <developers>
+        <developer>
+            <name>Bruno Ranschaert</name>
+            <email>nospam@sdi-consulting.com</email>
+            <url>http://www.sdi-consulting.com</url>
+        </developer>
+	    <developer>
+            <name>Changdong Li</name>
+            <email>changdongli@bat.berlios.de</email>            
+        </developer>
+        <developer>
+            <name>Ian Taylor</name>
+            <email>itaylor@bat.berlios.de</email>            
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.7</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-antlr-plugin</artifactId>
+                <configuration>
+                    <grammars>
+                        json.g
+                    </grammars>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

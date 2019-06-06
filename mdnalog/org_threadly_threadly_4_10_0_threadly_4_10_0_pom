@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.threadly</groupId>
+  <artifactId>threadly</artifactId>
+  <version>4.10.0</version>
+  <name>Threadly</name>
+  <description>A library of tools to assist with safe concurrent java development.  Providing a unique priority based thread pool, and ways to distrbute threaded work.</description>
+  <url>http://threadly.org/</url>
+  <licenses>
+    <license>
+      <name>Mozilla Public License Version 2.0</name>
+      <url>https://www.mozilla.org/MPL/2.0/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>jent</id>
+      <name>Mike Jensen</name>
+      <email>jent@threadly.org</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git@github.com:threadly/threadly.git</connection>
+    <developerConnection>scm:git@github.com:threadly/threadly.git</developerConnection>
+    <url>scm:git@github.com:threadly/threadly.git</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

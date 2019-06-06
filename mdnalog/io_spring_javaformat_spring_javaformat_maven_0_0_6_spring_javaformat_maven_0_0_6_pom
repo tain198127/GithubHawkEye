@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.spring.javaformat</groupId>
+    <artifactId>spring-javaformat-build</artifactId>
+    <version>0.0.6</version>
+  </parent>
+  <groupId>io.spring.javaformat</groupId>
+  <artifactId>spring-javaformat-maven</artifactId>
+  <version>0.0.6</version>
+  <packaging>pom</packaging>
+  <name>Spring JavaFormat Maven</name>
+  <description>Spring JavaFormat</description>
+  <url>https://github.com/spring-io/spring-javaformat/#/spring-javaformat-maven</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Pivotal</name>
+      <email>info@pivotal.io</email>
+      <organization>Pivotal Software, Inc.</organization>
+      <organizationUrl>http://www.spring.io</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/spring-io/spring-javaformat/spring-javaformat-maven</url>
+  </scm>
+</project>

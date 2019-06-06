@@ -1,0 +1,1320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.apache.ws</groupId>
+        <artifactId>ws-parent</artifactId>
+        <version>2</version>
+    </parent>
+
+    <groupId>org.apache.ws.commons.axiom</groupId>
+    <artifactId>axiom</artifactId>
+    <version>1.2.20</version>
+    <packaging>pom</packaging>
+
+    <name>Axiom</name>
+    <description>The root/parent POM for Apache Axiom</description>
+    <url>http://ws.apache.org/axiom/</url>
+    <inceptionYear>2004</inceptionYear>
+
+    <developers>
+        <developer>
+            <name>Saminda Abeyruwan</name>
+            <id>saminda</id>
+            <email>saminda AT wso2.com</email>
+            <organization>WSO2</organization>
+        </developer>
+        <developer>
+            <name>Afkham Azeez</name>
+            <id>azeez</id>
+            <email>azeez AT wso2.com</email>
+            <organization>WSO2</organization>
+        </developer>
+        <developer>
+            <name>Eran Chinthaka</name>
+            <id>chinthaka</id>
+            <email>chinthaka AT wso2.com</email>
+            <organization>WSO2</organization>
+            <url>http://www.apache.org/~chinthaka</url>
+        </developer>
+        <developer>
+            <name>Glen Daniels</name>
+            <id>gdaniels</id>
+            <email>gdaniels AT apache.org</email>
+            <organization>Sonic Software</organization>
+        </developer>
+        <developer>
+            <name>Jaliya Ekanayake</name>
+            <id>jaliya</id>
+            <email>jaliya AT opensource.lk</email>
+            <organization>Virtusa / Lanka Software Foundation</organization>
+            <url>http://www.apache.org/~jaliya</url>
+        </developer>
+        <developer>
+            <name>Senaka Fernando</name>
+            <id>senaka</id>
+            <email>senaka AT apache.org</email>
+            <organization>WSO2</organization>
+        </developer>
+        <developer>
+            <name>Nandana Mihindukulasooriya</name>
+            <id>nandana</id>
+            <email>nandana AT wso2.com</email>
+            <organization>WSO2</organization>
+        </developer>
+        <developer>
+            <name>Ruchith Fernando</name>
+            <id>ruchith</id>
+            <email>ruchith AT wso2.com</email>
+            <organization>WSO2</organization>
+        </developer>
+        <developer>
+            <id>thilina</id>
+            <name>Thilina Gunarathne</name>
+            <email>thilina AT wso2.com</email>
+            <url>http://www.apache.org/~thilina</url>
+            <organization>WSO2</organization>
+        </developer>
+        <developer>
+            <name>Chathura Herath</name>
+            <id>chathura</id>
+            <email>chathura AT opensource.lk</email>
+            <organization>LSF/MIT</organization>
+            <url>http://www.apache.org/~chathura</url>
+        </developer>
+        <developer>
+            <name>Deepal Jayasinghe</name>
+            <id>deepal</id>
+            <email>deepal AT wso2.com</email>
+            <organization>WSO2</organization>
+            <url>http://www.apache.org/~deepal</url>
+        </developer>
+        <developer>
+            <name>Chatra Nakkawita</name>
+            <id>chatra</id>
+            <email>chatra AT WSO2.com</email>
+            <organization>WSO2</organization>
+        </developer>
+        <developer>
+            <name>Srinath Perera</name>
+            <id>hemapani</id>
+            <email>hemapani AT apache.org</email>
+            <organization>Lanka Software Foundation</organization>
+            <url>http://www.apache.org/~hemapani</url>
+        </developer>
+        <developer>
+            <name>Ajith Ranabahu</name>
+            <id>ajith</id>
+            <email>ajith AT wso2.com</email>
+            <organization>WSO2</organization>
+            <url>http://www.apache.org/~ajith</url>
+        </developer>
+        <developer>
+            <name>Venkat Reddy</name>
+            <id>venkat</id>
+            <email>vreddyp AT gmail.com</email>
+            <organization>Computer Associates</organization>
+        </developer>
+        <developer>
+            <name>Rich Scheuerle</name>
+            <id>scheu</id>
+            <email>scheu AT us.ibm.com</email>
+            <organization>IBM</organization>
+        </developer>
+        <developer>
+            <name>Ashutosh Shahi</name>
+            <id>ashu</id>
+            <email>Ashutosh.Shahi AT ca.com</email>
+            <organization>Computer Associates</organization>
+        </developer>
+        <developer>
+            <name>Aleksander Slominski</name>
+            <id>alek</id>
+            <email>aslom AT cs.indiana.edu</email>
+            <organization>Indiana University Extreme! Computing Lab</organization>
+        </developer>
+        <developer>
+            <name>Davanum Srinivas</name>
+            <id>dims</id>
+            <email>davanum AT gmail.com</email>
+            <organization>IBM</organization>
+        </developer>
+        <developer>
+            <name>Jayachandra Sekhara Rao Sunkara</name>
+            <id>jaya</id>
+            <email>jayachandra AT gmail.com</email>
+            <organization>Computer Associates</organization>
+        </developer>
+        <developer>
+            <name>Andreas Veithen</name>
+            <id>veithen</id>
+            <email>veithen AT google.com</email>
+            <url>http://veithen.github.io</url>
+            <organization>Google</organization>
+        </developer>
+        <developer>
+            <name>Dasarath Weerathunga</name>
+            <id>dasarath</id>
+            <email>dasarath AT opensource.lk</email>
+            <organization>Lanka Software Foundation</organization>
+        </developer>
+        <developer>
+            <name>Sanjiva Weerawarana</name>
+            <id>sanjiva</id>
+            <email>sanjiva AT wso2.com</email>
+            <organization>WSO2</organization>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Dharshana Dias</name>
+            <email />
+            <organization>Lanka Software Foundation / University of Moratuwa</organization>
+        </contributor>
+        <contributor>
+            <name>Anushka Kumara</name>
+            <email>anushkakumar AT gmail.com</email>
+            <organization>Lanka Software Foundation / University of Moratuwa</organization>
+        </contributor>
+        <contributor>
+            <name>Chinthaka Thilakarathne</name>
+            <email />
+            <organization>Lanka Software Foundation / University of Moratuwa</organization>
+        </contributor>
+        <contributor>
+            <name>Jochen Wiedmann</name>
+            <email>jochen.wiedmann AT gmail.com</email>
+        </contributor>
+    </contributors>
+
+    <modules>
+        <module>buildutils</module>
+        <module>axiom-api</module>
+        <module>axiom-compat</module>
+        <module>axiom-jaxb</module>
+        <module>axiom-c14n</module>
+        <module>axiom-all</module>
+        <module>samples</module>
+        <module>systests</module>
+        <module>devguide</module>
+        <module>userguide</module>
+        <module>apidocs</module>
+        <module>distribution</module>
+        <module>code-coverage</module>
+        <module>testing</module>
+        <module>aspects</module>
+        <module>implementations</module>
+        <module>components</module>
+    </modules>
+
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/webservices/axiom/tags/1.2.20</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/webservices/axiom/tags/1.2.20</developerConnection>
+        <url>http://svn.apache.org/viewvc/webservices/axiom/tags/1.2.20</url>
+    </scm>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://issues.apache.org/jira/browse/AXIOM</url>
+    </issueManagement>
+    <distributionManagement>
+        <site>
+            <id>website</id>
+            <url>scm:svn:https://svn.apache.org/repos/asf/webservices/website/axiom-staging</url>
+        </site>
+    </distributionManagement>
+
+    <properties>
+        <osgi.version>5.0.0</osgi.version>
+        <stax.impl.groupid>org.codehaus.woodstox</stax.impl.groupid>
+        <stax.impl.artifact>woodstox-core-asl</stax.impl.artifact>
+        <stax.impl.version>4.2.0</stax.impl.version>
+        <failIfNoTests>false</failIfNoTests>
+        <!--
+        <stax.impl.groupid>com.sun.xml.stream</stax.impl.groupid>
+        <stax.impl.artifact>sjsxp</stax.impl.artifact>
+        <stax.impl.version>1.0.1</stax.impl.version>
+        -->
+        <!--
+        <stax.impl.groupid>stax</stax.impl.groupid>
+        <stax.impl.artifact>stax</stax.impl.artifact>
+        <stax.impl.version>1.2.0</stax.impl.version>
+        -->
+        <shade.plugin.version>2.3</shade.plugin.version>
+        <enforcer.plugin.version>1.4.1</enforcer.plugin.version>
+        <jacoco.version>0.7.5.201505241946</jacoco.version>
+        <spring.version>4.2.1.RELEASE</spring.version>
+        <springws.version>2.2.4.RELEASE</springws.version>
+        <exam.version>4.7.0</exam.version>
+        
+        <skipDeploy>false</skipDeploy>
+        <hermeticTests>true</hermeticTests>
+    </properties>
+
+    <repositories>
+        <!-- Need to declare this here so that Maven can download snapshot versions of the parent POM -->
+        <repository>
+            <id>apache.snapshots</id>
+            <name>Apache Snapshot Repository</name>
+            <url>http://repository.apache.org/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache.snapshots</id>
+            <name>Apache Snapshot Repository</name>
+            <url>http://repository.apache.org/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-stax-api_1.0_spec</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-activation_1.1_spec</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-javamail_1.4_spec</artifactId>
+                <version>1.7.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>${stax.impl.groupid}</groupId>
+                <artifactId>${stax.impl.artifact}</artifactId>
+                <version>${stax.impl.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>stax</groupId>
+                        <artifactId>stax-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.xml.stream</groupId>
+                        <artifactId>stax-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>jaxen</groupId>
+                <artifactId>jaxen</artifactId>
+                <version>1.1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.james</groupId>
+                <artifactId>apache-mime4j-core</artifactId>
+                <!-- Note: snapshot versions are currently not stable because of MIME4J-231 -->
+                <version>0.7.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>${osgi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>${osgi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.truth</groupId>
+                <artifactId>truth</artifactId>
+                <version>0.30</version>
+            </dependency>
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>xalan</artifactId>
+                <version>2.7.1</version>
+            </dependency>
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>2.11.0</version>
+            </dependency>
+            <dependency>
+                <!-- Recent versions of Xerces require this (because they need org.w3c.dom.ElementTraversal) -->
+                <groupId>xml-apis</groupId>
+                <artifactId>xml-apis</artifactId>
+                <version>1.4.01</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.xml.stream</groupId>
+                        <artifactId>stax-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.activation</groupId>
+                        <artifactId>activation</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>2.1.9</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.woodstox</groupId>
+                <artifactId>stax2-api</artifactId>
+                <version>3.1.1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.xml.stream</groupId>
+                        <artifactId>stax-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-jcl</artifactId>
+                <version>2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-oxm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.ws</groupId>
+                <artifactId>spring-ws-core</artifactId>
+                <version>${springws.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.ws</groupId>
+                <artifactId>spring-ws-security</artifactId>
+                <version>${springws.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>1.8.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.messaging.saaj</groupId>
+                <artifactId>saaj-impl</artifactId>
+                <version>1.3.10</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.10</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.abdera</groupId>
+                <artifactId>abdera-core</artifactId>
+                <version>1.1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.abdera</groupId>
+                <artifactId>abdera-parser</artifactId>
+                <version>1.1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.10.19</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>3.1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-jetty</artifactId>
+                <version>3.1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.framework</artifactId>
+                <version>5.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.exam</groupId>
+                <artifactId>pax-exam-container-native</artifactId>
+                <version>${exam.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.exam</groupId>
+                <artifactId>pax-exam-junit4</artifactId>
+                <version>${exam.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ops4j.pax.exam</groupId>
+                <artifactId>pax-exam-link-assembly</artifactId>
+                <version>${exam.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-jdk14</artifactId>
+                <version>1.5.11</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <!-- Note: don't use 2.5.4 because of FELIX-4882 -->
+                    <version>2.5.3</version>
+                    <configuration>
+                        <excludeDependencies>true</excludeDependencies>
+                        <instructions>
+                            <_removeheaders>
+                                <!-- Remove these headers to make the output deterministic -->
+                                Bnd-LastModified,Build-Jdk,Built-By,
+                                <!-- There are not OSGi headers and shouldn't appear in the manifest -->
+                                Private-Package,Include-Resource
+                            </_removeheaders>
+                            <!-- These two are for compatibility with maven-bundle-plugin 1.4.0 -->
+                            <_nodefaultversion>true</_nodefaultversion>
+                            <Bundle-SymbolicName>${project.groupId}.${project.artifactId}</Bundle-SymbolicName>
+                        </instructions>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.16</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                        </includes>
+                        <!-- Keep heap size small. We have some unit tests that deal with volumes
+                             of data proportional to the heap size (to test that Axiom is streaming
+                             the data instead of loading it into memory). Obviously, the execution time of
+                             these tests also are proportional to the heap size. To accelerate the execution
+                             of the tests, we should use a heap size as small as possible. -->
+                        <argLine>-Xms16m -Xmx48m ${jacoco.surefireArgLine} ${securityManagerArgs}</argLine>
+                        <systemProperties>
+                            <property>
+                                <name>java.io.tmpdir</name>
+                                <value>${project.build.directory}/tmp</value>
+                            </property>
+                            <property>
+                                <name>user.home</name>
+                                <value>${project.build.directory}</value>
+                            </property>
+                            <property>
+                                <name>java.awt.headless</name>
+                                <value>true</value>
+                            </property>
+                            <!-- Uncomment this to test with the StAX implementation in Java 7 -->
+                            <!-- property>
+                                <name>javax.xml.stream.XMLInputFactory</name>
+                                <value>com.sun.xml.internal.stream.XMLInputFactoryImpl</value>
+                            </property>
+                            <property>
+                                <name>javax.xml.stream.XMLOutputFactory</name>
+                                <value>com.sun.xml.internal.stream.XMLOutputFactoryImpl</value>
+                            </property -->
+                            <!-- Uncomment this to test with BEA's reference implementation -->
+                            <!-- property>
+                                <name>javax.xml.stream.XMLInputFactory</name>
+                                <value>com.bea.xml.stream.MXParserFactory</value>
+                            </property>
+                            <property>
+                                <name>javax.xml.stream.XMLOutputFactory</name>
+                                <value>com.bea.xml.stream.XMLOutputFactoryBase</value>
+                            </property -->
+                        </systemProperties>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.19</version>
+                    <configuration>
+                        <argLine>${jacoco.failsafeArgLine} ${securityManagerArgs}</argLine>
+                        <systemProperties>
+                            <property>
+                                <name>java.io.tmpdir</name>
+                                <value>${project.build.directory}/tmp</value>
+                            </property>
+                            <property>
+                                <name>user.home</name>
+                                <value>${project.build.directory}</value>
+                            </property>
+                            <property>
+                                <name>java.awt.headless</name>
+                                <value>true</value>
+                            </property>
+                        </systemProperties>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>2.8</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${shade.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.agilejava.docbkx</groupId>
+                    <artifactId>docbkx-maven-plugin</artifactId>
+                    <version>2.0.14</version>
+                    <dependencies>
+                        <!-- Contains the catalog and DTD/Schema files. We use this to resolve the DTD locally
+                             instead of downloading it from the Web -->
+                        <dependency>
+                            <groupId>net.sf.docbook</groupId>
+                            <artifactId>docbook-xml</artifactId>
+                            <version>5.0-all</version>
+                            <classifier>resources</classifier>
+                            <type>zip</type>
+                        </dependency>
+                        <!-- Upgrade to xml-resolver 1.2. This is merely to make debugging easier (version 1.1
+                             neither has debug information nor a source JAR) -->
+                        <dependency>
+                            <groupId>xml-resolver</groupId>
+                            <artifactId>xml-resolver</artifactId>
+                            <version>1.2</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <configuration>
+                        <tagBase>https://svn.apache.org/repos/asf/webservices/axiom/tags</tagBase>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                        <!-- The default value "clean verify" is not appropriate. If the install
+                             phase is not executed, then the current build will pick up artifacts
+                             from a previous build. -->
+                        <preparationGoals>clean install</preparationGoals>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.5</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.6</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>1.5</version>
+                    <configuration>
+                        <!-- We don't actually want to allow System.exit, but the security manager
+                             installed by the plugin causes problems in multithreaded builds. -->
+                        <allowSystemExits>true</allowSystemExits>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.groovy</groupId>
+                            <artifactId>groovy-all</artifactId>
+                            <version>2.4.4</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.rat</groupId>
+                    <artifactId>apache-rat-plugin</artifactId>
+                    <version>0.11</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${enforcer.plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.3</version>
+                    <configuration>
+                        <detectOfflineLinks>false</detectOfflineLinks>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-invoker-plugin</artifactId>
+                    <version>2.0.0</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>3.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.jvnet.jaxb2.maven2</groupId>
+                    <artifactId>maven-jaxb2-plugin</artifactId>
+                    <version>0.8.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>aspectj-maven-plugin</artifactId>
+                    <version>1.7</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.gmavenplus</groupId>
+                                        <artifactId>gmavenplus-plugin</artifactId>
+                                        <versionRange>[0.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>execute</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.jacoco</groupId>
+                                        <artifactId>jacoco-maven-plugin</artifactId>
+                                        <versionRange>[0.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>prepare-agent</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>tidy-maven-plugin</artifactId>
+                                        <versionRange>[0.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>check</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <!-- We use maven-remote-resources-plugin only to add resources for human consumption.
+                                         Disable it to speed up the build in Eclipse. -->
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-remote-resources-plugin</artifactId>
+                                        <versionRange>[0.0.0,)</versionRange>
+                                        <goals>
+                                            <goal>process</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.github.veithen.alta</groupId>
+                    <artifactId>alta-maven-plugin</artifactId>
+                    <version>0.4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.8</version>
+                    <configuration>
+                        <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <rules>
+                        <requireJavaVersion>
+                            <!-- We require Java 7 for the build, but we enforce Java 5 compatibility using Animal Sniffer -->
+                            <version>1.7.0</version>
+                        </requireJavaVersion>
+                        <requireMavenVersion>
+                            <!-- Require a recent Maven version for consistent build results -->
+                            <version>3.3.1</version>
+                        </requireMavenVersion>
+                        <requireNoRepositories>
+                            <message>The POM must not include repository definitions since non Apache repositories threaten the build stability.</message>
+                            <banRepositories>true</banRepositories>
+                            <banPluginRepositories>true</banPluginRepositories>
+                            <!-- We still need to allow the Apache snapshot repository -->
+                            <allowSnapshotRepositories>true</allowSnapshotRepositories>
+                            <allowSnapshotPluginRepositories>true</allowSnapshotPluginRepositories>
+                        </requireNoRepositories>
+                    </rules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>initialize</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <scripts>
+                                <script><![CDATA[
+                                    import java.io.File
+                                    
+                                    // Avoid chicken and egg problem with jar-resource-bundle
+                                    if (project.packaging == 'pom') {
+                                        project.properties['skipRemoteResources'] = 'true'
+                                    }
+                                    
+                                    // Since we don't generate Maven sites for submodules the project URLs computed by Maven
+                                    // (parent project URL + artifact ID) are wrong. Make sure that the URL is explicitly set
+                                    // to the right location, at least for modules that deploy artifacts.
+                                    if (project.properties['skipDeploy'] == 'false' && !new File(project.basedir, 'src/site/site.xml').exists() && project.url != 'http://ws.apache.org/axiom/') {
+                                        throw new Error('Invalid project URL')
+                                    }
+                                    
+                                    // Create the temporary directory specified in the surefire configuration
+                                    new File(project.build.directory, 'tmp').mkdirs()
+                                    
+                                    // Skip Jacoco if necessary
+                                    if (System.properties['skipTests'] == 'true') {
+                                        println 'Disabling JaCoCo because tests are skipped'
+                                        project.properties['skipJacoco'] = 'true'
+                                    }
+                                    
+                                    project.properties['javadoc.nolint.param'] = System.properties['java.specification.version'] == '1.7' ? '' : '-Xdoclint:none';
+                                ]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-policy-file</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <scripts>
+                                <script><![CDATA[
+                                    import static groovy.json.StringEscapeUtils.escapeJava
+                                    
+                                    if (project.packaging != 'pom' && project.properties['hermeticTests'] == 'true') {
+                                        new File(project.build.directory, "test.policy").withWriter { out ->
+                                            out.println "grant {"
+                                            out.println """  permission java.io.FilePermission "${escapeJava(System.properties.'java.home')}\${/}-", "read";"""
+                                            out.println """  permission java.io.FilePermission "${escapeJava(session.settings.localRepository)}\${/}-", "read";"""
+                                            session.sortedProjects.each({
+                                                out.println """  permission java.io.FilePermission "${escapeJava(it.build.directory)}\${/}*", "read";"""
+                                            })
+                                            out.println """  permission java.io.FilePermission "${escapeJava(project.basedir.absolutePath)}\${/}-", "read";"""
+                                            out.println """  permission java.io.FilePermission "${escapeJava(project.build.directory)}", "read,write";"""
+                                            out.println """  permission java.io.FilePermission "${escapeJava(project.build.directory)}\${/}-", "read,write,delete";"""
+                                            out.println """  permission java.lang.RuntimePermission "*";"""
+                                            out.println """  permission java.lang.reflect.ReflectPermission "*";"""
+                                            out.println """  permission java.net.NetPermission "*";"""
+                                            out.println """  permission java.net.SocketPermission "localhost", "connect,listen,accept,resolve";"""
+                                            out.println """  permission java.security.SecurityPermission "*";"""
+                                            out.println """  permission java.util.PropertyPermission "*", "read,write";"""
+                                            out.println """  permission javax.management.MBeanPermission "*", "*";"""
+                                            out.println """  permission javax.management.MBeanServerPermission "*";"""
+                                            out.println """  permission javax.management.MBeanTrustPermission "*";"""
+                                            out.println """  permission javax.xml.bind.JAXBPermission "*";"""
+                                            out.println """  permission javax.xml.ws.WebServicePermission "publishEndpoint";"""
+                                            out.println """  permission org.osgi.framework.AdminPermission "*", "*";"""
+                                            out.println """  permission org.osgi.framework.ServicePermission "*", "register,get";"""
+                                            out.println "};"
+                                        }
+                                        project.properties['securityManagerArgs'] = '-Djava.security.manager -Djava.security.policy=' + project.build.directory.replace('\\', '/') + '/test.policy'
+                                    } else {
+                                        project.properties['securityManagerArgs'] = ''
+                                    }
+                                ]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>check-jacoco-exec</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <scripts>
+                                <script>
+                                    if (project.properties['skipJacoco'] == 'true' || !new File(project.build.directory, 'jacoco.exec').exists()) {
+                                        project.properties['skipJacocoAttach'] = 'true'
+                                    }
+                                </script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>prepare-site</id>
+                        <phase>pre-site</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <scripts>
+                                <script>
+                                    import java.util.Date
+                                    import java.text.MessageFormat
+                                    project.properties['release_date'] = MessageFormat.format("{0,date,MMMMM dd, yyyy}", new Date())
+                                    project.properties['release_version'] = project.version.replaceAll("-SNAPSHOT", "")
+                                    project.properties['skipSiteSite'] = String.valueOf(!new File(project.basedir, 'src/site/site.xml').exists())
+                                </script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>check-site</id>
+                        <phase>post-site</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <scripts>
+                                <script>
+                                    project.properties['skipSiteStage'] = String.valueOf(!new File(project.reporting.outputDirectory).exists())
+                                </script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipRemoteResources}</skip>
+                            <resourceBundles>
+                                <resourceBundle>org.apache.ws.commons.axiom:jar-resource-bundle:${project.version}</resourceBundle>
+                            </resourceBundles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <inherited>true</inherited>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>animal-sniffer-maven-plugin</artifactId>
+                <version>1.14</version>
+                <executions>
+                    <execution>
+                        <id>check</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <signature>
+                        <groupId>org.codehaus.mojo.signature</groupId>
+                        <artifactId>java15</artifactId>
+                        <version>1.0</version>
+                    </signature>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- This serves two purposes:
+                      (1) we want to generate source JARs for all builds, not just release builds;
+                      (2) we need (some of) the source JARs to generate the Javadoc in the apidocs module. -->
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>source-jars</id>
+                        <!-- Execute in phase prepare-package to make sure that the source JAR is built before
+                             maven-shade-plugin is invoked. (Note that activation of the apache-release profile
+                             may cause an inversion of the order in which these goals are executed if they are
+                             bound to the same phase.) -->
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <!-- Use "jar-no-fork" instead of "jar" to avoid forking the build
+                                 (which is not a problem, but unnecessary) -->
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- We need this to make sure that shade:shade is executed after source:jar-no-fork
+                     (see MSHADE-120). -->
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent-for-surefire</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>jacoco.surefireArgLine</propertyName>
+                            <!-- Anonymize the session ID (by default it contains the name of the host executing the build) -->
+                            <sessionId>mvn:${project.groupId}:${project.artifactId}:${project.version}:surefire</sessionId>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>prepare-agent-for-failsafe</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <propertyName>jacoco.failsafeArgLine</propertyName>
+                            <sessionId>mvn:${project.groupId}:${project.artifactId}:${project.version}:failsafe</sessionId>
+                        </configuration>
+                    </execution>
+                </executions>
+                <!-- Configure this on the plugin, not on the execution: it also applies to additional executions
+                     configured in individual modules -->
+                <configuration>
+                    <skip>${skipJacoco}</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-jacoco-exec</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <skipAttach>${skipJacocoAttach}</skipAttach>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/jacoco.exec</file>
+                                    <classifier>jacoco</classifier>
+                                    <type>exec</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>${skipDeploy}</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.5</version>
+                <executions>
+                    <execution>
+                        <id>default-site</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipSiteSite}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>site-stage</id>
+                        <phase>site-deploy</phase>
+                        <goals>
+                            <goal>stage</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipSiteStage}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <!-- Needed because the Apache parent POM declares a dependency on version 1.6 -->
+                        <groupId>org.apache.maven.doxia</groupId>
+                        <artifactId>doxia-core</artifactId>
+                        <version>1.7</version>
+                        <exclusions>
+                            <exclusion>
+                                <artifactId>xercesImpl</artifactId>
+                                <groupId>xerces</groupId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tidy-maven-plugin</artifactId>
+                <version>1.0-beta-1</version>
+                <executions>
+                    <execution>
+                        <!-- The default binding to the verify phase doesn't work here because some
+                             modules transform their POMs. -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-publish-plugin</artifactId>
+                <inherited>false</inherited>
+                <configuration>
+                    <ignorePathsToDelete>
+                        <ignorePathToDelete>.htaccess</ignorePathToDelete>
+                        <!-- Allow people to enable Google Webmaster Tools -->
+                        <ignorePathToDelete>google*.html</ignorePathToDelete>
+                    </ignorePathsToDelete>
+                </configuration>
+            </plugin>
+        </plugins>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>2.2</version>
+            </extension>
+        </extensions>
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <inherited>false</inherited>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>issue-tracking</report>
+                            <report>project-team</report>
+                            <report>scm</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <profiles>
+        <profile>
+            <id>apache-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <!-- Skip the execution configured in org.apache:apache. We use our own configuration. -->
+                                <id>attach-sources</id>
+                                <phase>none</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <additionalparam>${javadoc.nolint.param}</additionalparam>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <!-- The source release is built by the distribution module -->
+                                <id>source-release-assembly</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.rat</groupId>
+                        <artifactId>apache-rat-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <!-- Exclusions specific to the root project -->
+                                
+                                <!-- RAT doesn't recognize this one as notes file -->
+                                <exclude>RELEASE-NOTE.txt</exclude>
+                                <exclude>src/site/markdown/release-notes/**</exclude>
+                                <!-- SVG files are not edited by hand, so license headers would be lost anyway -->
+                                <exclude>**/*.svg</exclude>
+                                <!-- License file from Jaxen (see LEGAL-74 & WSCOMMONS-545) -->
+                                <exclude>legal/jaxen-LICENSE.txt</exclude>
+                                <!-- BSD style license -->
+                                <exclude>legal/stax2-api-LICENSE.txt</exclude>
+                                <!-- Files used by various developer tools -->
+                                <exclude>*.sonarj</exclude>
+                                <!-- File generated by maven-release-plugin -->
+                                <exclude>release.properties</exclude>
+                                
+                                <!-- Exclusions that apply to submodules -->
+                                
+                                <!-- We can't add license headers to test resources -->
+                                <exclude>src/test/resources/**</exclude>
+                                <!-- Temporary file created by maven-shade-plugin -->
+                                <exclude>dependency-reduced-pom.xml</exclude>
+                            </excludes>
+                        </configuration> 
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.eclipse.jetty</groupId>
+    <artifactId>jetty-project</artifactId>
+    <version>9.3.0.v20150612</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>apache-jstl</artifactId>
+  <name>Apache :: JSTL module</name>
+  <url>http://tomcat.apache.org/taglibs/standard/</url>
+  <packaging>jar</packaging>
+  <properties>
+   <bundle-symbolic-name>${project.groupId}.apache.jstl</bundle-symbolic-name>
+  </properties>
+
+  <build>
+    <plugins>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- JSTL Api -->
+    <dependency>
+       <groupId>org.apache.taglibs</groupId>
+       <artifactId>taglibs-standard-spec</artifactId>
+    </dependency>
+
+    <!-- JSTL Impl -->
+    <dependency>
+       <groupId>org.apache.taglibs</groupId>
+       <artifactId>taglibs-standard-impl</artifactId>
+    </dependency>
+  </dependencies>
+
+</project>

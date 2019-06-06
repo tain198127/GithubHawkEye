@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.jeval</groupId>
+  <artifactId>jeval</artifactId>
+  <version>0.9.4</version>
+  <packaging>jar</packaging>
+  <name>JEval</name>
+  <description>JEval is the advanced library for adding high-performance, mathematical, Boolean and functional expression parsing and evaluation to your Java applications.</description>
+  <url>http://jeval.sourceforge.net</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous@jeval.cvs.sourceforge.net:/cvsroot/jeval:jeval</connection>
+	<developerConnection>scm:cvs:ext:developername@jeval.cvs.sourceforge.net:/cvsroot/jeval:jeval</developerConnection>
+	<url>http://jeval.cvs.sourceforge.net/jeval/</url>
+  </scm>
+  <developers>
+    <developer>
+	  <id>breidecker</id>
+	  <name>Rob Breidecker</name>
+	  <url>http://evolutionarygoo.com/blog</url>
+	  <timezone>-6</timezone>
+	</developer>
+  </developers>
+</project>

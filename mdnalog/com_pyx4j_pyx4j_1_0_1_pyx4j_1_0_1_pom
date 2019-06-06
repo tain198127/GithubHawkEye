@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://maven.apache.org/POM/4.0.0">
+    <!-- @version $Revision: 216 $ ($Author: vlads $) $Date: 2007-08-27 15:32:32 -0400 (Mon, 27 Aug 2007) $ -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.pyx4j</groupId>
+    <artifactId>pyx4j</artifactId>
+    <version>1.0.1</version><!--pyx4j-version-->
+
+    <packaging>pom</packaging>
+    <name>pyx4j</name>
+    <description>pyx4j</description>
+
+    <prerequisites>
+        <maven>2.0.4</maven>
+    </prerequisites>
+
+    <organization>
+        <name>pyx4j team</name>
+        <url>http://www.pyx4j.com</url>
+    </organization>
+    <inceptionYear>2006</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+
+    <url>http://www.pyx4j.com</url>
+
+    <ciManagement>
+        <system>Cruisecontrol</system>
+        <url>https://pyx4j.com/cruisecontrol/</url>
+    </ciManagement>
+
+    <issueManagement>
+        <system>No issue management system is defined. For now use e-mail: skarzhevskyy@gmail.com</system>
+        <url>http://mail.google.com/mail/</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <site>
+            <id>test-pyx4j-site</id>
+            <url>file:///home/apache/pyx4j/snapshot/pyx4j</url>
+        </site>
+        <repository>
+            <id>pyx4j.com-file-release</id>
+            <url>file:///home/apache/pyx4j/maven2-release</url>
+        </repository>
+        <snapshotRepository>
+            <id>pyx4j.com-file-development</id>
+            <url>file:///home/apache/pyx4j/maven2</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <scm>
+        <url>https://pyx4j.com/viewvc/pyx4j/</url>
+		<connection>scm:svn:https://pyx4j.com/svn/pyx4j</connection>
+		<developerConnection>scm:svn:https://pyx4j.com/svn/pyx4j</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Vlad Skarzhevskyy</name>
+            <id>vlads</id>
+            <email>skarzhevskyy@gmail.com</email>
+            <organization>pyx4j.com</organization>
+            <roles>
+                <role>Project admin and developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <name>Alexey Semenov</name>
+            <id>alexeyse</id>
+            <email>Alexey.Semenov@amdocs.com</email>
+            <organization>Amdocs</organization>
+            <roles>
+                <role>Developer, business analyst</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <name>Michael Lifshits</name>
+            <id>michaellif</id>
+            <email>michael.lifschitz@gmail.com</email>
+            <organization>pyx4j.com</organization>
+            <roles>
+                <role>Developer, Architect</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+
+
+    <modules>
+        <module>pyx4j-native</module>
+        <module>pyx4j-utils</module>
+        <module>pyx4j-maven-plugins</module>
+        <module>pyx4j-build</module>
+    </modules>
+
+<!--
+    <repositories>
+        <repository>
+            <id>pyx4me-web</id>
+            <url>http://www.pyx4me.com/maven2</url>
+        </repository>
+    </repositories>
+-->
+
+    <pluginRepositories>
+<!--
+        <pluginRepository>
+            <id>pyx4me-web</id>
+            <url>http://www.pyx4me.com/maven2</url>
+        </pluginRepository>
+-->
+        <pluginRepository>
+            <id>codehaus.org</id>
+            <name>Codehaus Central Repository</name>
+            <url>http://repository.codehaus.org</url>
+        </pluginRepository>
+
+    </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Dependency Version Ranges See http://docs.codehaus.org/display/MAVEN/Dependency+Mediation+and+Conflict+Resolution -->
+
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging-adapters</artifactId>
+                <version>1.1</version>
+                <scope>runtime</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging-api</artifactId>
+                <version>1.1</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.14</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.jfig</groupId>
+                <artifactId>jfig</artifactId>
+               <version>1.5.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>sysinternals</groupId>
+                <artifactId>junction</artifactId>
+                <version>1.04</version>
+                <type>exe</type>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.3</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+
+        <plugins>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <!-- build on Windows Server 2003 http://jira.codehaus.org/browse/SUREFIRE-318 -->
+                <version>2.2</version>
+                <configuration>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <includes>
+                        <include>**/*Test.*</include>
+                        <include>**/*Tests.*</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Version>${label}</Version>
+                            <Build-Time>${cctimestamp}</Build-Time>
+                            <Implementation-Version>${pom.version}</Implementation-Version>
+                            <SVN-Revision>${scm.revision}</SVN-Revision>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>site</phase>
+                        <goals>
+                          <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <replace dir="${project.build.directory}/site">
+                                    <include name="*.html"></include>
+                                    <replacefilter token="#build#" value="${label}"/>
+                                    <replacefilter token="#version#" value="${version}"/>
+                                </replace>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>build</id>
+            <build>
+                <plugins>
+                    <!-- This stores the svn revision in the property scm.revision -->
+                    <!-- Also this is solution for bug (scm:update doesn't iterate through multi-projects)  http://jira.codehaus.org/browse/SCM-116-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>clean</phase>
+                                <id>force scm:update</id>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                   <reportSet>
+                      <reports>
+                         <!--report>dependencies</report-->
+                         <report>dependency-convergence</report>
+                         <report>project-team</report>
+                         <!--report>mailing-list</report-->
+                         <report>cim</report>
+                         <report>issue-tracking</report>
+                         <report>license</report>
+                         <report>scm</report>
+                         <report>summary</report>
+                      </reports>
+                   </reportSet>
+                </reportSets>
+            </plugin>
+            <!--
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>etc/conventions/checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+            -->
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <quiet>true</quiet>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <!-- http://maven.apache.org/plugins/maven-jxr-plugin/jxr-mojo.html -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <!-- TODO list -->
+            </plugin>
+            <!--
+            <plugin>
+               <groupId>org.codehaus.mojo</groupId>
+               <artifactId>simian-report-maven-plugin</artifactId>
+               <version>1.0-tmp</version>
+            </plugin>
+            -->
+
+            <!--artifactId>maven-changelog-plugin</artifactId-->
+            <!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>changelog-maven-plugin</artifactId>
+                <configuration>
+                    <basedir>${basedir}</basedir>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <id>dual-report</id>
+                        <configuration>
+                            <type>range</type>
+                            <range>30</range>
+                        </configuration>
+                        <reports>
+                            <report>changelog</report>
+                            <report>file-activity</report>
+                            <report>dev-activity</report>
+                        </reports>
+                  </reportSet>
+                </reportSets>
+            </plugin>
+            -->
+        </plugins>
+    </reporting>
+</project>

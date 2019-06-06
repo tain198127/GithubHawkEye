@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-influx</artifactId>
+  <version>1.1.1</version>
+  <dependencies>
+    <dependency>
+      <groupId>io.micrometer</groupId>
+      <artifactId>micrometer-core</artifactId>
+      <version>1.1.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <name>micrometer-registry-influx</name>
+  <description>Application monitoring instrumentation facade</description>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <properties>
+    <nebula_Manifest_Version>1.0</nebula_Manifest_Version>
+    <nebula_Implementation_Title>io.micrometer#micrometer-registry-influx;1.1.1</nebula_Implementation_Title>
+    <nebula_Implementation_Version>1.1.1</nebula_Implementation_Version>
+    <nebula_Built_Status>integration</nebula_Built_Status>
+    <nebula_Built_By>jschneider</nebula_Built_By>
+    <nebula_Built_OS>Mac OS X</nebula_Built_OS>
+    <nebula_Build_Date>2018-11-29_15:56:39</nebula_Build_Date>
+    <nebula_Gradle_Version>4.10.2</nebula_Gradle_Version>
+    <nebula_Module_Source>/implementations/micrometer-registry-influx</nebula_Module_Source>
+    <nebula_Module_Origin>git@github.com:micrometer-metrics/micrometer.git</nebula_Module_Origin>
+    <nebula_Change>affa3ac</nebula_Change>
+    <nebula_Branch>1.1.x</nebula_Branch>
+    <nebula_Build_Host>Jons-MBP-3</nebula_Build_Host>
+    <nebula_Build_Job>LOCAL</nebula_Build_Job>
+    <nebula_Build_Number>LOCAL</nebula_Build_Number>
+    <nebula_Build_Id>LOCAL</nebula_Build_Id>
+    <nebula_Created_By>1.8.0_162-b12 (Oracle Corporation)</nebula_Created_By>
+    <nebula_Build_Java_Version>1.8.0_162</nebula_Build_Java_Version>
+    <nebula_Module_Owner>jschneider@pivotal.io</nebula_Module_Owner>
+    <nebula_Module_Email>jschneider@pivotal.io</nebula_Module_Email>
+    <nebula_X_Compile_Target_JDK>1.8</nebula_X_Compile_Target_JDK>
+    <nebula_X_Compile_Source_JDK>1.8</nebula_X_Compile_Source_JDK>
+  </properties>
+  <url>https://github.com/micrometer-metrics/micrometer</url>
+  <scm>
+    <url>git@github.com:micrometer-metrics/micrometer.git</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>jkschneider</id>
+      <name>Jon Schneider</name>
+      <email>jschneider@pivotal.io</email>
+    </developer>
+  </developers>
+</project>

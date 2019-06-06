@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sourceforge.jregex</groupId>
+	<artifactId>jregex</artifactId>
+	<version>1.2_01</version>
+	<packaging>jar</packaging>
+	<name>JRegex</name>
+	<description>A regular expression library for Java</description>
+	<url>http://jregex.sourceforge.net/</url>
+	<licenses>
+		<license>
+			<name>BSD</name>
+			<url>http://jregex.sourceforge.net/license.txt</url>
+		</license>
+	</licenses>
+	<scm>
+		<url>not used</url>
+		<connection>not used</connection>
+	</scm>
+	<developers>
+		<developer>
+			<name>Sergey A. Samokhodkin</name>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+</project>

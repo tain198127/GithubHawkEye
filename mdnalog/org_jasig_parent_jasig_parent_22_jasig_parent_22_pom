@@ -1,0 +1,153 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <artifactId>oss-parent</artifactId>
+        <groupId>org.sonatype.oss</groupId>
+        <version>5</version>
+    </parent>
+    
+    <groupId>org.jasig.parent</groupId>
+    <artifactId>jasig-parent</artifactId>
+    <version>22</version>
+    <packaging>pom</packaging>
+
+    <name>Jasig Parent Project</name>
+    <description>Defaults for Jasig Maven 2 projects.</description>
+    <url>http://www.ja-sig.org/wiki/display/JSG/Using+Maven+for+your+JA-SIG+project</url>
+
+    <organization>
+        <name>Jasig</name>
+        <url>http://www.jasig.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache License Version 2.0</name>
+            <distribution>repo</distribution>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:svn:https://source.jasig.org/jasig-parent/tags/jasig-parent-22</connection>
+        <developerConnection>scm:svn:https://source.jasig.org/jasig-parent/tags/jasig-parent-22</developerConnection>
+        <url>https://developer.jasig.org/source/browse/jasigsvn/jasig-parent/tags/jasig-parent-22</url>
+    </scm>
+    
+    <developers>
+        <developer>
+            <id>edalquist</id>
+            <email>eric.dalquist@doit.wisc.edu</email>
+            <name>Eric Dalquist</name>
+            <organization>University of Wisconsin - Madison</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+    </developers>
+
+    <properties>
+        <project-site-path>/${project.artifactId}</project-site-path>
+    
+        <jasig-site-base>http://developer.jasig.org/projects</jasig-site-base>
+        <jasig-site-dist-base>scp://developer.jasig.org/var/www/domains/jasig.org/developer/htdocs/projects</jasig-site-dist-base>
+        <jasig-site-ci-dist-base>file:/var/www/domains/jasig.org/developer/htdocs/projects</jasig-site-ci-dist-base>
+
+        <jasig-issues-base>https://issues.jasig.org/browse</jasig-issues-base>
+        <jasig-issues-system>Jira</jasig-issues-system>
+
+        <jasig-scm-type>scm:svn:</jasig-scm-type>
+        <jasig-scm-base>https://source.jasig.org</jasig-scm-base>
+        <jasig-scm-base-mvn>${jasig-scm-type}${jasig-scm-base}</jasig-scm-base-mvn>
+        <jasig-scm-view-base>https://developer.jasig.org/source/browse/jasigsvn</jasig-scm-view-base>
+
+        <jasig-short-license-url>${jasig-scm-base}/jasig-parent/tags/jasig-parent-22/short-license-header.txt</jasig-short-license-url>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>2.4.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.3.1</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.3.1</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>2.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.mycila.maven-license-plugin</groupId>
+                    <artifactId>maven-license-plugin</artifactId>
+                    <version>1.8.0</version>
+                    <configuration>
+                        <basedir>${basedir}</basedir>
+                        <header>${jasig-short-license-url}</header>
+                        <aggregate>true</aggregate>
+                        <excludes>
+                            <exclude>LICENSE</exclude>
+                            <exclude>NOTICE</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>ci-local-site</id>
+            <distributionManagement>
+                <site>
+                    <id>ci-local-site</id>
+                    <url>${jasig-site-ci-dist-base}${project-site-path}</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>

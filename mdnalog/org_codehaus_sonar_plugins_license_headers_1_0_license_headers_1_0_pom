@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.codehaus.sonar-plugins</groupId>
+    <artifactId>parent</artifactId>
+    <version>6</version>
+    <relativePath>../parent</relativePath>
+  </parent>
+
+  <artifactId>license-headers</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>License Headers</name>
+  <organization>
+    <name>SonarSource</name>
+    <url>http://www.sonarsource.com</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>GNU LGPL 3</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>godin</id>
+      <name>Evgeny Mandrikov</name>
+      <timezone>+3</timezone>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/sonar-plugins/tags/license-headers-1.0</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/sonar-plugins/tags/license-headers-1.0</developerConnection>
+    <url>http://svn.sonar-plugins.codehaus.org/browse/sonar-plugins/tags/license-headers-1.0</url>
+  </scm>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.mycila.maven-license-plugin</groupId>
+        <artifactId>maven-license-plugin</artifactId>
+        <!-- Override the header location defined in parent pom -->
+        <configuration>
+          <header>src/main/resources/org/sonar/plugins/licenseheaders/SonarSource.txt</header>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

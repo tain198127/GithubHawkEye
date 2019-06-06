@@ -1,0 +1,283 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>org.infinispan</groupId>
+      <artifactId>infinispan-parent</artifactId>
+      <version>9.3.1.Final</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
+
+   <artifactId>infinispan-core</artifactId>
+   <packaging>bundle</packaging>
+   <name>Infinispan Core</name>
+   <description>Infinispan core module</description>
+
+   <properties>
+      <module.skipComponentMetaDataProcessing>false</module.skipComponentMetaDataProcessing>
+      <module.skipTestComponentMetaDataProcessing>false</module.skipTestComponentMetaDataProcessing>
+   </properties>
+   <dependencies>
+
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-commons</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jgroups</groupId>
+         <artifactId>jgroups</artifactId>
+      </dependency>
+
+      <dependency>
+        <groupId>com.github.ben-manes.caffeine</groupId>
+        <artifactId>caffeine</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.spec.javax.transaction</groupId>
+         <artifactId>jboss-transaction-api_1.2_spec</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.marshalling</groupId>
+         <artifactId>jboss-marshalling-osgi</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.logging</groupId>
+         <artifactId>jboss-logging</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>io.reactivex.rxjava2</groupId>
+         <artifactId>rxjava</artifactId>
+      </dependency>
+
+      <dependency>
+         <groupId>org.infinispan</groupId>
+         <artifactId>infinispan-commons-test</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.testng</groupId>
+         <artifactId>testng</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.mockito</groupId>
+         <artifactId>mockito-core</artifactId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.hamcrest</groupId>
+         <artifactId>hamcrest-core</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.commons</groupId>
+         <artifactId>commons-math</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.apache.geronimo.components</groupId>
+         <artifactId>geronimo-transaction</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.objectweb.howl</groupId>
+         <artifactId>howl</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>javax.cache</groupId>
+         <artifactId>cache-api</artifactId>
+         <scope>test</scope>
+      </dependency>
+
+      <dependency>
+         <groupId>org.kohsuke.metainf-services</groupId>
+         <artifactId>metainf-services</artifactId>
+         <optional>true</optional>
+      </dependency>
+
+      <!-- We need the Karaf distribution as a dependency for karaf-maven-plugin -->
+      <!-- But we don't want to use its dependencies (e.g. pax-logging-api) in the core tests -->
+      <dependency>
+         <groupId>org.apache.karaf.features</groupId>
+         <artifactId>framework</artifactId>
+         <type>kar</type>
+         <scope>provided</scope>
+         <exclusions>
+            <exclusion>
+               <groupId>*</groupId>
+               <artifactId>*</artifactId>
+            </exclusion>
+         </exclusions>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <resources>
+         <resource>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+               <include>features.xml</include>
+            </includes>
+         </resource>
+         <resource>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <filtering>true</filtering>
+            <includes>
+               <include>META-INF/infinispan-version.properties</include>
+            </includes>
+         </resource>
+         <resource>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <filtering>false</filtering>
+            <includes>
+               <include>schema/*-${infinispan.core.schema.version}.xsd</include>
+            </includes>
+         </resource>
+         <resource>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <filtering>false</filtering>
+            <includes>
+               <include>**/*</include>
+            </includes>
+            <excludes>
+               <exclude>features.xml</exclude>
+               <exclude>META-INF/infinispan-version.properties</exclude>
+               <exclude>schema/**</exclude>
+            </excludes>
+         </resource>
+      </resources>
+      <testResources>
+         <testResource>
+            <directory>${project.basedir}/src/test/resources</directory>
+             <filtering>true</filtering>
+         </testResource>
+      </testResources>
+      <plugins>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>generate-blueprint</id>
+                  <goals>
+                     <goal>run</goal>
+                  </goals>
+                  <phase>prepare-package</phase>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>maven-bundle-plugin</artifactId>
+            <configuration>
+               <instructions>
+                  <Export-Package>
+                     !${project.groupId}.commons.*,
+                     !${project.groupId}.counter.*,
+                     !${project.groupId}.multimap.*,
+                     !${project.groupId}.lock.*,
+                     org.infinispan.marshall.core,
+                     ${project.groupId}.*;version=${project.version};-split-package:=error
+                  </Export-Package>
+                  <Import-Package>
+                  !sun.reflect,
+                  *
+                  </Import-Package>
+                  <Include-Resource>
+                     {maven-resources},
+                     /META-INF/services=${project.basedir}/target/classes/META-INF/services,
+                     /OSGI-INF/blueprint/blueprint.xml=${project.basedir}/target/classes/OSGI-INF/blueprint/blueprint.xml,
+                     ${project.build.outputDirectory}/${project.artifactId}-component-metadata.dat
+                  </Include-Resource>
+                  <DynamicImport-Package>*</DynamicImport-Package>
+               </instructions>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+               <execution>
+                  <id>attach-artifacts</id>
+                  <phase>package</phase>
+                  <goals>
+                     <goal>attach-artifact</goal>
+                  </goals>
+                  <configuration>
+                     <artifacts>
+                        <artifact>
+                           <file>target/classes/features.xml</file>
+                           <type>xml</type>
+                           <classifier>features</classifier>
+                        </artifact>
+                     </artifacts>
+                  </configuration>
+               </execution>
+            </executions>
+         </plugin>
+         <plugin>
+            <groupId>org.apache.karaf.tooling</groupId>
+            <artifactId>karaf-maven-plugin</artifactId>
+            <configuration>
+               <features>
+                  <feature>infinispan-core</feature>
+               </features>
+            </configuration>
+         </plugin>
+         <plugin>
+            <groupId>org.infinispan</groupId>
+            <artifactId>infinispan-defaults-maven-plugin</artifactId>
+             <version>${project.version}</version>
+            <executions>
+               <execution>
+                  <id>extract-defaults</id>
+                  <phase>process-classes</phase>
+                  <goals>
+                     <goal>extract-defaults</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
+      </plugins>
+   </build>
+
+   <profiles>
+      <profile>
+         <id>smoke</id>
+         <build>
+            <plugins>
+               <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-surefire-plugin</artifactId>
+                  <configuration>
+                     <excludes>
+                        <!-- explicitly exclude some tests because of TestNG issue which ignores
+                             restricted groups in subclasses -->
+                        <exclude>**/*Async*.java</exclude>
+                        <exclude>**/ReplSyncDistributedExecutor*.java</exclude>
+                        <exclude>**/DistributedExecutorWith*.java</exclude>
+                        <exclude>**/DistAsync*.java</exclude>
+                        <exclude>**/DistSyncUnsafe*.java</exclude>
+                        <exclude>**/TopologyAwareDist*.java</exclude>
+                     </excludes>
+                  </configuration>
+               </plugin>
+            </plugins>
+         </build>
+      </profile>
+   </profiles>
+</project>

@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010, 2011 Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.jadira.usertype</groupId>
+	<artifactId>usertype.parent</artifactId>
+	<packaging>pom</packaging>
+
+	<version>3.0.0.CR1</version>
+
+	<name>Usertype for Hibernate Parent</name>
+	<description>Classes utilising JSR 310 and Joda Time that add Hibernate support</description>
+	<url>http://usertype.sourceforge.net/</url>
+	<inceptionYear>2010</inceptionYear>
+
+	<organization>
+		<name>Jadira Systems</name>
+		<url>http://blog.jadira.co.uk/</url>
+  	</organization>
+
+	<developers>
+		<developer>
+			<id>chrisphe</id>
+			<name>Chris Pheby</name>
+			<email />
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>0</timezone>
+		</developer>
+	</developers>
+
+	<mailingLists>
+		<mailingList>
+	    		<name>Usertype Discussion Mailing list</name>
+			<subscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</subscribe>
+	    		<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</unsubscribe>
+			<archive>https://sourceforge.net/mailarchive/forum.php?forum_name=usertype-discuss</archive>
+			<post>usertype-discuss@lists.sourceforge.net</post>
+		</mailingList>
+	</mailingLists>
+	
+	<issueManagement>
+		<system>sourceforge</system>
+		<url>http://sourceforge.net/tracker/?group_id=318316</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
+	<properties>
+		<configuration.base>https://usertype.svn.sourceforge.net/svnroot/usertype/trunk</configuration.base>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>       
+	</properties>
+	
+	<scm>
+	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/tags/usertype.parent-3.0.0.CR1</connection>
+	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/tags/usertype.parent-3.0.0.CR1</developerConnection>
+	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/tags/usertype.parent-3.0.0.CR1</url>
+  	</scm>
+  	
+  	<distributionManagement>
+  		<!-- See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html -->
+  	  	<site>
+  	  	  	<id>usertype.sourceforge.net</id>
+  	  	  	<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs</url>
+  	  	  	<name>Usertype Maven Site</name>
+  	  	</site>
+  	  	<!-- Old Sourceforge Repository
+		<repository>
+			<id>usertype.sourceforge.net.m2-repo</id>
+			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo</url>
+			<name>Usertype Maven 2 Repository</name>
+  		</repository> 
+  		<snapshotRepository>
+  			<id>usertype.sourceforge.net.m2-repo-snapshots</id>
+  			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo-snapshots</url>
+  			<name>Usertype Maven 2 Snapshots Repository</name>
+  		</snapshotRepository> -->
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<name>Nexus Release Repository</name>
+		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+			<name>Sonatype Nexus Snapshots</name>
+		</snapshotRepository>
+  	</distributionManagement>
+	
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
+	<build>
+		<defaultGoal>install</defaultGoal>
+
+		<extensions>
+		        <extension>
+		            <groupId>org.apache.maven.wagon</groupId>
+		            <artifactId>wagon-ssh</artifactId>
+		            <version>2.2</version>
+		        </extension>
+    		</extensions>
+	
+		<resources>
+			<resource>
+				<targetPath>META-INF</targetPath>
+				<directory>.</directory>
+				<includes>
+					<include>LICENSE.txt</include>
+					<include>NOTICE.txt</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>2.9</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<useProjectReferences>false</useProjectReferences> <!-- Project references do not work with test classifier -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>enforce-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.0.3</version>
+								</requireMavenVersion>
+								<requireJavaVersion>
+									<version>1.6.0</version>
+								</requireJavaVersion>
+								<bannedDependencies>
+									<excludes>
+										<exclude>commons-logging:*</exclude>
+									</excludes>
+								</bannedDependencies>
+								<!-- This rule currently unsupported with Maven 3 - see http://jira.codehaus.org/browse/MENFORCER-98
+								<requirePluginVersions>
+									<banLatest>true</banLatest>
+									<banRelease>true</banRelease>								
+									<banSnapshots>true</banSnapshots>
+									<unCheckedPluginList>org.codehaus.mojo:sonar-maven-plugin</unCheckedPluginList>
+								</requirePluginVersions>
+								-->
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-toolchains-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>toolchain</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>6.0</version>
+							<vendor>sun</vendor>
+						</jdk>
+					</toolchains>
+			 	 </configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-g</compilerArgument>
+					<encoding>${project.build.sourceEncoding}</encoding> 
+					<charset>${project.build.sourceEncoding}</charset>
+					<debug>true</debug>
+					<optimize>true</optimize>
+					<showDeprecations>true</showDeprecations>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.11</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-idea-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<dependenciesAsLibraries>true</dependenciesAsLibraries>
+					<useFullNames>false</useFullNames>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.3.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.3.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.8</version>
+				<inherited>true</inherited>
+				<configuration>
+					<linksource>true</linksource>
+					<links>
+						<link>http://download.oracle.com/javase/6/docs/api/</link>
+					</links>
+					<encoding>UTF-8</encoding>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+					<docletArtifact>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>doclet</artifactId>
+						<version>5.1</version>
+					</docletArtifact>
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
+					<reportSets>
+						<reportSet>
+							<id>aggregate</id>
+							<inherited>false</inherited>
+							<configuration>
+							<!-- Specific configuration for the aggregate report -->
+							</configuration>
+							<reports>
+								<report>aggregate</report>
+							</reports>
+						</reportSet>
+						<reportSet>
+							<id>attach-javadocs</id>
+							<configuration>
+							<!-- Specific configuration for the non aggregate report -->
+							</configuration>
+							<reports>
+								<report>javadoc</report>
+							</reports>
+						</reportSet>
+					</reportSets>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>aggregate</id>
+						<phase>site</phase>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-repository-plugin</artifactId>
+				<version>2.3.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-resources-plugin</artifactId> 
+				<version>2.5</version> 
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding> 
+					<charset>${project.build.sourceEncoding}</charset> 
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<version>2.8</version>
+							<configuration>
+								<linksource>true</linksource>
+								<links>
+									<link>http://download.oracle.com/javase/6/docs/api/</link>
+								</links>
+								<encoding>UTF-8</encoding>												<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+								<docletArtifact>
+									<groupId>org.umlgraph</groupId>
+									<artifactId>doclet</artifactId>
+									<version>5.1</version>
+								</docletArtifact>
+								<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
+								<reportSets>
+									<reportSet>
+										<id>aggregate</id>
+										<inherited>false</inherited>
+										<configuration>
+										<!-- Specific configuration for the aggregate report -->
+										</configuration>
+										<reports>
+											<report>aggregate</report>
+										</reports>
+									</reportSet>
+									<reportSet>
+										<id>nonaggregate</id>
+										<configuration>
+										<!-- Specific configuration for the non aggregate report -->
+										</configuration>
+										<reports>
+											<report>javadoc</report>
+										</reports>
+									</reportSet>
+								</reportSets>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-jxr-plugin</artifactId>
+							<version>2.3</version>
+							<configuration>
+								<aggregate>true</aggregate>
+								<linkJavadoc>true</linkJavadoc>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId> 
+							<artifactId>maven-changes-plugin</artifactId> 
+							<version>2.6</version> 
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>changes-report</report> 
+									</reports>
+								</reportSet>
+							</reportSets>
+							<configuration>
+								<issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-changelog-plugin</artifactId>
+							<version>2.2</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-checkstyle-plugin</artifactId>
+							<version>2.8</version>
+							<configuration>
+								<configLocation>https://usertype.svn.sourceforge.net/svnroot/usertype/trunk/checkstyle.xml</configLocation>
+								<encoding>${project.build.sourceEncoding}</encoding> 
+								<charset>${project.build.sourceEncoding}</charset>
+								<enableRulesSummary>false</enableRulesSummary>
+								<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId> 
+							<artifactId>maven-pmd-plugin</artifactId> 
+							<version>2.6</version> 
+							<configuration>
+								<targetJdk>1.5</targetJdk>
+								<minimumTokens>20</minimumTokens>
+								<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+								<!-- <ruleset>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/pmd.xml</ruleset> -->
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-project-info-reports-plugin</artifactId>
+							<version>2.4</version>
+							<reportSets>
+								<reportSet>
+									<reports>
+										<report>index</report>
+										<report>dependencies</report>
+										<report>project-team</report>
+										<report>mailing-list</report>
+										<report>issue-tracking</report>
+										<report>license</report>
+										<report>scm</report>
+										<report>summary</report>
+									</reports>
+								</reportSet>
+							</reportSets>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-report-plugin</artifactId>
+							<version>2.11</version>
+							<configuration>
+								<xrefLocation>${project.reporting.outputDirectory}/../xref-test</xrefLocation>
+								<showSuccess>true</showSuccess>
+							</configuration>
+						</plugin>
+						<!-- <plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>clirr-maven-plugin</artifactId>
+							<version>2.3</version>
+							<configuration>
+								<comparisonVersion>1.1</comparisonVersion>
+							</configuration>
+						</plugin> -->
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId> 
+							<artifactId>cobertura-maven-plugin</artifactId> 
+							<version>2.5.1</version> 
+							<configuration>
+								<formats>
+									<format>xml</format>
+									<format>html</format>
+								</formats>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId> 
+							<artifactId>findbugs-maven-plugin</artifactId> 
+							<version>2.3.3</version>
+							<configuration>
+								 <!-- <includeFilterFile>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/findbugs.xml</includeFilterFile> -->
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>jdepend-maven-plugin</artifactId>
+							<version>2.0-beta-2</version>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>taglist-maven-plugin</artifactId>
+							<version>2.4</version>
+							<configuration>
+								<tags>
+									<tag>TODO</tag>
+									<tag>@todo</tag>
+									<tag>FIXME</tag>
+								</tags>
+							</configuration>
+						</plugin>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.11</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.2</version><!--$NO-MVN-MAN-VER$-->
+				<configuration>
+					<tagBase>https://usertype.svn.sourceforge.net/svnroot/usertype/tags/</tagBase>
+					<!-- Workaround for MGPG-9 and MRELEASE-424, MRELEASE-263 -->
+					<mavenExecutorId>forked-path</mavenExecutorId>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId> 
+				<artifactId>cobertura-maven-plugin</artifactId> 
+				<version>2.5.1</version> 
+				<configuration>
+					<maxmem>128m</maxmem> 
+					<outputDirectory>${project.reporting.outputDirectory}/cobertura</outputDirectory> 
+					<formats>
+						<format>html</format> 
+						<format>xml</format> 
+					</formats>
+					<instrumentation>
+						<excludes>
+							<exclude>**/*Test.class</exclude>
+						</excludes>
+					</instrumentation>
+				</configuration>
+			</plugin>
+
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-toolchains-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>toolchain</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.0.1,)</versionRange>
+										<goals>
+											<goal>enforce</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<name>Nexus Release Repository</name>
+		</repository>		
+	</repositories>
+	
+	<dependencyManagement>
+	
+		<dependencies>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>4.0.1.Final</version>
+				<optional>true</optional>
+				<exclusions>
+					<exclusion>
+						<groupId>org.jboss</groupId>
+						<artifactId>jandex</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>4.0.1.Final</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-jpa_2.0_spec</artifactId>
+				<version>1.1</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>3.15.0-GA</version>
+				<scope>runtime</scope>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.6.4</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.6.4</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.10</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.dbunit</groupId>
+				<artifactId>dbunit</artifactId>
+				<version>2.4.7</version><!-- 2.4.8 has issue in timestamp handling -->
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.3.163</version>
+				<scope>test</scope>
+			</dependency>
+	
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time-hibernate</artifactId>
+				<version>1.3</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>2.0</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.joda</groupId>
+				<artifactId>joda-money</artifactId>
+				<version>0.6</version>
+				<optional>true</optional>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<modules>
+		<module>usertype.spi</module>
+		<module>usertype.core</module>
+		<module>usertype.extended</module>
+	</modules>
+	
+</project>

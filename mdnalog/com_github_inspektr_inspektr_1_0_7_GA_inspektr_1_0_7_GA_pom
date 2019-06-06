@@ -1,0 +1,287 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>5</version>
+    </parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.inspektr</groupId>
+	<artifactId>inspektr</artifactId>
+	<packaging>pom</packaging>
+	<name>Inspektr Auditing Library</name>
+	<version>1.0.7.GA</version>
+	<url>http://inspektr.github.com</url>
+	<inceptionYear>2007</inceptionYear>
+
+    <organization>
+        <name>Rutgers, the State University of New Jersey</name>
+        <url>http:/www.rutgers.edu</url>
+    </organization>
+
+    <description>Inspektr is a non-intrusive auditing library for Java 1.5+ based applications.</description>
+
+    <scm>
+        <connection>scm:git:http://github.com/dima767/inspektr.git</connection>
+        <developerConnection>scm:git:git@github.com:dima767/inspektr.git</developerConnection>
+        <url>http://www.github.com/dima767/inpektr</url>
+        <tag>master</tag>
+    </scm>
+
+    <mailingLists>
+        <mailingList>
+            <archive>http://groups.google.com/group/inspektr-dev</archive>
+            <name>Inspektr Development Mailing List</name>
+        </mailingList>
+        <mailingList>
+            <archive>http://groups.google.com/group/inspektr-user</archive>
+            <name>Inspektr User Support Mailing List</name>
+        </mailingList>
+    </mailingLists>
+
+    <issueManagement>
+        <url>http://github.com/dima767/inspektr/issues</url>
+        <system>Github</system>
+    </issueManagement>
+
+	<licenses>
+		<license>
+			<name>Apache 2.0 License</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+    <developers>
+        <developer>
+            <id>dima767</id>
+            <name>Dmitriy Kopylenko</name>
+            <email>dkopylen@rutgers.edu</email>
+            <organization>Rutgers, the State University of New Jersey</organization>
+            <organizationUrl>http://www.rutgers.edu</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+
+        <developer>
+            <id>battags</id>
+            <name>Scott Battaglia</name>
+            <email>scott.battaglia@gmail.com</email>
+            <organizationUrl>http://www.scottbattaglia.com</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+
+        <developer>
+            <id>serac</id>
+            <name>Marvin Addison</name>
+            <email>serac@vt.edu</email>
+            <organization>Virginia Tech</organization>
+            <organizationUrl>http://www.vt.edu</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+	<build>
+		<testResources>
+			<testResource>
+				<directory>${basedir}/src/test/resources</directory>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<includes>
+						<include>**/*Tests.java</include>
+					</includes>
+					<excludes>
+						<exclude>**/Abstract*.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+            <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.1</version>
+					<configuration>
+						<mavenExecutorId>forked-path</mavenExecutorId>
+						<useReleaseProfile>false</useReleaseProfile>
+						<arguments>-Psonatype-oss-release</arguments>
+					</configuration>
+				</plugin>
+
+            <plugin>
+                <inherited>false</inherited>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.5.1</version>
+                <configuration>
+                    <basedir>${basedir}</basedir>
+                    <header>${basedir}/src/etc/header.txt</header>
+                    <aggregate>true</aggregate>
+                    <excludes>
+                        <exclude>LICENSE</exclude>
+                        <exclude>NOTICE.txt</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-core</artifactId>
+                <version>${spring.security.version}</version>
+                <type>jar</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+                <type>jar</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <spring.version>3.0.5.RELEASE</spring.version>
+        <spring.security.version>3.0.5.RELEASE</spring.security.version>
+        <slf4j.version>1.6.1</slf4j.version>
+        <junit.version>4.8.2</junit.version>
+        <aspectj.version>1.6.10</aspectj.version>
+        <javax.servlet.version>2.5</javax.servlet.version>
+        <javax.validation.version>1.0.0.GA</javax.validation.version>
+    </properties>
+
+	<modules>
+		<module>inspektr-common</module>
+		<module>inspektr-error</module>
+		<module>inspektr-audit</module>
+		<module>inspektr-support-spring</module>
+	</modules>
+</project>

@@ -1,0 +1,7 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cglib</groupId>
+  <artifactId>cglib-nodep</artifactId>
+  <name>cglib</name>
+  <version>2.1-nodep</version>
+</project>

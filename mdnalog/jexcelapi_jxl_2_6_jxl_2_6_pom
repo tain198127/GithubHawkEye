@@ -1,0 +1,13 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>jexcelapi</groupId>
+  <artifactId>jxl</artifactId>
+  <version>2.6</version>
+
+  <distributionManagement>
+    <relocation>
+      <groupId>net.sourceforge.jexcelapi</groupId>
+    </relocation>
+  </distributionManagement>
+
+</project>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>io.spring.javaformat</groupId>
+    <artifactId>spring-javaformat</artifactId>
+    <version>0.0.6</version>
+  </parent>
+  <groupId>io.spring.javaformat</groupId>
+  <artifactId>spring-javaformat-formatter-eclipse-runtime</artifactId>
+  <version>0.0.6</version>
+  <packaging>eclipse-plugin</packaging>
+  <name>Spring JavaFormat Eclipse Runtime</name>
+  <description>Spring JavaFormat</description>
+  <url>https://github.com/spring-io/spring-javaformat/#/spring-javaformat/spring-javaformat-formatter-eclipse-runtime</url>
+  <licenses>
+    <license>
+      <name>Eclipse Public License, Version 1.0</name>
+      <url>https://www.eclipse.org/legal/epl-v10.html</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Pivotal</name>
+      <email>info@pivotal.io</email>
+      <organization>Pivotal Software, Inc.</organization>
+      <organizationUrl>http://www.spring.io</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/spring-io/spring-javaformat/spring-javaformat/spring-javaformat-formatter-eclipse-runtime</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>io.spring.javaformat</groupId>
+      <artifactId>spring-javaformat-formatter-eclipse-rewriter</artifactId>
+      <version>0.0.6</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-maven-plugin</artifactId>
+        <version>1.1.0</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

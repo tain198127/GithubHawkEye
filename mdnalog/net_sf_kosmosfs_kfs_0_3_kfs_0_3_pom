@@ -1,0 +1,20 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.kosmosfs</groupId>
+  <artifactId>kfs</artifactId>
+  <packaging>jar</packaging>
+  <name>kosmosfs</name>
+  <version>0.3</version>
+  <description>Kosmos distributed file system provides high performance combined with availability and reliability.</description>
+  <url>http://kosmosfs.sourceforge.net/</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>http://kosmosfs.svn.sourceforge.net/viewvc/kosmosfs/</url>
+  </scm>
+</project>

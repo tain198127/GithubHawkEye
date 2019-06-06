@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+
+    Copyright (c) 2006-2016, Speedment, Inc. All Rights Reserved.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); You may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+	
+    <parent>
+        <groupId>com.speedment</groupId>
+        <artifactId>speedment-parent</artifactId>
+        <version>3.0.0-EA2</version>
+    </parent>
+    
+    <groupId>com.speedment.build</groupId>
+    <artifactId>build-parent</artifactId>
+    <packaging>pom</packaging>
+	
+    <name>Speedment - Build</name>
+    <description>
+        Common parent for modules that bundle togather multiple modules.
+    </description>
+
+    <profiles>
+        <!-- Only build "-deploy"-modules wen we are in the release profile. -->
+        <profile>
+            <id>release</id>
+            
+            <modules>
+                <module>runtime</module>
+                <module>runtime-deploy</module>
+                <module>generator</module>
+                <module>generator-deploy</module>
+                <module>tool</module>
+                <module>tool-deploy</module>
+                <module>maven-plugin</module>
+            </modules>
+            
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!-- Create a shaded artifact with sources included -->
+                        <plugin>
+                            <artifactId>maven-shade-plugin</artifactId>
+                            <version>2.4.3</version>
+
+                            <inherited>true</inherited>
+
+                            <configuration>
+                                <createSourcesJar>true</createSourcesJar>
+                                <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+                                <createDependencyReducedPom>true</createDependencyReducedPom>
+                                <minimizeJar>false</minimizeJar>
+                            </configuration>
+
+                            <executions>
+                                <execution>
+                                    <id>shade-artifacts</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>shade</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        
+                        <!-- Unpack the sources into a separate folder -->
+                        <plugin>
+                            <artifactId>maven-dependency-plugin</artifactId>
+                            <inherited>true</inherited>
+                            
+                            <executions>
+                                <execution>
+                                    <id>unpack-artifact-sources</id>
+                                    <phase>generate-resources</phase>
+                                    
+                                    <goals>
+                                        <goal>unpack</goal>
+                                    </goals>
+                                    
+                                    <configuration>
+                                        <artifactItems>
+                                            <artifactItem>
+                                                <groupId>${project.groupId}</groupId>
+                                                <artifactId>${project.artifactId}</artifactId>
+                                                <version>${project.version}</version>
+                                                <classifier>sources</classifier>
+                                                <overWrite>true</overWrite>
+                                            </artifactItem>
+                                        </artifactItems>
+                                        
+                                        <outputDirectory>${project.build.directory}/unpack_sources</outputDirectory>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+
+                        <!-- Generate javadoc for the unpacked sources -->
+                        <plugin>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <inherited>true</inherited>
+
+                            <configuration>
+                                <sourcepath>${project.build.directory}/unpack_sources</sourcepath>
+                            </configuration>
+                            
+                            <executions>
+                                <execution>
+                                    <phase>process-resources</phase>
+                                    <goals>
+                                        <goal>javadoc</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+        
+        <profile><!-- The order of the profiles is very important -->
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>runtime</module>
+                <module>generator</module>
+                <module>tool</module>
+                <module>maven-plugin</module>
+            </modules>
+        </profile>
+    </profiles>
+ 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.speedment.common</groupId>
+                <artifactId>common-all</artifactId>
+                <version>${common.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.speedment.runtime</groupId>
+                <artifactId>runtime-all</artifactId>
+                <version>${speedment.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.speedment.generator</groupId>
+                <artifactId>generator-all</artifactId>
+                <version>${speedment.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.speedment.tool</groupId>
+                <artifactId>tool-all</artifactId>
+                <version>${speedment.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

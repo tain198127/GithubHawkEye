@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+			    http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+	<groupId>com.sun.mail</groupId>
+	<artifactId>all</artifactId>
+	<version>1.5.3</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <packaging>jar</packaging>
+    <name>JavaMail API</name>
+
+    <properties>
+	<mail.extensionName>
+	    javax.mail
+	</mail.extensionName>
+	<mail.specificationTitle>
+	    JavaMail(TM) API Design Specification
+	</mail.specificationTitle>
+	<mail.implementationTitle>
+	    javax.mail
+	</mail.implementationTitle>
+
+	<mail.probeFile>
+	    META-INF/gfprobe-provider.xml
+	</mail.probeFile>
+	<findbugs.skip>
+	    false
+	</findbugs.skip>
+	<findbugs.exclude>
+	    ${project.basedir}/exclude.xml
+	</findbugs.exclude>
+    </properties>
+
+
+
+    <dependencies>
+	<dependency>
+	    <groupId>junit</groupId>
+	    <artifactId>junit</artifactId>
+	    <version>4.7</version>
+	    <scope>test</scope>
+	    <optional>true</optional>
+	</dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!-- 
+Licensed under GNU LESSER GENERAL PUBLIC LICENSE
+--> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.googlecode.</groupId>
+    <artifactId>google-api-translate-java</artifactId>
+    <version>0.92</version>
+    <name>Google API Translate JAR</name>
+    <description>Enables use of Google Translate API from a Java application</description>
+    <url>http://code.google.com/p/google-api-translate-java/</url>
+    <inceptionYear>2009</inceptionYear>
+    <packaging>jar</packaging>
+    <developers>
+        <developer> 
+            <name>Richard Midwinter</name>
+            <email>richard.midwinter@gmail.com</email>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
+    </developers>
+    <issueManagement>
+        <system>Google Code - Issue Tracking</system>
+        <url>http://code.google.com/p/google-api-translate-java/issues/list</url>
+    </issueManagement>    
+	<licenses>
+	  <license>
+	    <name>GNU Lesser General Public License</name>
+	    <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+	    <distribution>repo</distribution>
+	    <comments>This license is a set of additional permissions added to version 3 of the GNU General Public License</comments>	    
+	  </license>
+	</licenses>
+    <scm>
+        <connection>scm:svn:http://google-api-translate-java.googlecode.com/svn/trunk/</connection>
+        <developerConnection>scm:svn:https://google-api-translate-java.googlecode.com/svn/trunk/</developerConnection>
+        <url>http://code.google.com/p/google-api-translate-java/source/browse/</url>
+    </scm>
+    
+  <build>
+    <directory>target</directory>
+    <outputDirectory>target/classes</outputDirectory>
+    <finalName>${artifactId}-${version}</finalName>
+    <testOutputDirectory>target/test-classes</testOutputDirectory>
+    <sourceDirectory>src</sourceDirectory>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <verbose>true</verbose>
+          <fork>true</fork>
+          <compilerVersion>1.5</compilerVersion>
+        </configuration>
+      </plugin>
+    </plugins>
+        
+  </build>
+      
+</project>

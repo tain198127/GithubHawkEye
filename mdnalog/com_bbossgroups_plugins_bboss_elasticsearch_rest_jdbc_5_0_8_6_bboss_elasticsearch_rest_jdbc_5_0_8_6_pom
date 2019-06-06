@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.bbossgroups.plugins</groupId>
+  <artifactId>bboss-elasticsearch-rest-jdbc</artifactId>
+  <version>5.0.8.6</version>
+  <name>bboss-elasticsearch-rest-jdbc</name>
+  <description>bboss elasticsearch client with restful and java api without elasticsearch jar dependended.</description>
+  <url>http://www.bbossgroups.com</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>yin-bp</id>
+      <name>biaoping.yin</name>
+      <email>yin-bp@163.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git@github.com:bbossgroups/bboss-elastic.git</connection>
+    <developerConnection>scm:git:git@github.com:bbossgroups/bboss-elastic.git</developerConnection>
+    <url>https://github.com/bbossgroups/bboss-elastic</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>com.bbossgroups.plugins</groupId>
+      <artifactId>bboss-elasticsearch-rest-booter</artifactId>
+      <version>5.0.8.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.bbossgroups</groupId>
+      <artifactId>bboss-persistent</artifactId>
+      <version>5.0.7.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.40</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>*</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+</project>

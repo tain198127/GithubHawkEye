@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.opensymphony.quartz</groupId>
+  <artifactId>quartz</artifactId>
+  <packaging>jar</packaging>
+  <version>1.6.1</version>
+  <url>http://www.opensymphony.com/quartz</url>
+  <distributionManagement>
+    <downloadUrl>https://quartz.dev.java.net/files/documents/1267/113392/quartz-1.6.1.zip</downloadUrl>
+  </distributionManagement>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>manual</distribution>
+    </license>
+  </licenses>
+</project>

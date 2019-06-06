@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-parent</artifactId>
+        <version>22</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.mortbay.jasper</groupId>
+    <artifactId>jasper-jsp</artifactId>
+    <version>8.0.9.M3</version>
+    <packaging>pom</packaging>
+    <name>Jetty :: Jasper :: Project</name>
+
+    <description>
+       A rebundling of Apache Tomcat Jasper to remove the tomcat server dependencies,
+       so that the JSP engine can be used by the Eclipse Jetty project.
+    </description>
+
+    <inceptionYear>2014</inceptionYear>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/jetty-project/jasper-jsp/issues</url>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>Apache License Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/jetty-project/jasper-jsp.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/jetty-project/jasper-jsp.git</developerConnection>
+        <url>https://github.com/jetty-project/jasper-jsp</url>
+    </scm>
+
+    <properties>
+       <tomcat.version>8.0.9</tomcat.version>
+    </properties>
+
+    <repositories>
+      <repository>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+        <id>sonatype-snapshots</id>
+        <name>Sonatype Jetty Snapshots</name>
+        <url>http://oss.sonatype.org/content/groups/jetty</url>
+      </repository>
+    </repositories>
+
+    <modules>
+        <module>apache-el</module>
+        <module>apache-jsp</module>
+    </modules>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>require-jdk7</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>[1.7,)</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

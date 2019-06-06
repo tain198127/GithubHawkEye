@@ -1,0 +1,188 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.taobao.diamond</groupId>
+    <artifactId>diamond-client</artifactId>
+    <version>edas-3.7.3</version>
+    <name>diamond-client v${project.version}</name>
+    <url>http://www.aliyun.com</url>
+    <description>client for users</description>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git@gitlab.alibaba-inc.com:middleware/diamond.git</connection>
+        <developerConnection>scm:git@gitlab.alibaba-inc.com:middleware/diamond.git</developerConnection>
+        <url>git@gitlab.alibaba-inc.com:middleware/diamond.git</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>water.lyl</name>
+            <email>water.lyl@alibaba-inc.com</email>
+        </developer>
+    </developers>
+    <properties>
+        <project.build.sourceEncoding>GBK</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+        <plugins>
+	        <plugin>  
+	        <groupId>org.apache.maven.plugins</groupId>  
+	        <artifactId>maven-surefire-plugin</artifactId>  
+	        <version>2.9</version>  
+	        <configuration>  
+	          <skipTests>true</skipTests>  
+	        </configuration>  
+	      </plugin>  
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>GBK</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                    <useProjectReferences>true</useProjectReferences>
+                    <projectNameTemplate>${project.artifactId}-${project.version}</projectNameTemplate>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.taobao.maven.plugins</groupId>
+                <artifactId>pandora-maven-plugin</artifactId>
+                <version>2.1.1-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <id>default-client</id>
+                        <goals>
+                            <goal>plugin</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 配置详情参考 [pandora:plugin](plugin-mojo.html) -->
+                            <priority>150</priority>
+                            <imported>
+                                <!-- 如果不配置 "usebizclassloader", 默认为 true -->
+                                <usebizclassloader>false</usebizclassloader>
+                                <!-- 要优先从业务加载的 package, 必须在这里配置 -->
+                                <packages>
+                                    <package>javax.servlet</package>
+                                    <package>org.springframework</package>
+                                    <package>com.alibaba.common.lang</package>
+                                </packages>
+                            </imported>
+                            <export>
+                                <jars>
+                                    <jar>diamond-client-edas-3.7.3-SNAPSHOT.jar</jar>
+                                </jars>
+                                <classes>
+                                    <class>com.taobao.diamond.domain.ConfigInfoEx</class>
+                                </classes>
+                            </export>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+ <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>taobao</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>taobao</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+    <dependencies>
+        <dependency>
+            <groupId>com.taobao.diamond</groupId>
+            <artifactId>diamond-utils</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
+        <!-- test deps -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.4</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+          <groupId>com.alibaba.dauth</groupId>
+          <artifactId>sdk-client</artifactId>
+          <version>1.2.3</version>
+        </dependency>
+    </dependencies>
+
+</project>

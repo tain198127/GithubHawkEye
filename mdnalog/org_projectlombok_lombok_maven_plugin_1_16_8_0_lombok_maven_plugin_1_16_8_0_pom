@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok-maven</artifactId>
+    <version>1.16.8.0</version>
+  </parent>
+
+  <artifactId>lombok-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+
+  <name>Lombok Maven Plugin</name>
+  <description>Maven Plugin for Project Lombok</description>
+
+  <!-- This is needed so that the Plugin Documentation has the correct System Requirements. -->
+  <prerequisites>
+    <maven>3.0.4</maven>
+  </prerequisites>
+
+  <properties>
+    <!-- Skip generated code from Checkstyle analysis... -->
+    <checkstyle.excludes>**/HelpMojo.java</checkstyle.excludes>
+    <!-- Properties for Site documentation (may not use period). -->
+    <MavenLombokPluginVersion>${project.version}</MavenLombokPluginVersion>
+    <LombokVersion>${lombok.version}</LombokVersion>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${maven.api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.plugin-tools</groupId>
+      <artifactId>maven-plugin-annotations</artifactId>
+      <version>3.4</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>${maven.api.version}</version>
+      <!--
+        Note that Maven 2 and 3 always use the classes from the distro,
+        ignoring declared dependencies for Maven core stuff, so marking
+        this as provided to avoid risk around including a non thread-safe
+        plexus-utils dependency transitively.
+        See:  https://cwiki.apache.org/confluence/display/MAVEN/Parallel+builds+in+Maven+3
+      -->
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.plexus</groupId>
+      <artifactId>plexus-build-api</artifactId>
+      <version>0.0.7</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>help-goal</id>
+            <goals>
+              <goal>helpmojo</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <extractors>
+            <extractor>java-annotations</extractor>
+          </extractors>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${version.javadoc-plugin}</version>
+        <configuration>
+          <links>
+            <link>http://maven.apache.org/ref/${maven.api.version}/maven-plugin-api/apidocs/</link>
+            <link>http://maven.apache.org/ref/${maven.api.version}/maven-core/apidocs/</link>
+          </links>
+          <linksource>true</linksource>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>3.4</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>${version.pmd-plugin}</version>
+        <configuration>
+          <targetJdk>${version.java}</targetJdk>
+          <rulesets>
+            <ruleset>/rulesets/java/basic.xml</ruleset>
+            <ruleset>/rulesets/java/braces.xml</ruleset>
+            <ruleset>/rulesets/java/codesize.xml</ruleset>
+            <ruleset>/rulesets/java/controversial.xml</ruleset>
+            <ruleset>/rulesets/java/design.xml</ruleset>
+            <ruleset>/rulesets/java/imports.xml</ruleset>
+            <ruleset>/rulesets/java/migrating.xml</ruleset>
+            <ruleset>/rulesets/java/naming.xml</ruleset>
+            <ruleset>/rulesets/java/optimizations.xml</ruleset>
+            <ruleset>/rulesets/java/strictexception.xml</ruleset>
+            <ruleset>/rulesets/java/strings.xml</ruleset>
+            <ruleset>/rulesets/java/sunsecure.xml</ruleset>
+            <ruleset>/rulesets/java/typeresolution.xml</ruleset>
+            <ruleset>/rulesets/java/unnecessary.xml</ruleset>
+            <ruleset>/rulesets/java/unusedcode.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>

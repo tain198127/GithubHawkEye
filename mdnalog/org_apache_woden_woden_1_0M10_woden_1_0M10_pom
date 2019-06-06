@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ !
+ ! Licensed to the Apache Software Foundation (ASF) under one or more
+ ! contributor license agreements.  See the NOTICE file distributed with
+ ! this work for additional information regarding copyright ownership.
+ ! The ASF licenses this file to You under the Apache License, Version 2.0
+ ! (the "License"); you may not use this file except in compliance with
+ ! the License.  You may obtain a copy of the License at
+ !
+ !      http://www.apache.org/licenses/LICENSE-2.0
+ !
+ ! Unless required by applicable law or agreed to in writing, software
+ ! distributed under the License is distributed on an "AS IS" BASIS,
+ ! WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the License for the specific language governing permissions and
+ ! limitations under the License.
+ !-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.ws</groupId>
+        <artifactId>ws-parent</artifactId>
+        <version>1</version>
+    </parent>
+    <groupId>org.apache.woden</groupId>
+    <artifactId>woden</artifactId>
+    <version>1.0M10</version>
+    <packaging>pom</packaging>
+    <inceptionYear>2005</inceptionYear>
+    <name>Woden</name>
+    <description>The Woden project is a subproject of the Apache Web Services Project to
+      develop a Java class library for reading, manipulating, creating and writing WSDL documents,
+      initially to support WSDL 2.0 but with the longer term aim of supporting past, present and
+      future versions of WSDL.
+
+      There are two main deliverables: an API and an implementation. The Woden API consists of
+      a set of Java interfaces. The WSDL 2.0-specific portion of the Woden API conforms to the
+      W3C WSDL 2.0 specification. The implementation will be a high performance implementation
+      directly usable in other Apache projects such as Axis2.
+    </description>
+    <url>http://ws.apache.org/woden/</url>
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/webservices/woden/tags/1.0M10</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/webservices/woden/tags/1.0M10</developerConnection>
+        <url>http://svn.apache.org/viewvc/webservices/woden/tags/1.0M10</url>
+    </scm>
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.8</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>scm</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+    <mailingLists>
+        <mailingList>
+            <name>Woden Developers</name>
+            <subscribe>dev-subscribe@ws.apache.org</subscribe>
+            <unsubscribe>dev-unsubscribe@ws.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/ws-dev/</archive>
+            <post>dev@ws.apache.org</post>
+        </mailingList>
+    </mailingLists>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://issues.apache.org/jira/browse/Woden</url>
+    </issueManagement>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <organization>
+        <name>Apache Software Foundation</name>
+        <url>http://www.apache.org/</url>
+    </organization>
+    <dependencies>
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.15</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.jms</groupId>
+                        <artifactId>jms</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.jdmk</groupId>
+                        <artifactId>jmxtools</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.sun.jmx</groupId>
+                        <artifactId>jmxri</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>oro</groupId>
+                        <artifactId>oro</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ws.xmlschema</groupId>
+                <artifactId>xmlschema-core</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>wsdl4j</groupId>
+                <artifactId>wsdl4j</artifactId>
+                <version>1.6.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <modules>
+        <module>woden-core</module>
+        <module>woden-tests</module>
+        <module>woden-tool</module>
+        <module>woden-converter-maven-plugin</module>
+        <module>woden-ant</module>
+        <module>woden-dist</module>
+        <module>w3c-tests</module>
+    </modules>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.rat</groupId>
+                    <artifactId>apache-rat-plugin</artifactId>
+                    <version>0.11</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <configuration>
+                        <tagBase>https://svn.apache.org/repos/asf/webservices/woden/tags/</tagBase>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <compilerArgument>-g</compilerArgument>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!-- We want to generate source JARs for all builds, not just release builds. -->
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>source-jars</id>
+                        <goals>
+                            <!-- Use "jar-no-fork" instead of "jar" to avoid forking the build
+                                 (which is not a problem, but unnecessary) -->
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+            </plugin>
+        </plugins> 
+    </build>
+    <repositories>
+        <repository>
+            <id>apache.snapshots</id>
+            <name>Apache Snapshot Repository</name>
+            <url>http://repository.apache.org/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <site>
+            <id>website</id>
+            <url>scm:svn:https://svn.apache.org/repos/asf/webservices/website/woden-staging</url>
+        </site>
+    </distributionManagement>
+    <profiles>
+        <profile>
+            <id>apache-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <!-- Skip the execution configured in org.apache:apache. We use our own configuration. -->
+                                <id>attach-sources</id>
+                                <phase>none</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <!-- The source release is built by the woden-dist module -->
+                                <id>source-release-assembly</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.rat</groupId>
+                        <artifactId>apache-rat-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>legal/**</exclude>
+                                        <exclude>src/site/markdown/release-notes/**</exclude>
+                                        <exclude>**/META-INF/MANIFEST.MF</exclude>
+                                        <exclude>**/about-this-package</exclude>
+                                    </excludes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <properties>
+        <bundle.plugin.version>2.3.7</bundle.plugin.version>
+        <apache.ant.version>1.7.1</apache.ant.version>
+    </properties>
+</project>

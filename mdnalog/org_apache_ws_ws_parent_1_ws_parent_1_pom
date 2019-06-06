@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements. See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership. The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License. You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied. See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache</groupId>
+        <artifactId>apache</artifactId>
+        <version>17</version>
+    </parent>
+    <groupId>org.apache.ws</groupId>
+    <artifactId>ws-parent</artifactId>
+    <version>1</version>
+    <packaging>pom</packaging>
+    <name>Apache Web Services</name>
+    <url>http://ws.apache.org/</url>
+    <mailingLists>
+        <mailingList>
+            <name>Users</name>
+            <subscribe>users-subscribe@ws.apache.org</subscribe>
+            <unsubscribe>users-unsubscribe@ws.apache.org</unsubscribe>
+            <post>users@ws.apache.org</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/ws-users/</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <subscribe>dev-subscribe@ws.apache.org</subscribe>
+            <unsubscribe>dev-unsubscribe@ws.apache.org</unsubscribe>
+            <post>dev@ws.apache.org</post>
+            <archive>http://mail-archives.apache.org/mod_mbox/ws-dev/</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commits</name>
+            <subscribe>commits-subscribe@ws.apache.org</subscribe>
+            <unsubscribe>commits-unsubscribe@ws.apache.org</unsubscribe>
+            <archive>http://mail-archives.apache.org/mod_mbox/ws-commits/</archive>
+        </mailingList>
+    </mailingLists>
+    <scm>
+        <connection>scm:svn:http://svn.apache.org/repos/asf/webservices/parent/tags/ws-parent-1</connection>
+        <developerConnection>scm:svn:https://svn.apache.org/repos/asf/webservices/parent/tags/ws-parent-1</developerConnection>
+        <url>http://svn.apache.org/viewvc/webservices/parent/tags/ws-parent-1</url>
+    </scm>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.3</version>
+                    <configuration>
+                        <breakiterator>true</breakiterator>
+                        <!-- The notimestamp, windowtitle and bottom parameters are chosen to minimize the number
+                             of changes between releases (to avoid mass changes when committing the site for a new release) -->
+                        <notimestamp>true</notimestamp>
+                        <windowtitle>${project.name} API</windowtitle>
+                        <bottom>Copyright © {organizationName}. All Rights Reserved.</bottom>
+                        <!-- doctitle only appears in the summary and we should include the version there -->
+                        <doctitle>${project.name} ${project.version} API</doctitle>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.4</version>
+                <configuration>
+                    <skipDeploy>true</skipDeploy>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-publish-plugin</artifactId>
+                <version>1.1</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

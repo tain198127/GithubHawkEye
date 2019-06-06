@@ -1,0 +1,121 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.google.code.javaparser</groupId>
+	<artifactId>javaparser</artifactId>
+	<packaging>jar</packaging>
+	<name>Java 1.5 Parser and AST</name>
+	<version>1.0.8</version>
+	<description>A Java 1.5 Parser with AST generation and visitor support. The AST records the source code structure, javadoc and comments. It is also possible to change the AST nodes or create new ones to modify the source code.</description>
+	<url>http://code.google.com/p/javaparser/</url>
+	<issueManagement>
+		<system>Google Code</system>
+		<url>http://code.google.com/p/javaparser/issues/</url>
+	</issueManagement>
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<url>http://code.google.com/p/javaparser/source/browse/</url>
+		<connection>http://javaparser.googlecode.com/svn/trunk/</connection>
+	</scm>
+	<inceptionYear>2007</inceptionYear>
+	<developers>
+		<developer>
+			<name>Júlio Vilmar Gesser</name>
+			<email>jgesser@gmail.com</email>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name>Hendy Irawan</name>
+			<email>hendy@soluvas.com</email>
+			<url>http://www.HendyIrawan.com/</url>
+			<organization>Soluvas</organization>
+			<organizationUrl>http://www.Soluvas.com/</organizationUrl>
+		</contributor>
+	</contributors>
+	<!-- <distributionManagement> <site> <id>javaparser-site</id> <name>JavaParser</name> 
+		<url>http://code.google.com/p/javaparser</url> </site> <downloadUrl>http://code.google.com/p/javaparser/downloads/</downloadUrl> 
+		<repository> <id>javaparser-release</id> <name>JavaParser Maven Releases 
+		Repository</name> <url>svn:https://javaparser.googlecode.com/svn/maven2</url> 
+		</repository> <snapshotRepository> <id>javaparser-snapshots</id> <name>JavaParser 
+		Maven Snapshots Repository</name> <url>svn:https://javaparser.googlecode.com/svn/maven2-snapshots</url> 
+		</snapshotRepository> </distributionManagement> -->
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<testSourceDirectory>test</testSourceDirectory>
+		<outputDirectory>bin</outputDirectory>
+		<testOutputDirectory>bin-test</testOutputDirectory>
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.9</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>ignore/**</exclude>
+						<exclude>**/*$*</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<resources>
+		</resources>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>java.net.m2</id>
+			<url>http://download.java.net/maven/2</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+</project>

@@ -1,0 +1,14 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>javax.xml</groupId>
+  <artifactId>xmldsig</artifactId>
+  <version>1.0</version>
+  <name>JSR 105 - Java(TM) XML Digital Signature API</name>
+  <description>
+    Part of the Java Web Services Developer Pack 1.6
+  </description>
+  <url>http://www.jcp.org/en/jsr/detail?id=105</url>
+  <distributionManagement>
+    <downloadUrl>http://java.sun.com/webservices/downloads/webservicespack.html</downloadUrl>
+  </distributionManagement>
+</project>

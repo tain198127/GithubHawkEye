@@ -1,0 +1,6 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tomcat</groupId>
+  <artifactId>jasper-runtime</artifactId>
+  <version>5.5.12</version>
+</project>

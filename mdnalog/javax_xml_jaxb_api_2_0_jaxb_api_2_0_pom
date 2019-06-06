@@ -1,0 +1,37 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>javax.xml</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.0</version>
+    <packaging>jar</packaging>
+    <name>Java Architecture for XML Binding</name>
+    <url>https://jaxb.dev.java.net</url>
+
+    <distributionManagement>
+      <relocation>
+        <groupId>javax.xml.bind</groupId>
+      </relocation>
+    </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <url>http://www.sun.com/cddl/cddl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <dependencies>
+        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>jsr173</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1</version>
+        </dependency>
+    </dependencies>
+
+</project>

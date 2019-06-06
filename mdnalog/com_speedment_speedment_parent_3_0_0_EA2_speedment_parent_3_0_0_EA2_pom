@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+
+    Copyright (c) 2006-2016, Speedment, Inc. All Rights Reserved.
+
+    Licensed under the Apache License, Version 2.0 (the "License"); You may not
+    use this file except in compliance with the License. You may obtain a copy of
+    the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- For OSSRH on SonaType -->
+    <!-- -->
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>9</version>
+    </parent>
+    <!-- -->
+    
+    <groupId>com.speedment</groupId>
+    <artifactId>speedment-parent</artifactId>
+    <version>3.0.0-EA2</version>
+    <packaging>pom</packaging>
+    
+    <!-- Project Metadata -->
+    <name>Speedment</name>
+    <description>
+        Read and modify your database using standard Java 8-streams and 
+        generated entity classes.
+    </description>
+    
+    <!-- Modules -->
+    <modules>
+        <module>common-parent</module>
+        <module>runtime-parent</module>
+        <module>generator-parent</module>
+        <module>tool-parent</module>
+        <module>build-parent</module>
+        <module>plugin-parent</module>
+        <module>archetype-parent</module>
+    </modules>
+    
+    <!-- Properties -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        
+        <speedment.version>${project.version}</speedment.version>
+        <common.version>1.0.1</common.version>
+    </properties>
+    
+    <organization>
+        <name>Speedment, Inc.</name>
+        <url>http://www.speedment.com/</url>
+    </organization>
+    
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <id>Minborg</id>
+            <name>Per Ake Minborg</name>
+            <email>minborg@speedment.com</email>
+            <timezone>America/Los_Angeles</timezone>
+        </developer>
+        <developer>
+            <id>Pyknic</id>
+            <name>Emil Forslund</name>
+            <email>emil@speedment.com</email>
+            <timezone>America/Los_Angeles</timezone>
+        </developer>
+        <developer>
+            <id>lawesson</id>
+            <name>Dan Lawesson</name>
+            <email>dan@speedment.com</email>
+            <timezone>America/Los_Angeles</timezone>
+        </developer>
+    </developers>
+    
+    <contributors>
+        <contributor>
+            <name>Fatih Dirlikli (GitHub:orwashere)</name>
+            <timezone>Europe/Istanbul</timezone>
+        </contributor>
+        <contributor>
+            <name>Patrick Hobusch (GitHub:pathob)</name>
+            <timezone>Europe/Berlin</timezone>
+        </contributor>
+        <contributor>
+            <name>Maria Sparenberg (GitHub:marylla)</name>
+            <timezone>Europe/Berlin</timezone>
+        </contributor>
+        <contributor>
+            <name>Anton Johansson (GitHub:anton-johansson)</name>
+            <timezone>Europe/Stockholm</timezone>
+        </contributor>
+        <contributor>
+            <name>Valeriy Vyrva (GitHub:valery1707)</name>
+            <timezone>Asia/Almaty</timezone>
+        </contributor>
+        <contributor>
+            <name>Roberts Vartins (GitHub:robertsv)</name>
+            <timezone>Europe/Riga</timezone>
+        </contributor>
+        <contributor>
+            <name>Simon Jonasson (GitHub:Gikkman)</name>
+            <timezone>Europe/Stockholm</timezone>
+        </contributor>
+        <contributor>
+            <name>Elis Minborg (GitHub:elisminborg)</name>
+            <timezone>America/Los_Angeles</timezone>
+        </contributor>
+        <contributor>
+            <name>Rajvinder Kaur Janjuha (GitHub:Rajvinder)</name>
+            <timezone>IST</timezone>
+        </contributor>
+        <contributor>
+            <name>Håkan Saltin (GitHub:HSaltin)</name>
+            <timezone>America/Los_Angeles</timezone>
+        </contributor>
+    </contributors>
+	
+    <!-- Distribution Details -->
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/speedment/speedment/issues</url>
+    </issueManagement>
+    
+    <scm>
+        <connection>scm:git:git://github.com/speedment/speedment.git</connection>
+        <developerConnection>scm:git:git@github.com:speedment/speedment.git</developerConnection>
+        <url>https://github.com/speedment/speedment/</url>
+    </scm>
+	
+    <distributionManagement>
+        <!-- For OSSRH on SonaType -->
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus snapshot repository</name>			  		
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Sonatype Nexus release staging repository</name>		
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+	
+    <!-- Plugins -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>3.2.0</version>
+                    
+                    <extensions>true</extensions>
+                    <inherited>true</inherited>
+                    
+                    <configuration>
+                        <instructions>
+                            <Bundle-Vendor>Speedment, Inc.</Bundle-Vendor>
+                            <Import-Package>
+                                org.osgi.framework,
+                                *;resolution:=optional 
+                            </Import-Package>
+                        </instructions>
+                    </configuration>
+                    
+                    <executions>
+                        <execution>
+                            <id>generate-manifest</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>manifest</goal>
+                            </goals>
+                            <configuration>
+                                <supportedProjectTypes>
+                                    <supportedProjectType>jar</supportedProjectType>
+                                    <supportedProjectType>bundle</supportedProjectType>
+                                </supportedProjectTypes>
+                                <instructions>
+                                    <Export-Package>${project.groupId}.*</Export-Package>
+                                    <!-- override "internal" private package convention -->
+                                    <Private-Package>!*</Private-Package>
+                                </instructions>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                
+                <configuration>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    
+                    <fork>true</fork>
+                    <optimize>true</optimize>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <meminitial>256m</meminitial>
+                    <maxmem>1024m</maxmem>
+                    <excludes>
+                        <exclude>**/package-info.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.4</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                
+                <configuration>
+                    <useFile>false</useFile>
+                    <trimStackTrace>false</trimStackTrace>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile> 
+            <id>release</id>
+            
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+
+                        <reportSets>
+                            <reportSet>
+                                <id>aggregate</id>
+                                <reports>
+                                    <report>aggregate</report>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>findbugs-maven-plugin</artifactId>
+                        <version>3.0.4</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+            
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.10.4</version>
+                            
+                            <inherited>true</inherited>
+
+                            <executions>
+                                <execution>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>jar</goal>
+                                        <goal>aggregate-jar</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+
+                            <configuration>
+                                <groups>
+                                    <group>
+                                        <title>Code Generator</title>
+                                        <packages>com.speedment.common.codegen:com.speedment.common.codegen.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Runtime Database Model</title>
+                                        <packages>com.speedment.runtime.config:com.speedment.runtime.config.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Runtime Type Mappers</title>
+                                        <packages>com.speedment.runtime.typemapper:com.speedment.runtime.typemapper.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Runtime Fields and Predicates</title>
+                                        <packages>com.speedment.runtime.field:com.speedment.runtime.field.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Runtime Core</title>
+                                        <packages>com.speedment.runtime.core:com.speedment.runtime.core.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Generator Translator System</title>
+                                        <packages>com.speedment.generator.translator:com.speedment.generator.translator.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Generator Built-In Translators</title>
+                                        <packages>com.speedment.generator.standard:com.speedment.generator.standard.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Generator Core</title>
+                                        <packages>com.speedment.generator.core:com.speedment.generator.core.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Tool Configuration</title>
+                                        <packages>com.speedment.tool.config:com.speedment.tool.config.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Tool Property Editor</title>
+                                        <packages>com.speedment.tool.propertyeditor:com.speedment.tool.propertyeditor.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Tool Core</title>
+                                        <packages>com.speedment.tool.core:com.speedment.tool.core.*</packages>
+                                    </group>
+                                    <group>
+                                        <title>Commons Library</title>
+                                        <packages>com.speedment.common.*</packages>
+                                    </group>
+                                </groups>
+                                
+                                <aggregate>true</aggregate>
+                                <keywords>true</keywords>
+                                <docfilessubdirs>true</docfilessubdirs>
+                                <excludePackageNames>*.internal.*</excludePackageNames>
+                                <includeDependencySources>true</includeDependencySources>
+
+                                <additionalJOptions>
+                                    <additionalJOption>-J-Xmx1g</additionalJOption>
+                                </additionalJOptions>
+                            </configuration>
+                        </plugin>
+
+                        <plugin>
+                            <artifactId>maven-source-plugin</artifactId>
+                            <version>3.0.1</version>
+                            <inherited>true</inherited>
+                            
+                            <executions>
+                                <execution>
+                                    <id>attach-sources</id>
+                                    <goals>
+                                        <goal>jar-no-fork</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>3.2</version>
+                    </plugin>
+                    
+                    <plugin>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <version>3.0</version>
+                        
+                        <configuration>
+                            <header>license_header.txt</header>
+                            <properties>
+                                <currentYear>2016</currentYear>
+                            </properties>
+                            <excludes>
+                                <exclude>**/README</exclude>
+                                <exclude>**/package-info.java</exclude>
+                                <exclude>**/nbactions.xml</exclude>
+                                <exclude>**/nb-configuration.xml</exclude>
+                                <exclude>**/.versionsBackup</exclude>
+                                <exclude>CONTRIBUTOR_LICENSE_AGREEMENT</exclude>
+                                <exclude>README.md</exclude>
+                                <exclude>LICENSE</exclude>
+                                <exclude>DISCLAIMER</exclude>
+                                <exclude>THIRD_PARTY_LICENSES</exclude>
+                                <exclude>src/test/resources/**</exclude>
+                                <exclude>src/main/resources/**</exclude>
+                                <exclude>nbproject/**</exclude>
+                            </excludes>
+                        </configuration>
+                        
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                    <plugin>
+                        <!-- http://eclemma.org/jacoco/trunk/doc/maven.html -->
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.7.7.201606060606</version>
+                        
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-check</id>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <!--  implementation is needed only for Maven 2  -->
+                                        <rule implementation="org.jacoco.maven.RuleConfiguration">
+                                            <element>BUNDLE</element>
+                                            <limits>
+                                                <!--  implementation is needed only for Maven 2  -->
+                                                <limit implementation="org.jacoco.report.check.Limit">
+                                                    <counter>COMPLEXITY</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>0.01</minimum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    
+                    <plugin>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        
+                        <configuration>
+                            <keyname>${gpg.keyname}</keyname>
+                            <passphrase>${gpg.passphrase}</passphrase>
+                            <executable>${gpg.executable}</executable>
+                        </configuration>
+                    </plugin>
+                    
+                    <plugin>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8.2</version>
+                        
+                        <configuration>
+                            <!-- Deployment is already handled by nexus-staging-maven-plugin -->
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                    
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        
+                        <extensions>true</extensions>
+                        
+                        <executions>
+                            <execution>
+                                <id>default-deploy</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        
+                        <configuration>
+                            <serverId>sonatype-nexus-staging</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- Test Dependencies -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.12</version>
+                <scope>test</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>1.3</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>2.53.1</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.opera</groupId>
+                <artifactId>operadriver</artifactId>
+                <scope>test</scope>
+                <version>1.5</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.seleniumhq.selenium</groupId>
+                        <artifactId>selenium-remote-driver</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

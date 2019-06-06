@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.mortbay.jasper</groupId>
+        <artifactId>jasper-jsp</artifactId>
+        <version>8.0.3.v20140313</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.mortbay.jasper</groupId>
+    <artifactId>apache-el</artifactId>
+    <packaging>jar</packaging>
+    <name>MortBay :: Apache EL :: API and Implementation</name>
+
+    <properties>
+    </properties>
+
+    <build>
+      <resources>
+        <resource>
+          <directory>src/main/java</directory>
+           <includes>
+             <include>**/*.properties</include>
+           </includes>
+        </resource>
+        <resource>
+          <directory>src/main/resources</directory>
+           <includes>
+             <include>**/*</include>
+           </includes>
+        </resource>
+      </resources>
+    </build>
+
+    <dependencies>
+      <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>javax.servlet-api</artifactId>
+         <version>3.1.0</version>
+	 <scope>provided</scope>
+      </dependency>
+    </dependencies>
+
+</project>

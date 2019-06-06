@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.dbunit</groupId>
+  <artifactId>dbunit</artifactId>
+  <packaging>jar</packaging>
+  <version>2.2</version>
+  <name>DbUnit Framework</name>
+  <url>http://dbunit.sourceforge.net</url>
+<!-- TODO - stuff below changed on M2; I think it went to Site plugin
+  <logo>http://dbunit.sourceforge.net/images/dbunit-logo.jpg</logo>
+  <package>org.dbunit</package>
+  <shortDescription>
+    DbUnit is a JUnit extension targeted for database-driven projects
+  </shortDescription>
+-->
+  <inceptionYear>2002</inceptionYear>
+  <description>
+    DbUnit is a JUnit extension (also usable from Ant) targeted for database-driven projects that, among other things, puts your database into a known state between test runs. This is an excellent way to avoid the myriad of problems that can occur when one test case corrupts the database and causes subsequent tests to fail or exacerbate the damage.
+  </description>
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License, Version 2.1</name>
+      <url>http://www.gnu.org/copyleft/lesser.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm> 
+    <connection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/tags/release-2-2</connection>
+    <developerConnection>scm:svn:https://dbunit.svn.sourceforge.net/svnroot/dbunit/tags/release-2-2</developerConnection>
+    <url>http://dbunit.svn.sourceforge.net/svnroot/dbunit/tags/release-2-2</url>
+  </scm>
+  <issueManagement>
+    <system>SourceForge</system>
+    <url>http://sourceforge.net/tracker/?group_id=47439</url>
+  </issueManagement>
+  <mailingLists>
+    <mailingList>
+      <name>DbUnit User List</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-user</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=8154</archive>
+    </mailingList>
+    <mailingList>
+      <name>DbUnit Developer List</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-developer</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-developer</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=9162</archive>
+    </mailingList>
+    <mailingList>
+      <name>DbUnit SVN Commit List</name>
+      <subscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</subscribe>
+      <unsubscribe>http://lists.sourceforge.net/lists/listinfo/dbunit-commit</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=9771</archive>
+    </mailingList>    
+  </mailingLists>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>snapshots</id>
+      <url>http://people.apache.org/repo/m2-snapshot-repository/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  
+  <!-- who the developers are for the project -->
+  <developers>
+   <!-- put my name first, so my email is used by the announcements-email
+        plugin -->
+   <developer>
+      <name>Felipe Leme</name>
+      <id>felipeal</id>
+      <email>dbunit@felipeal.net</email>
+      <organization>Falcon Informatica</organization>
+      <timezone>-3</timezone>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+   <developer>
+      <name>Benjamin Cox</name>
+      <id>bdrum</id>
+      <roles>
+        <role>Java Developer</role>
+       <!--  <role>Original Ant Task Contributor</role> -->
+      </roles>
+    </developer>
+   <developer>
+      <name>David Eric Pugh</name>
+      <id>dep4b</id>
+      <email>epugh@opensourceconnections.com</email>
+      <organization>OpenSource Connections</organization>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+   <developer>
+      <name>Federico Spinazzi</name>
+      <id>fspinazzi</id>
+      <email>f.spinazzi@masterhouse.it</email>
+      <organization>Master House S.r.l</organization>
+      <roles>
+        <role>Java Developer</role>
+       <!--  <role>DB2 Contributor</role> -->
+      </roles>
+    </developer>
+   <developer>
+      <name>Manuel Laflamme</name>
+      <id>mlaflamm</id>
+      <organization>Oz Communication</organization>
+      <roles>
+        <role>Project Founder</role>
+       <!--  <role>Java Developer</role> -->
+      </roles>
+    </developer>
+   <developer>
+      <name>Timothy J. Ruppert</name>
+      <id>zieggy</id>
+      <roles>
+        <role>Java Developer</role>
+       <!--  <role>Original Ant Task Contributor</role> -->
+      </roles>
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Klas Axel</name>
+      <roles>
+        <role>HsqldbDataTypeFactory</role>
+      </roles>
+    </contributor>  
+    <contributor>
+      <name>Erik Price</name>
+      <roles>
+        <role>DatabaseSequenceOperation</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Jeremy Stein</name>
+      <roles>
+        <role>InsertIndentityOperation</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Keven Kizer</name>
+      <roles>
+        <role>Early guinea pig</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Mike Bresnahan</name>
+      <roles>
+        <role>DbUnit evangelist</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Andres Almiray</name>
+      <email>aalmiray@users.sourceforge.net</email>
+      <roles>
+        <role>IDatabaseTester creator</role>
+      </roles>
+    </contributor>
+  </contributors>
+
+
+  <dependencies>
+
+<!--  TODO: check which dependencies could marked as optional.
+      For instance, ant is optional because it's only necessary for the dbunit
+      Ant tasks. -->
+
+<!-- TODO: add exclusion for dependencies that include xerces/xalan -->
+      
+     <!--  JUnit 3.8.2 fix that annoying 'expected: <....>' bug... -->      
+     <dependency>
+     <groupId>junit</groupId>
+     <artifactId>junit</artifactId>
+     <version>3.8.2</version>
+    </dependency>
+      
+    <dependency>
+     <groupId>junit-addons</groupId>
+     <artifactId>junit-addons</artifactId>
+     <version>1.4</version>
+    </dependency>
+    <dependency>
+     <groupId>poi</groupId>
+     <artifactId>poi</artifactId>
+     <version>2.5.1-final-20040804</version>      
+    </dependency>       
+    <dependency>
+     <groupId>ant</groupId>
+     <artifactId>ant</artifactId>
+<!-- TODO: range-> 1.5.3-1 +
+     <version>1.6.5</version>
+ -->      
+     <version>1.5.4</version>
+     <optional>true</optional>
+    </dependency>  
+    <dependency>  
+     <groupId>commons-collections</groupId>
+     <artifactId>commons-collections</artifactId>
+     <version>3.1</version>
+    </dependency>
+    <dependency>
+     <groupId>commons-lang</groupId>
+     <artifactId>commons-lang</artifactId>
+     <version>2.1</version>
+    </dependency>
+    <dependency>
+     <groupId>mockobjects</groupId>
+     <artifactId>mockobjects-core</artifactId>
+     <version>0.07</version>  
+     <scope>test</scope>   
+    </dependency>       
+    <dependency>
+     <groupId>mockmaker</groupId>
+     <artifactId>mmmockobjects</artifactId>
+     <version>1.12.0</version>
+     <scope>test</scope>   
+    </dependency>
+<!-- TODO: check why follow dependency is necessary -->
+    <dependency>
+     <groupId>mockobjects</groupId>
+     <artifactId>mockobjects-jdk1.3</artifactId>
+     <version>0.07</version>
+     <scope>test</scope>   
+    </dependency>
+
+    <dependency>
+     <groupId>hsqldb</groupId>
+     <artifactId>hsqldb</artifactId>
+     <version>1.8.0.1</version>      
+     <scope>test</scope>   
+    </dependency>       
+
+    <dependency>
+     <groupId>commons-logging</groupId>
+     <artifactId>commons-logging</artifactId>
+<!-- TODO: update or use range-->
+     <version>1.0.4</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <sourceDirectory>src/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+
+ <!-- TODO: move to M2's expected path and separate java from test
+      (once SCM is migrated to SVN...) -->
+   <resources>
+      <resource>
+        <directory>src/java</directory>
+        <includes>
+          <include>**/dataset.dtd</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/csv</directory>
+        <includes>
+          <include>**/cvs-tests.properties</include>
+        </includes>
+      </resource>
+
+    </resources>
+<!-- TODO: that are some resources on src that should be on test...
+
+    <testResources>
+      <testResource>
+      </testResource>
+    </testResources>
+-->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+<!--  In some machines (at least on mine :-(, running AllTests is much 
+faster then running all tests, but there is not guarantee that all tests will
+be run (i.e., a developer could create a new test file and forget to add it to
+AllTests)
+          <includes>
+            <include>org/dbunit/AllTests.java</include>
+          </includes>
+          -->
+          <excludes>
+	    <exclude>**/Abstract*.java</exclude>
+          </excludes>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.3</source>
+          <target>1.3</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <goals>source:jar javadoc:jar deploy site:deploy repository:bundle-create</goals>
+        </configuration>
+      </plugin>
+<!-- TODO: add cobertura and other plugins that would fail the build, like PMD, cobertura and checkstyle-->
+    </plugins>
+  </build>
+
+<!-- basic reports - available to all plugins -->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <configuration>
+          <smtpHost>localhost</smtpHost>
+          <smtpPort implementation="java.lang.Integer">25</smtpPort>
+          <introduction>This is a long-awaited new DbUnit official release, generated more than 2 years after DbUnit 2.1!</introduction>
+          <toAddresses>
+            <toAddress implementation="java.lang.String">dbunit-developer@lists.sourceforge.net</toAddress>
+            <toAddress implementation="java.lang.String">dbunit-user@lists.sourceforge.net</toAddress>
+          </toAddresses>
+          <urlDownload>http://sourceforge.net/project/showfiles.php?group_id=47439&amp;release_id=242511</urlDownload>
+          <issueLinkTemplate>%URL%?func=detail&amp;aid=%ISSUE%&amp;group_id=47439&amp;atid=449494</issueLinkTemplate>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+  
+	<distributionManagement>
+	  <snapshotRepository>
+	    <id>sf_snapshots</id>
+	    <name>SourceForge Snapshot</name>
+	    <url>scpexe://ssh.sourceforge.net/home/groups/d/db/dbunit/htdocs/repo/snapshots</url>
+	  </snapshotRepository>
+	  <repository>
+	    <id>sf_snapshots</id>
+	    <name>SourceForge Snapshot</name>
+	    <url>scpexe://ssh.sourceforge.net/home/groups/d/db/dbunit/htdocs/repo/official</url>
+	  </repository>
+  	<site>
+	    <id>sf_website</id>
+	    <url>scpexe://ssh.sourceforge.net/home/groups/d/db/dbunit/htdocs</url>
+	  </site>
+  </distributionManagement>   
+
+  <profiles>
+    <profile>
+      <id>official</id>
+      <dependencies>
+        <dependency>
+          <groupId>javax.sql</groupId>
+          <artifactId>jdbc-stdext</artifactId>
+          <version>2.0</version> 
+          <optional>true</optional>
+        </dependency>       
+      </dependencies>
+     <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                <fork>true</fork>
+                <compilerVersion>1.3</compilerVersion>
+                <executable>${JAVA_1_3_HOME}/bin/javac</executable>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+     </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+<!-- disabled for now, as reports show 100% coverage - see
+http://www.dbunit.org/cobertura/index.html 
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+      </plugin>
+-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changelog-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+    </profile>
+  </profiles>
+
+</project>
+
